@@ -3,16 +3,18 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
-description:
-author: John Doe
-language:
+title: Haibin Blog
+subtitle: 这家伙很懒，什么也没留下!
+description: Haibin
+author: Park Zhao
+language: zh-Hans
 timezone:
+avatar: https://avatars2.githubusercontent.com/u/2077143?v=3&s=140
+
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://www.haibin.me
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -63,7 +65,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
