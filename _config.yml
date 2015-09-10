@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Haibin Blog
+title: Haibin's Park
 subtitle: 这家伙很懒，什么也没留下!
 description: Haibin
 author: Park Zhao
@@ -71,3 +71,4 @@ theme: next
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type:
+

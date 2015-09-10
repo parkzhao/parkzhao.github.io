@@ -11,7 +11,7 @@ menu:
 favicon: /favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "Hexo,next"
+keywords: "技术宅男，iOS,Android,Nodejs,前端分享,JavaScript"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -29,7 +29,7 @@ icon_font: default
 # Code Highlight theme
 # Available value: normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night blue
 
 
 # MathJax Support
@@ -70,9 +70,28 @@ use_font_lato: true
 # you can visit http://dev.duoshuo.com get duoshuo user id.
 duoshuo_info:
   ua_enable: true
-  admin_enable: false
-  user_id: 0
+  admin_enable: true
+  user_id: 6997971
   #admin_nickname: ROOT
+
+duoshuo_shortname: haibinpark
+
+duoshuo_share: true
+
+# JiaThis 分享服务
+jiathis: true
+
+# 社交链接，将在侧栏中显示
+social:
+  GitHub: https://github.com/haibinpark
+  Weibo: http://weibo.com/zhaohaibin007
+
+baidu_analytics: a5a4eebc83dda0e1d396d03b466e3ed4
+
+# Creative Commons 4.0 International License.
+# http://creativecommons.org/
+# Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+creative_commons: by-nc-sa
 
 ## DO NOT EDIT THE FOLLOWING SETTINGS
 ## UNLESS YOU KNOW WHAT YOU ARE DOING
