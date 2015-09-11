@@ -13,11 +13,12 @@ tags:
 于是作了个计划，就开始开工构建自己的Hexo博客系统  
 [博客构建计划][blog_plan_link]  
   
-<!-- more -->
+<!--more -->
 
 ## 新建博客项目  
 - 访问[github][github_link],注册github账号
-- 创建博客的版本库
+- 创建博客的版本库    
+
 <image src="http://7xlp7m.com1.z0.glb.clouddn.com/创建版本库.png">  
 
 ## 购买域名  
