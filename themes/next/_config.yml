@@ -74,9 +74,11 @@ duoshuo_info:
   user_id: 6997971
   #admin_nickname: ROOT
 
-duoshuo_shortname: haibinpark
+# duoshuo_shortname: haibinpark
 
-duoshuo_share: true
+# duoshuo_share: true
+
+disqus_shortname: haibinpark
 
 # JiaThis 分享服务
 jiathis: true
