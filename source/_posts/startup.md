@@ -17,8 +17,6 @@ tags:
 于是作了个计划，就开始构建自己的Hexo博客系统  
 [博客构建计划][blog_plan_link]  
   
-<!-- more -->  
-
 
 ## 准备工作 
 ### 购买域名 
@@ -77,8 +75,10 @@ tags:
 - 访问[github][github_link],注册github账号
 - 创建博客的版本库    
 
+![创建版本库][create_respos_url]
 
-<image src="http://7xlp7m.com1.z0.glb.clouddn.com/创建版本库.png">  
+
+[create_respos_url]:http://7xlp7m.com1.z0.glb.clouddn.com/创建版本库.png  
 
 
 - 本地新建博客项目  
@@ -168,8 +168,11 @@ Please copy above key to github deploy key,then continue
 
 [hexo_docker_link]:https://hub.docker.com/r/cloudcube/hexo/  
 ## 设置发布key  
-将上面获取到的key设置到项目的部署key  
-<image src="http://7xlp7m.com1.z0.glb.clouddn.com/设置部署key.png" />  
+将上面获取到的key设置到项目的部署key   
+
+![设置部署key][setting_deploy_key_url]
+ 
+[setting_deploy_key_url]:http://7xlp7m.com1.z0.glb.clouddn.com/设置部署key.png  
 
 
 ## 测试  
