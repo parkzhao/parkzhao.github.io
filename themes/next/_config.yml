@@ -4,7 +4,7 @@ menu:
   #categories: /categories
   #about: /about
   archives: /archives
-  tags: /tags
+  #tags: /tags
   #commonweal: /404.html
 
 # Place your favicon.ico to /source directory.
@@ -83,10 +83,15 @@ disqus_shortname: haibinpark
 # JiaThis 分享服务
 jiathis: true
 
+# Swiftype Key
+swiftype_key: 7GeUzzYUjWDZ3sRG7H46
+
 # 社交链接，将在侧栏中显示
 social:
   GitHub: https://github.com/haibinpark
   Weibo: http://weibo.com/zhaohaibin007
+  Douban: http://www.douban.com/people/35912713
+  Zhihu: http://www.zhihu.com/people/haibinpark
 
 baidu_analytics: a5a4eebc83dda0e1d396d03b466e3ed4
 

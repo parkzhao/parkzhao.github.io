@@ -48,7 +48,10 @@ highlight:
 # Category & Tag
 default_category: uncategorized
 category_map:
+    编程: programming  
+    生活: life
 tag_map:
+    开始: startup
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
