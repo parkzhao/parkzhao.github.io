@@ -29,6 +29,14 @@ code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
 
+# Links
+links_title: 友情链接  
+
+# links
+links:
+   云主机: https://www.digitalocean.com/?refcode=e211668f3c86
+   docker加速器: https://www.daocloud.io/account/signup?invite=98fe73c3
+
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
