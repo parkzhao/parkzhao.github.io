@@ -2,31 +2,10 @@
 menu:
   home: /
   categories: /categories
-  #about: /about
   archives: /archives
   tags: /tags
+  # about: /about
   commonweal: /404.html
-
-
-# Enable/Disable menu icons.
-# Icon Mapping:
-#   Map a menu item to a specific FontAwesome icon name.
-#   Key is the name of menu item and value is the name of FontAwsome icon.
-#   When an question mask icon presenting up means that the item has no mapping icon.
-menu_icons:
-  enable: true
-  # Icon Mapping.
-  home: home
-  about: user
-  categories: th
-  tags: tags
-  archives: archive
-  commonweal: heartbeat
-
-# Schemes
-scheme: Mist
-# scheme: Pisces
-
 
 # Place your favicon.ico to /source directory.
 favicon: /favicon.ico
@@ -39,21 +18,18 @@ keywords: "技术宅男，iOS,Android,Nodejs,前端分享,JavaScript"
 # Set rss to specific value if you have burned your feed already.
 rss:
 
-# Custom Logo.
-# !!Only available for Default Scheme currently.
-# Options:
-#   enabled: [true/false] - Replace with specific image
-#   image: url-of-image   - Images's url
-custom_logo:
-  enabled: false
-  image:
-
-
+# Icon fonts
+# Place your font into next/source/fonts, specify directory-name and font-name here
+# Avialable: default | linecons | fifty-shades | feather
+icon_font: default
+#icon_font: fifty-shades
+#icon_font: feather
+#icon_font: linecons
 
 # Code Highlight theme
 # Available value: normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night blue
 
 
 # MathJax Support
@@ -61,38 +37,33 @@ mathjax:
 
 
 # Schemes
-#scheme: Mist
+scheme: Mist
+# scheme: Pisces
 
 
 # Sidebar, available value:
 #  - post    expand on posts automatically. Default.
 #  - always  expand for all pages automatically
 #  - hide    expand only when click on the sidebar toggle icon.
-#  - remove  Totally remove sidebar including sidebar toggle icon.
-# sidebar: post
-sidebar: always
+sidebar: post
+#sidebar: always
 #sidebar: hide
-#sidebar: remove
 
 
 # Automatically scroll page to section which is under <!-- more --> mark.
 scroll_to_more: true
 
 
-# TOC in the Sidebar
-toc:
-  enable: true
-
-  # Automatically add list number to toc.
-  number: true
-
+# Automatically add list number to toc.
+toc_list_number: true
 
 # Automatically Excerpt
 auto_excerpt:
-  enable: true
+  enable: false
   length: 150
 
 # Use Lato font
+# Note: this option is avialable only when the language is not `zh-Hans`
 use_font_lato: true
 
 # Make duoshuo show UA
@@ -104,18 +75,11 @@ duoshuo_info:
   user_id: 6997971
   #admin_nickname: ROOT
 
-# Facebook SDK Support.
-# https://github.com/iissnan/hexo-theme-next/pull/410
-facebook_sdk:
-  enable: false
-  app_id:       #<app_id>
-  fb_admin:     #<user_id>
-  like_button:  #true
-  webmaster:    #true
+# duoshuo_shortname: haibinpark
 
+# duoshuo_share: true
 
-## DO NOT EDIT THE FOLLOWING SETTINGS
-## UNLESS YOU KNOW WHAT YOU ARE DOING
+disqus_shortname: haibinpark
 
 # JiaThis 分享服务
 jiathis: true
@@ -139,6 +103,8 @@ google_analytics: UA-67525739-1
 # Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
 creative_commons: by-nc-sa
 
+## DO NOT EDIT THE FOLLOWING SETTINGS
+## UNLESS YOU KNOW WHAT YOU ARE DOING
 
 # Use velocity to animate everything.
 use_motion: true
@@ -153,4 +119,4 @@ js: js
 images: images
 
 # Theme version
-version: 0.4.5.2
+version: 0.4.5.1
