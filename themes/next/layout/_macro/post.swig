@@ -143,6 +143,15 @@
       {% else %}
         <span itemprop="articleBody">{{ post.content }}</span>
       {% endif  %}
+
+      <div class="session-wechat" align="center">
+        <img alt="关注云计算开发者联盟，最新文章主动推送" style="border-width:0" src="http://7xlp7m.com1.z0.glb.clouddn.com/qrcode_for_gh_18f66a1f68a0_258.jpg"></img>
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注云计算开发者联盟，最新文章主动推送
+      </div>
+
+
     </div>
 
     <footer class="post-footer">
