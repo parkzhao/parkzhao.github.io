@@ -148,7 +148,7 @@
         <img alt="关注链智思维导图，最新文章主动推送" style="border-width:0" src="http://7xlp7m.com1.z0.glb.clouddn.com/qrcode_for_gh_ff0c28b2feaf_linqmind_258.jpg"></img>
       </div>
       <div class="session-wechat-tip" align="center">
-          关注链接思维导图(linqmind)，最新文章主动推送
+          关注链智思维导图(linqmind)，最新文章主动推送
       </div>
 
 
