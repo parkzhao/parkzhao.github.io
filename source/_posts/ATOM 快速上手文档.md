@@ -1,3 +1,34 @@
+---
+layout: post
+title: "ATOM 快速上手文档"
+date: 2016-02-07 12:48:02 +0800
+comments: true
+categories: OSX atom tools 工具
+---
+
+
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [ATOM 快速上手文档](#atom-快速上手文档)
+	- [安装nodejs](#安装nodejs)
+	- [安装 atom](#安装-atom)
+	- [代理设置](#代理设置)
+	- [安装常用插件](#安装常用插件)
+	- [如何安装插件](#如何安装插件)
+	- [atom配置](#atom配置)
+		- [配置七牛](#配置七牛)
+		- [修改源码文件](#修改源码文件)
+	- [atom 使用小技巧](#atom-使用小技巧)
+		- [tips1](#tips1)
+	- [tips2](#tips2)
+		- [tips3](#tips3)
+		- [tip4](#tip4)
+	- [使用错误](#使用错误)
+	- [参考链接](#参考链接)
+
+<!-- /TOC -->
+
 # ATOM 快速上手文档
 
 ## 安装nodejs  
@@ -70,7 +101,20 @@ ctrl+shift+h 快捷键打开git命令窗口
 ```
 'atom-workspace, atom-workspace atom-text-editor':
   'ctrl-shift-X': 'unset!'
+```  
+
+## 使用错误  
+这里的主要错误是atom插件的安装错误  
+`atom tunneling socket could not be established, cause=Parse Error`  
+这个错误的原因是由于代理设置的问题，我使用的是sockets代理，要转为http代理  
 ```
+brew install polipo  
+polipo socksParentProxy=localhost:1080
+```
+这样就会产生一个新的端口  
+`Established listening socket on port 8123.`  将上面的端口号修改为`8123`即可
+
 ## 参考链接  
-http://www.jianshu.com/p/85b11364fa1c  
-http://blog.csdn.net/crper/article/details/48056435  
+<http://www.jianshu.com/p/85b11364fa1c>  
+<http://blog.csdn.net/crper/article/details/48056435>  
+<>
