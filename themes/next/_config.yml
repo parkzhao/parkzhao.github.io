@@ -5,6 +5,7 @@ menu:
   #about: /about
   archives: /archives
   tags: /tags
+  magicbox: /magicbox
   commonweal: /404.html
 
 
@@ -32,7 +33,7 @@ scheme: Mist
 favicon: /favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "技术宅男，iOS,Android,Nodejs,前端分享,JavaScript"
+keywords: "技术宅男，iOS,Android,Nodejs,前端分享,JavaScript,80后，老男孩"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
