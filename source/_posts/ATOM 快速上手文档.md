@@ -6,10 +6,6 @@ comments: true
 categories: OSX atom tools 工具
 ---
 
-
-
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
 - [ATOM 快速上手文档](#atom-快速上手文档)
 	- [安装nodejs](#安装nodejs)
 	- [安装 atom](#安装-atom)
@@ -27,7 +23,6 @@ categories: OSX atom tools 工具
 	- [使用错误](#使用错误)
 	- [参考链接](#参考链接)
 
-<!-- /TOC -->
 
 # ATOM 快速上手文档
 
