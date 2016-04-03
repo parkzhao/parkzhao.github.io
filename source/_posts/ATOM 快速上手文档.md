@@ -85,18 +85,22 @@ strict-ssl=false
 ### tips1
 ctrl+shift+a 快捷键添加单个文件  
 
+
 ## tips2
 ctrl+shift+x 快捷键提交当前修改  
 
+
 ### tips3
 ctrl+shift+h 快捷键打开git命令窗口  
+
 
 ### tip4  
 使用`unset!`取消快捷键  
 ```
 'atom-workspace, atom-workspace atom-text-editor':
   'ctrl-shift-X': 'unset!'
-```  
+
+```
 
 ## 使用错误  
 这里的主要错误是atom插件的安装错误  
@@ -105,11 +109,11 @@ ctrl+shift+h 快捷键打开git命令窗口
 ```
 brew install polipo  
 polipo socksParentProxy=localhost:1080
-```
+```  
+
 这样就会产生一个新的端口  
 `Established listening socket on port 8123.`  将上面的端口号修改为`8123`即可
 
 ## 参考链接  
 <http://www.jianshu.com/p/85b11364fa1c>  
 <http://blog.csdn.net/crper/article/details/48056435>  
-<>
