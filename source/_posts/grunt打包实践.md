@@ -1,5 +1,8 @@
+---
+layout: post
 title: grunt打包实践
 date: 2016-04-10 14:29:25
+comments: true
 tags:
   - 工具  
   - grunt
