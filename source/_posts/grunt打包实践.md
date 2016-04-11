@@ -68,7 +68,14 @@ npm i less@latest -g //安装less到全局
     "fs-extra": "^0.16.4"               //
   }                                     //
 ```
-
+安装依赖包，安装命令  
+`npm i`  
+如果是国内的话，可以使用 `taoao`的npm安装源  
+```
+npm i nrm -g  
+nrm use taobao  
+npm i
+```
 ## 建立 `Gruntfile` 文件结构  
 ```
 /**
