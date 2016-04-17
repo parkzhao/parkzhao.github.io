@@ -1,0 +1,30 @@
+
+language: node_js
+node_js: stable
+
+# S: Build Lifecycle
+install:
+  - npm install
+
+before_script:
+  - npm install hexo -g
+script:
+  - hexo clean && hexo g
+
+after_script:
+  - cd public
+  - git init
+  - git config user.name "zhaohaibin"
+  - git config user.email "zhaohaibin@haibin.me"
+  - git add .
+  - git commit -m "Update docs"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+# E: Build LifeCycle
+
+branches:
+  only:
+    - source
+env:
+ global:
+   - GH_REF: github.com/parkzhao/parkzhao.github.io.git
+   - secure: "ELIFjTO2A678fxJbaN6gyAZbAQlRH9jdwj+BtVk6kD/JcrjEiWf2V52v2UzVWJ90NGu0US6ltKng2cGhk3ULHkIbFyk+bq6E/eeCufGu+HcUpiApca/VAKegUw07mMmxxSLJFLcTEvLcZsTO7zJUOseOEJi5TO8YXNEgK/f2UnUzMYHtGUZa9HoOyzLlhvRNFzS3qoa8BB/11p6K17HSg27sWs1Vd4Fz9q+SHQQMd6gnbhzHDuN61L0OHIHsPmJ0vbeF68Iam5zoHO+STGN1SIHcr1gqAc+EJ0ff39HN0pvGu1sHxWgPOFxkTXTcDtXfRRrbq0P1dm8RVBiDS/S56/kY+eFoI3qCadtqg2E9aTnK8JRRdfvyfjoWmEbe/JACCkvOccM4EdleynyCQb0UycllFtEiepCGuKbi23sr5f9Pp1tmh9UYTV7umBPDS6HI0EhfdWCiLLnuJ7ji6kfuk9GGDVX6E7wXKfUGOcInB93UKXDbnAeM1/CCOjGzZ8Q+dEl/eSv9LO6ZwtoqNP7OH9SXAKtJzBCIr8w9FbYFtCpgwfQRwxPzXFuYLwsHkyOqnStrGsBWUjfZtO126gevAFWPxEIdZNKeHzJr8lI1BbaxOJvUq4zqP2LKqyDNCM6hJcJeV1P2Kfd/d2OvCN//ECnrKXzUR6K/uQC36AbcnRA="
