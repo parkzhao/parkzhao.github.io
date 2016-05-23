@@ -88,5 +88,5 @@ deploy:
 feed:
   type: atom
   path: atom.xml
-  limit: 
+  limit:
   hub:
