@@ -1,8 +1,10 @@
-title: 帕克胖折腾系列(二)-Angular单元测试与自动化UI测试实践
+title: Angular单元测试与自动化UI测试实践
 date: 2016-05-23 08:13:09
 tags:
 ---
->关于本文：介绍通过karma与jsmine框架对angular开发的应用程序进行单元与E2E测试。
+>关于本文：介绍通过karma与jsmine框架对angular开发的应用程序进行单元与E2E测试。这篇文章并非原创，具体的原作者 [vipyoumay][vipyoumay_link]
+
+[vipyoumay_link]:http://my.csdn.net/vipyoumay
 
 ## 一、先决条件
 * nodejs
@@ -380,3 +382,5 @@ sh wrapper_docker.sh_
 [5] angular单元测试官方文档 https://docs.angularjs.org/guide/unit-testing    
 
 [6] 示例项目代码 https://github.com/haibinpark/angular-e2etest-showcase  
+
+[7] 原文地址 http://blog.csdn.net/vipyoumay/article/details/50978887
