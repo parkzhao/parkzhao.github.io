@@ -1,13 +1,16 @@
-title: 帕克胖折腾系列(二)创建jenkins
+title: 帕克胖夜话Docker-创建jenkins
 date: 2016-06-16 09:12:09
 tags:
   - Linux
   - jenkins
   - CI
   - 持续集成
+  - Docker
 categories:
   - Linux
   - jenkins
+  - 夜话
+  - Docker
 ---
 
 通过`docker`部署`jenkins`超简单  
@@ -26,12 +29,6 @@ Codename:       trusty
 
 ## `docker engine`版本  
 ```
-docker@ubuntu-docker03:~/shell$ lsb_release -a
-No LSB modules are available.
-Distributor ID: Ubuntu
-Description:    Ubuntu 14.04.3 LTS
-Release:        14.04
-Codename:       trusty
 docker@ubuntu-docker03:~/shell$ docker version
 Client:
  Version:      1.8.1
@@ -50,6 +47,7 @@ Server:
  OS/Arch:      linux/amd64
 ```
 >如果`docker engine`版本不对的话，那么会导致jenkins调用外部`docker`失败
+按照[安装Docker Engine](http://haibin.me/2016/07/28/帕克胖夜话Docker-安装-Docker-Engine)，正确安装Docker Engine指定版本
 
 # 安装`jenkins`  
 ## 挂载共享文件`nfs`  
