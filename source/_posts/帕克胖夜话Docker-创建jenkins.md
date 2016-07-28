@@ -9,7 +9,7 @@ tags:
 categories:
   - Linux
   - jenkins
-  - 夜话
+  - talk
   - Docker
 ---
 

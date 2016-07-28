@@ -4,9 +4,11 @@ tags:
   - Linux
   - Docker
   - Docker Engine
+  - Docker
 categories:
+  - Docker
   - Docker Engine
-  - 夜话
+  - talk
 ---
 
 # 准备
