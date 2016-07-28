@@ -1,12 +1,12 @@
 title: 帕克胖夜话Docker-安装Docker Engine
 date: 2016-07-28 10:44:14
 tags:
- - Linux
- - Docker
- - Docker Engine
+  - Linux
+  - Docker
+  - Docker Engine
 categories:
- - Docker Engine
- - 夜话
+  - Docker Engine
+  - 夜话
 ---
 
 # 准备
