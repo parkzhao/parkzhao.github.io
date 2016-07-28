@@ -31,7 +31,7 @@ Description:    Ubuntu 14.04.3 LTS
 Release:        14.04
 Codename:       trusty
 ```
-### 创建Dockerfile文件  
+### 创建镜像源文件  
 创建docker.list文件，文件路径 `/etc/apt/sources.list.d/docker.list`,根据操作系统的版本，来选择相关的镜像源头  
 ```
 On Ubuntu Precise 12.04 (LTS)
