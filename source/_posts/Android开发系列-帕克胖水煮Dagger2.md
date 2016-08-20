@@ -19,7 +19,7 @@ categories:
 
 <iframe height=498 width=800 src="http://player.youku.com/embed/XMTY5MTgyOTEwMA==" frameborder=0 allowfullscreen></iframe>
 
-
+http://player.youku.com/player.php/sid/XMTY5MTgyOTEwMA==/v.swf
 
 ## 前置条件
 ### 知识点
