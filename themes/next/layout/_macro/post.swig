@@ -145,7 +145,7 @@
       {% endif  %}
 
       <div class="session-wechat" align="center">
-        <img alt="关注链智思维导图，最新文章主动推送" style="border-width:0" src="http://7xlp7m.com1.z0.glb.clouddn.com/qrcode_for_gh_ff0c28b2feaf_linqmind_258.jpg"></img>
+        <img alt="关注链智思维导图，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg"></img>
       </div>
       <div class="session-wechat-tip" align="center">
           关注链智思维导图(linqmind)
