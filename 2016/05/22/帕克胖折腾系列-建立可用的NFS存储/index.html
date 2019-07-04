@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="需求 生命不息，折腾不止!    建立可用的NFS共享存储建议通读一次后，再进行尝试！！   硬件1). 三张千兆网卡2). 两根千兆网线拓扑图   基础系统分区，系统安装两台机器，分别安装ubuntu操作系统具体的分区信息如下:123swap  4G/boot 1G/        100G 安装系统 系统都通过卷管理123pvcreate /dev/sda[3]pvcreate /dev/sd">
+<meta name="keywords" content="Linux,nfs,存储,折腾,配置,ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="帕克胖折腾系列(-)建立可用的NFS存储">
+<meta property="og:url" content="http://www.haibin.me/2016/05/22/帕克胖折腾系列-建立可用的NFS存储/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="需求 生命不息，折腾不止!    建立可用的NFS共享存储建议通读一次后，再进行尝试！！   硬件1). 三张千兆网卡2). 两根千兆网线拓扑图   基础系统分区，系统安装两台机器，分别安装ubuntu操作系统具体的分区信息如下:123swap  4G/boot 1G/        100G 安装系统 系统都通过卷管理123pvcreate /dev/sda[3]pvcreate /dev/sd">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xlvqo.com1.z0.glb.clouddn.com/6652b89d89446a3a949d6986fb269ac8.png">
+<meta property="og:image" content="http://7xlvqo.com1.z0.glb.clouddn.com/17b96fee66053e8a5c75e91e5a987d8d.png">
+<meta property="og:updated_time" content="2019-07-03T23:28:43.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="帕克胖折腾系列(-)建立可用的NFS存储">
+<meta name="twitter:description" content="需求 生命不息，折腾不止!    建立可用的NFS共享存储建议通读一次后，再进行尝试！！   硬件1). 三张千兆网卡2). 两根千兆网线拓扑图   基础系统分区，系统安装两台机器，分别安装ubuntu操作系统具体的分区信息如下:123swap  4G/boot 1G/        100G 安装系统 系统都通过卷管理123pvcreate /dev/sda[3]pvcreate /dev/sd">
+<meta name="twitter:image" content="http://7xlvqo.com1.z0.glb.clouddn.com/6652b89d89446a3a949d6986fb269ac8.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2016/05/22/帕克胖折腾系列-建立可用的NFS存储/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>帕克胖折腾系列(-)建立可用的NFS存储 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2016/05/22/帕克胖折腾系列-建立可用的NFS存储/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">帕克胖折腾系列(-)建立可用的NFS存储
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-05-22 11:47:43" itemprop="dateCreated datePublished" datetime="2016-05-22T11:47:43+08:00">2016-05-22</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-04 07:28:43" itemprop="dateModified" datetime="2019-07-04T07:28:43+08:00">2019-07-04</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Linux/NFS/" itemprop="url" rel="index"><span itemprop="name">NFS</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Linux/NFS/存储/" itemprop="url" rel="index"><span itemprop="name">存储</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><blockquote>
+<p>生命不息，折腾不止!  </p>
+</blockquote>
+<p>建立可用的NFS共享存储<br><strong>建议通读一次后，再进行尝试！！</strong>  </p>
+<h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><p>1). 三张千兆网卡<br>2). 两根千兆网线<br>拓扑图<br><img src="http://7xlvqo.com1.z0.glb.clouddn.com/6652b89d89446a3a949d6986fb269ac8.png" alt="网络拓扑图">  </p>
+<h1 id="基础系统"><a href="#基础系统" class="headerlink" title="基础系统"></a>基础系统</h1><h2 id="分区，系统安装"><a href="#分区，系统安装" class="headerlink" title="分区，系统安装"></a>分区，系统安装</h2><p>两台机器，分别安装ubuntu操作系统<br>具体的分区信息如下:<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">swap  <span class="number">4</span>G</span><br><span class="line">/boot <span class="number">1</span>G</span><br><span class="line">/        <span class="number">100</span>G 安装系统</span><br></pre></td></tr></table></figure></p>
+<p>系统都通过卷管理<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sda<span class="string">[3]</span></span><br><span class="line"></span><br><span class="line">pvcreate /dev/sdb<span class="string">[1]</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="安装必要软件"><a href="#安装必要软件" class="headerlink" title="安装必要软件"></a>安装必要软件</h2><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-software-properties</span><br><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:icamargo/drbd</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+<h2 id="配置固定IP"><a href="#配置固定IP" class="headerlink" title="配置固定IP"></a>配置固定IP</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##server01##</span></span><br><span class="line"><span class="comment"># The primary network interface</span></span><br><span class="line">auto eth1</span><br><span class="line">iface eth1 inet static</span><br><span class="line">       <span class="built_in"> address </span>192.168.1.100</span><br><span class="line">        netmask 255.255.255.0</span><br><span class="line"></span><br><span class="line"><span class="comment">##server02##</span></span><br><span class="line"><span class="comment"># The primary network interface</span></span><br><span class="line">auto eth1</span><br><span class="line">iface eth1 inet static</span><br><span class="line">       <span class="built_in"> address </span>192.168.1.100</span><br><span class="line">        netmask 255.255.255.0</span><br></pre></td></tr></table></figure>
+<h2 id="配置host"><a href="#配置host" class="headerlink" title="配置host"></a>配置host</h2><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br><span class="line"></span><br><span class="line">######</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span>   server01</span><br><span class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.101</span>   server02</span><br></pre></td></tr></table></figure>
+<h2 id="同步服务器时间"><a href="#同步服务器时间" class="headerlink" title="同步服务器时间"></a>同步服务器时间</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ntp</span><br><span class="line">//同步时间任务</span><br><span class="line">sudo crontab -e</span><br><span class="line"><span class="comment">##Added the following line to the end.</span></span><br><span class="line"><span class="number">1</span> * * * * root ntpdate au.pool.ntp.org</span><br></pre></td></tr></table></figure>
+<h2 id="内核调试"><a href="#内核调试" class="headerlink" title="内核调试"></a>内核调试</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">##Both##</span><br><span class="line"></span><br><span class="line">sudo vi /etc/sysctl.conf.</span><br><span class="line"></span><br><span class="line"># drbd tuning</span><br><span class="line">net.ipv4.tcp_no_metrics_save = <span class="number">1</span></span><br><span class="line">net.core.rmem_max = <span class="number">33554432</span></span><br><span class="line">net.core.wmem_max = <span class="number">33554432</span></span><br><span class="line">net.ipv4.tcp_rmem = <span class="number">4096</span> <span class="number">87380</span> <span class="number">33554432</span></span><br><span class="line">net.ipv4.tcp_wmem = <span class="number">4096</span> <span class="number">87380</span> <span class="number">33554432</span></span><br><span class="line">vm.dirty_ratio = <span class="number">10</span></span><br><span class="line">vm.dirty_background_ratio = <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h1 id="DRBD"><a href="#DRBD" class="headerlink" title="DRBD"></a>DRBD</h1><h2 id="DRBD安装"><a href="#DRBD安装" class="headerlink" title="DRBD安装"></a>DRBD安装</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Both</span></span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install drbd8-utils heartbeat</span><br></pre></td></tr></table></figure>
+<h2 id="文件配置"><a href="#文件配置" class="headerlink" title="文件配置"></a>文件配置</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Both</span></span><br><span class="line">sudo vi /etc/drbd.d/disk1.res</span><br><span class="line">resource disk1 &#123;</span><br><span class="line"></span><br><span class="line">        protocol C;</span><br><span class="line"></span><br><span class="line">        handlers &#123;</span><br><span class="line">                pri-on-incon-degr <span class="string">"echo o &gt; /proc/sysrq-trigger ; halt -f"</span>;</span><br><span class="line">                pri-lost-after-sb <span class="string">"echo o &gt; /proc/sysrq-trigger ; halt -f"</span>;</span><br><span class="line">                local-io-<span class="builtin-name">error</span> <span class="string">"echo o &gt; /proc/sysrq-trigger ; halt -f"</span>;</span><br><span class="line">                outdate-peer <span class="string">"/usr/lib/heartbeat/drbd-peer-outdater -t 5"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        startup &#123;</span><br><span class="line">                degr-wfc-timeout 120;</span><br><span class="line">                wfc-timeout 30;</span><br><span class="line">                outdated-wfc-timeout 20;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        disk &#123;</span><br><span class="line">                on-io-<span class="builtin-name">error</span> detach;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        net &#123;</span><br><span class="line">                cram-hmac-alg sha1;</span><br><span class="line">                shared-secret <span class="string">"password"</span>;</span><br><span class="line">                after-sb-0pri disconnect;</span><br><span class="line">                after-sb-1pri disconnect;</span><br><span class="line">                after-sb-2pri disconnect;</span><br><span class="line">                rr-conflict disconnect;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        syncer &#123;</span><br><span class="line">                rate 100M;</span><br><span class="line">                verify-alg sha1;</span><br><span class="line">                al-extents 257;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        on server01 &#123;</span><br><span class="line">                device  /dev/drbd0;</span><br><span class="line">                disk    /dev/sdb1;</span><br><span class="line">               <span class="built_in"> address </span>192.168.0.211:7788;</span><br><span class="line">                meta-disk internal;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        on server02&#123;</span><br><span class="line">                device  /dev/drbd0;</span><br><span class="line">                disk    /dev/sdb1;</span><br><span class="line">               <span class="built_in"> address </span>192.168.0.212:7788;</span><br><span class="line">                meta-disk internal;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="更改DRDB权限"><a href="#更改DRDB权限" class="headerlink" title="更改DRDB权限"></a>更改DRDB权限</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Both</span></span><br><span class="line"></span><br><span class="line">sudo chgrp haclient /<span class="class"><span class="keyword">lib</span>/<span class="title">drbd</span>/<span class="title">drbdsetup</span>-84</span></span><br><span class="line">sudo chmod o-x /<span class="class"><span class="keyword">lib</span>/<span class="title">drbd</span>/<span class="title">drbdsetup</span>-84</span></span><br><span class="line">sudo chmod u+s /<span class="class"><span class="keyword">lib</span>/<span class="title">drbd</span>/<span class="title">drbdsetup</span>-84</span></span><br><span class="line">sudo chgrp haclient /sbin/drbdmeta</span><br><span class="line">sudo chmod o-x /sbin/drbdmeta</span><br><span class="line">sudo chmod u+s /sbin/drbdmeta</span><br></pre></td></tr></table></figure>
+<h2 id="创建资源"><a href="#创建资源" class="headerlink" title="创建资源"></a>创建资源</h2><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Both</span></span><br><span class="line"><span class="string">drbdadm </span><span class="built_in">create-md</span> <span class="string">disk1</span></span><br></pre></td></tr></table></figure>
+<h2 id="启动DRBD"><a href="#启动DRBD" class="headerlink" title="启动DRBD"></a>启动DRBD</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Both</span></span><br><span class="line">sudo<span class="built_in"> service </span>drbd start</span><br></pre></td></tr></table></figure>
+<h2 id="初始化同步"><a href="#初始化同步" class="headerlink" title="初始化同步"></a>初始化同步</h2><p>server01作为master,并且开始初始化同步<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">##server01</span><br><span class="line">drbdadm -- --overwrite-data-<span class="keyword">of</span>-peer primary disk1</span><br></pre></td></tr></table></figure></p>
+<p>监视同步过程<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">watch</span> <span class="string">cat</span> <span class="string">/proc/drbd</span></span><br><span class="line"><span class="comment">###</span></span><br><span class="line"><span class="string">Every</span> <span class="number">2.0</span><span class="attr">s:</span> <span class="string">cat</span> <span class="string">/proc/drbd</span>                                                  <span class="string">Sun</span> <span class="string">Jun</span>  <span class="number">8</span> <span class="number">08</span><span class="string">:00:49</span> <span class="number">2014</span></span><br><span class="line"></span><br><span class="line"><span class="attr">version:</span> <span class="number">8.4</span><span class="number">.3</span> <span class="string">(api:1/proto:86-101)</span></span><br><span class="line"><span class="attr">srcversion:</span> <span class="string">F97798065516C94BE0F27DC</span></span><br><span class="line"><span class="number">0</span><span class="string">:</span> <span class="attr">cs:SyncTarget</span> <span class="attr">ro:Secondary/Secondary</span> <span class="attr">ds:Inconsistent/UpToDate</span> <span class="string">C</span> <span class="string">r-----</span></span><br><span class="line">    <span class="attr">ns:0</span> <span class="attr">nr:90397696</span> <span class="attr">dw:90389504</span> <span class="attr">dr:0</span> <span class="attr">al:0</span> <span class="attr">bm:5516</span> <span class="attr">lo:9</span> <span class="attr">pe:6</span> <span class="attr">ua:8</span> <span class="attr">ap:0</span> <span class="attr">ep:1</span> <span class="attr">wo:f</span> <span class="attr">oos:1842345780</span></span><br><span class="line">        <span class="string">[&gt;....................]</span> <span class="string">sync'ed:</span>  <span class="number">4.7</span><span class="string">%</span> <span class="string">(1799164/1887436)Mfinish:</span> <span class="number">14</span><span class="string">:11:31</span> <span class="attr">speed:</span> <span class="number">36</span><span class="string">,044</span> <span class="string">(36,</span></span><br><span class="line"><span class="number">168</span><span class="string">)</span> <span class="attr">want:</span> <span class="number">3</span><span class="string">,280</span> <span class="string">K/sec</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="测试同步"><a href="#测试同步" class="headerlink" title="测试同步"></a>测试同步</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">##server01</span><br><span class="line"></span><br><span class="line">sudo mkfs<span class="selector-class">.ext4</span> /dev/drbd0</span><br><span class="line">sudo mkdir -<span class="selector-tag">p</span> /srv/data</span><br><span class="line">sudo mount /dev/drbd0 /srv/data</span><br></pre></td></tr></table></figure>
+<p>创建磁盘块<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="attribute">if</span>=/dev/zero <span class="attribute">of</span>=/srv/data/test.zeros <span class="attribute">bs</span>=1M <span class="attribute">count</span>=1000</span><br><span class="line"></span><br><span class="line"><span class="comment">##server01</span></span><br><span class="line">sudo umount /srv/data</span><br><span class="line">drbdadm secondary disk1</span><br></pre></td></tr></table></figure></p>
+<p>查看同步过程<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">##server02</span></span><br><span class="line"><span class="title">sudo</span> mkdir -p /srv/<span class="class"><span class="keyword">data</span></span></span><br><span class="line"><span class="title">sudo</span> drbdadm primary disk1</span><br><span class="line"><span class="title">sudo</span> mount /dev/drbd0 /srv/<span class="class"><span class="keyword">data</span></span></span><br><span class="line"></span><br><span class="line"><span class="title">sudo</span> ls /srv/<span class="class"><span class="keyword">data</span></span></span><br><span class="line"><span class="meta">##Check for test.zeros file</span></span><br><span class="line"></span><br><span class="line"><span class="title">sudo</span> rm /srv/<span class="class"><span class="keyword">data</span>/test.zeros</span></span><br><span class="line"><span class="title">sudo</span> umount /srv/<span class="class"><span class="keyword">data</span></span></span><br><span class="line"><span class="title">sudo</span> drbdadm secondary disk1</span><br><span class="line"></span><br><span class="line"><span class="meta">##server01</span></span><br><span class="line"><span class="title">sudo</span> drbdadm primary disk1</span><br><span class="line"><span class="title">sudo</span> mount /dev/drbd0 /srv/<span class="class"><span class="keyword">data</span></span></span><br><span class="line"></span><br><span class="line"><span class="title">sudo</span> ls /srv/<span class="class"><span class="keyword">data</span></span></span><br><span class="line"><span class="meta">##Check that the test.zeros file is no longer there</span></span><br></pre></td></tr></table></figure></p>
+<p>取消自启动<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-rc<span class="selector-class">.d</span> -f drbd remove</span><br></pre></td></tr></table></figure></p>
+<h1 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h1><h2 id="安装nfs-kernel-server"><a href="#安装nfs-kernel-server" class="headerlink" title="安装nfs kernel server"></a>安装nfs kernel server</h2><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">##Both</span></span><br><span class="line">sudo apt-get install nfs-kernel-<span class="keyword">server</span> nfs-<span class="keyword">common</span></span><br></pre></td></tr></table></figure>
+<h2 id="取消自启动"><a href="#取消自启动" class="headerlink" title="取消自启动"></a>取消自启动</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">##Both</span><br><span class="line">sudo update-rc.d -f nfs-kernel-server remove</span><br><span class="line"># sudo update-rc.d -f nfs-common remove</span><br><span class="line">sudo update-rc.d nfs-kernel-server stop <span class="number">20</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> .</span><br><span class="line"># sudo update-rc.d nfs-common  stop <span class="number">20</span> <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> .</span><br></pre></td></tr></table></figure>
+<h2 id="配置NFS到DRBD设备"><a href="#配置NFS到DRBD设备" class="headerlink" title="配置NFS到DRBD设备"></a>配置NFS到DRBD设备</h2><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##server01</span></span><br><span class="line">sudo mount /dev/drbd0 /srv/data</span><br><span class="line">sudo mv /var/<span class="class"><span class="keyword">lib</span>/<span class="title">nfs</span>/ /<span class="title">srv</span>/<span class="title">data</span>/</span></span><br><span class="line">sudo ln -s /srv/data/nfs/ <span class="regexp">/var/lib</span><span class="regexp">/nfs</span></span><br><span class="line"><span class="regexp">sudo mv /etc</span><span class="regexp">/exports /srv</span><span class="regexp">/data</span></span><br><span class="line"><span class="regexp">sudo ln -s /srv</span><span class="regexp">/data/exports</span> /etc/exports</span><br><span class="line"></span><br><span class="line"><span class="comment">##server02</span></span><br><span class="line">sudo rm -rf /var/<span class="class"><span class="keyword">lib</span>/<span class="title">nfs</span></span></span><br><span class="line">sudo ln -s /srv/data/nfs/ <span class="regexp">/var/lib</span><span class="regexp">/nfs</span></span><br><span class="line"><span class="regexp">sudo rm /etc</span><span class="regexp">/exports</span></span><br><span class="line"><span class="regexp">sudo ln -s /srv</span><span class="regexp">/data/exports</span> /etc/exports</span><br></pre></td></tr></table></figure>
+<h2 id="共享配置"><a href="#共享配置" class="headerlink" title="共享配置"></a>共享配置</h2><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">##server01</span></span><br><span class="line"><span class="title">sudo</span> mkdir /srv/<span class="class"><span class="keyword">data</span>/sharet</span></span><br><span class="line"><span class="title">sudo</span> chmod <span class="number">777</span> /srv/<span class="class"><span class="keyword">data</span>/share</span></span><br><span class="line"><span class="title">sudo</span> vi /etc/exports</span><br><span class="line"></span><br><span class="line"><span class="meta">##Add to the bottom</span></span><br><span class="line"><span class="title">sudo</span> vi /etc/exports</span><br><span class="line">/srv/<span class="class"><span class="keyword">data</span>/share        192.168.0.*(<span class="title">rw</span>,<span class="title">no_subtree_check</span>,<span class="title">no_all_squash</span>,<span class="title">no_root_squash</span>)</span></span><br></pre></td></tr></table></figure>
+<p>配置完成后卸载掉/dev/drbd0<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo umount <span class="regexp">/dev/</span>drbd0</span><br></pre></td></tr></table></figure></p>
+<h1 id="Corosync"><a href="#Corosync" class="headerlink" title="Corosync"></a>Corosync</h1><p>corosync 是用于处理心跳和上报节点信息的软件  </p>
+<h2 id="安装配置Corosync"><a href="#安装配置Corosync" class="headerlink" title="安装配置Corosync"></a>安装配置Corosync</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server01<span class="variable">@server01</span><span class="symbol">:~</span><span class="comment"># apt-get install -y corosync</span></span><br><span class="line">server02<span class="variable">@server02</span><span class="symbol">:~</span><span class="comment"># apt-get install -y corosync</span></span><br></pre></td></tr></table></figure>
+<p>安装完成以后修改配置文件 /etc/corosync/corosync.conf 找到<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">interface</span> <span class="string">&#123;</span></span><br><span class="line">     <span class="comment"># The following values need to be set based on your environment</span></span><br><span class="line">     <span class="attr">ringnumber:</span> <span class="number">0</span></span><br><span class="line">     <span class="attr">bindnetaddr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">     <span class="attr">mcastaddr:</span> <span class="number">226.94</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">     <span class="attr">mcastport:</span> <span class="number">5405</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中的 bindnetaddr 需要根据当前网络修改, 通过命令 (其中 eth1 根据实际的网络修改)<br><code>ip addr | grep &quot;inet &quot; | grep eth1 | awk &#39;{print $4}&#39; | sed s/255/0/</code><br>可以看到这里我们需要修成的值是 192.168.1.0. 于是我们把这段配置修改成<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">interface</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="comment"># The following values need to be set based on your environment</span></span><br><span class="line">        <span class="attr">ringnumber:</span> <span class="number">0</span></span><br><span class="line">        <span class="attr">bindnetaddr:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span></span><br><span class="line">        <span class="attr">mcastaddr:</span> <span class="number">226.94</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">        <span class="attr">mcastport:</span> <span class="number">5405</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>接着找到<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server02@server02:~$ sudo cat /etc/corosync/service.d/pcmk</span><br><span class="line">service &#123;</span><br><span class="line">        # Load the Pacemaker Cluster<span class="built_in"> Resource </span>Manager</span><br><span class="line">        ver:       0</span><br><span class="line">        name:      pacemaker</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>把其中的 ver: 0 修改成 1 也就是修改成:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service &#123;</span><br><span class="line">        # Load the Pacemaker Cluster<span class="built_in"> Resource </span>Manager</span><br><span class="line">        ver:      1</span><br><span class="line">        name:      pacemaker</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="启动Corosync"><a href="#启动Corosync" class="headerlink" title="启动Corosync"></a>启动Corosync</h2><p>完成以上配置后还需要修改 /etc/default/corosync 将<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">START=no</span><br><span class="line"></span><br><span class="line">修改成</span><br><span class="line"></span><br><span class="line">START=yes</span><br></pre></td></tr></table></figure></p>
+<p>接着通过命令, 启动 corosync<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server01@server01:~# sudo<span class="built_in"> service </span>corosync start</span><br><span class="line">server02@server02:~# sudo<span class="built_in"> service </span>corosync start</span><br></pre></td></tr></table></figure></p>
+<h1 id="Pacemaker"><a href="#Pacemaker" class="headerlink" title="Pacemaker"></a>Pacemaker</h1><p>pacemaker 是一个群集资源管理器, 用于管理 corosync 的节点.  </p>
+<h2 id="安装和运行-pacemaker"><a href="#安装和运行-pacemaker" class="headerlink" title="安装和运行 pacemaker"></a>安装和运行 pacemaker</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server01@server01:~#sudo apt-<span class="builtin-name">get</span> install -y pacemaker</span><br><span class="line"></span><br><span class="line">server02@server02:~#sudo apt-<span class="builtin-name">get</span> install -y pacemaker</span><br><span class="line"></span><br><span class="line">server01@server01:~#sudo<span class="built_in"> service </span>pacemaker start</span><br><span class="line"></span><br><span class="line">server02@server02:~#sudo<span class="built_in"> service </span>pacemaker start</span><br></pre></td></tr></table></figure>
+<p>完成后就可以通过命令 crm status 查看节点状态了.<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server01@server01:~#sudo  crm status</span><br><span class="line"></span><br><span class="line">============</span><br><span class="line">Last updated: Mon Dec  2 16:45:30 2013</span><br><span class="line">Last change: Mon Dec  2 16:41:35 2013 via crmd on db2</span><br><span class="line">Stack: openais</span><br><span class="line">Current DC: NONE</span><br><span class="line">2 Nodes configured, 2 expected votes</span><br><span class="line">0 Resources configured.</span><br><span class="line">============</span><br><span class="line"></span><br><span class="line">Node db1: UNCLEAN (offline)</span><br><span class="line">Node db2: UNCLEAN (offline)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到目前的2个节点 server01和 server02都是离线的. 接着就需要配置 pacemaker 了  </p>
+<h2 id="配置-pacemaker"><a href="#配置-pacemaker" class="headerlink" title="配置 pacemaker"></a>配置 pacemaker</h2><p>首先在 server01输入<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo crm configure <span class="keyword">property</span><span class="title"> </span><span class="attr">stonith-enabled=</span><span class="literal">false</span></span><br><span class="line">sudo  crm configure <span class="keyword">property</span><span class="title"> </span><span class="attr">no-quorum-policy=</span>ignore</span><br><span class="line"></span><br><span class="line">sudo  crm configure <span class="keyword">rsc_defaults</span><span class="title"> </span><span class="attr">resource-stickiness=</span><span class="number">100</span></span><br></pre></td></tr></table></figure></p>
+<p>这几条命令保证, 当 db1 宕机切换到 db2 后, db1 修复好重新上线也不会自动的把主机转移回 db1, 造成不必要的切换.  </p>
+<h2 id="配置-drbd"><a href="#配置-drbd" class="headerlink" title="配置 drbd"></a>配置 drbd</h2><p>继续再终端输入 crm configure 进入配置模式, 接着输入<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">sudo crm configure</span><br><span class="line"><span class="keyword">primitive</span><span class="title"> drbd0</span> ocf:linbit:drbd \</span><br><span class="line">    <span class="keyword">params</span> <span class="attr">drbd_resource=</span><span class="string">"disk1"</span> \</span><br><span class="line">    <span class="keyword">op</span> <span class="literal">monitor</span> <span class="attr">interval=</span><span class="string">"29s"</span> <span class="attr">role=</span><span class="string">"Master"</span> \</span><br><span class="line">    <span class="keyword">op</span> <span class="literal">monitor</span> <span class="attr">interval=</span><span class="string">"31s"</span> <span class="attr">role=</span><span class="string">"Slave"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ms</span> <span class="title">ms-drbd0</span> drbd0 \</span><br><span class="line">    <span class="keyword">meta</span> <span class="attr">master-max=</span><span class="string">"1"</span> <span class="attr">master-node-max=</span><span class="string">"1"</span> \</span><br><span class="line">        <span class="attr">clone-max=</span><span class="string">"2"</span> <span class="attr">clone-node-max=</span><span class="string">"1"</span> \</span><br><span class="line">        <span class="attr">notify=</span><span class="string">"true"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">primitive</span><span class="title"> db-fs</span> ocf:heartbeat:Filesystem \</span><br><span class="line">    <span class="keyword">params</span> <span class="attr">fstype=</span>ext4 <span class="attr">directory=</span>/srv/data \</span><br><span class="line">        <span class="attr">device=</span>/dev/drbd0</span><br><span class="line"></span><br><span class="line"><span class="keyword">group</span> <span class="title">db-ha-group</span> db-fs</span><br><span class="line"></span><br><span class="line"><span class="keyword">colocation</span> <span class="title">db-ha-group-on-ms-drbd0</span> <span class="literal">inf</span>: db-ha-<span class="keyword">group</span> <span class="title">ms-drbd0</span>:<span class="literal">Master</span></span><br><span class="line"><span class="keyword">order</span> <span class="title">db-ha-group-after-ms-drbd0</span> <span class="literal">inf</span>: ms-drbd0:<span class="literal">promote</span> db-ha-group:<span class="literal">start</span></span><br><span class="line"></span><br><span class="line">commit</span><br><span class="line">exit</span><br></pre></td></tr></table></figure></p>
+<p>这时可以通过 crm status 查看到<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Online</span>: [ db1 db2 ]</span><br><span class="line"></span><br><span class="line">Master/Slave Set: ms-drbd0 [drbd0]</span><br><span class="line">    <span class="attribute">Masters</span>: [ db1 ]</span><br><span class="line">    <span class="attribute">Slaves</span>: [ db2 ]</span><br><span class="line">Resource Group: db-ha-group</span><br><span class="line">    db-fs      (ocf::heartbeat:Filesystem):    Started db1</span><br></pre></td></tr></table></figure></p>
+<p>当前的 drbd 已经在 server01 上启动并挂载到 /srv/data 下了.  </p>
+<h2 id="配置-vip"><a href="#配置-vip" class="headerlink" title="配置 vip"></a>配置 vip</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo crm configure primitive db-ip ocf:heartbeat:IPaddr2 \</span><br><span class="line">    params <span class="attribute">ip</span>=<span class="string">"192.168.0.250"</span> <span class="attribute">nic</span>=<span class="string">"eth0"</span> meta <span class="attribute">target-role</span>=stopped</span><br><span class="line">echo $(crm configure show db-ha-group) db-ip | crm configure load update -</span><br><span class="line">crm<span class="built_in"> resource </span>start db-ip</span><br></pre></td></tr></table></figure>
+<p>以上命令就是新建了一个叫 db-ip 的资源, 并把他加入 db-ha-group 组并启动. 为了验证是否成功我们可以输入<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">server01</span>@<span class="selector-tag">server01</span>:~<span class="selector-id">#sudo</span>  <span class="selector-tag">crm</span> <span class="selector-tag">status</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">Online</span>: <span class="selector-attr">[ db1 db2 ]</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">Master</span>/<span class="selector-tag">Slave</span> <span class="selector-tag">Set</span>: <span class="selector-tag">ms-drbd0</span> <span class="selector-attr">[drbd0]</span></span><br><span class="line">    <span class="selector-tag">Masters</span>: <span class="selector-attr">[ db1 ]</span></span><br><span class="line">    <span class="selector-tag">Slaves</span>: <span class="selector-attr">[ db2 ]</span></span><br><span class="line"><span class="selector-tag">Resource</span> <span class="selector-tag">Group</span>: <span class="selector-tag">db-ha-group</span></span><br><span class="line">    <span class="selector-tag">db-fs</span>      (<span class="attribute">ocf</span>::<span class="attribute">heartbeat</span>:Filesystem):    <span class="selector-tag">Started</span> <span class="selector-tag">db1</span></span><br><span class="line">    <span class="selector-tag">db-ip</span>      (<span class="attribute">ocf</span>::<span class="attribute">heartbeat</span>:IPaddr2):      <span class="selector-tag">Started</span> <span class="selector-tag">db1</span></span><br></pre></td></tr></table></figure></p>
+<p>看到 db-ip 已经在 db1 启动了. 接着验证这个 ip 的设置可以输入<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">server01@server01:</span>~#sudo <span class="built_in">ip</span> addr show eth0</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>: eth0: &lt;BROADCAST,MULTICAST,<span class="meta">UP</span>,LOWER_UP&gt; mtu <span class="number">1500</span> qdisc pfifo_fast state <span class="meta">UP</span> qlen <span class="number">1000</span></span><br><span class="line">    link/ether <span class="number">00</span>:0c:<span class="number">29</span>:0c:<span class="number">0d</span>:<span class="number">69</span> brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet <span class="number">192.168</span><span class="meta">.37</span><span class="meta">.51</span>/<span class="number">24</span> brd <span class="number">192.168</span><span class="meta">.37</span><span class="meta">.255</span> scope <span class="meta">global</span> eth0</span><br><span class="line">    inet <span class="number">192.168</span><span class="meta">.37</span><span class="meta">.50</span>/<span class="number">32</span> brd <span class="number">192.168</span><span class="meta">.37</span><span class="meta">.178</span> scope <span class="meta">global</span> eth0</span><br><span class="line">    inet6 fe80::20c:29ff:fe0c:d69/<span class="number">64</span> scope link</span><br><span class="line">      valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure></p>
+<p>可以看到这个 192.168.0.250 已经被配置给了 eth0  </p>
+<h2 id="配置NFS"><a href="#配置NFS" class="headerlink" title="配置NFS"></a>配置NFS</h2><p>配置 pacemaker 的资源<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo crm configure primitive db-nfs lsb:nfs-kernel-server \</span><br><span class="line">    op monitor <span class="attribute">interval</span>=<span class="string">"30s"</span> meta <span class="attribute">target-role</span>=stopped</span><br><span class="line">sudo echo $(sudo crm configure show db-ha-group) db-nfs |sudo crm configure load update -</span><br><span class="line">sudo crm<span class="built_in"> resource </span>start db-nfs</span><br></pre></td></tr></table></figure></p>
+<p>最终输入 crm status<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Online</span>: [ db1 db2 ]</span><br><span class="line"></span><br><span class="line">Master/Slave Set: ms-drbd0 [drbd0]</span><br><span class="line">    <span class="attribute">Masters</span>: [ db1 ]</span><br><span class="line">    <span class="attribute">Slaves</span>: [ db2 ]</span><br><span class="line">Resource Group: db-ha-group</span><br><span class="line">    db-fs      (ocf::heartbeat:Filesystem):    Started db1</span><br><span class="line">    db-ip      (ocf::heartbeat:IPaddr2):      Started db1</span><br><span class="line">    db-pg      (ocf::heartbeat:pgsql): Started db1</span><br><span class="line">    db-nfs    (lsb:nfs-kernel-server):        Started db1</span><br></pre></td></tr></table></figure></p>
+<p>可以看到所有的服务都已启动.  </p>
+<h1 id="迁移资源"><a href="#迁移资源" class="headerlink" title="迁移资源"></a>迁移资源</h1><p>完成之前配置后, 可以通过 crm status 看到所有资源都在 server01上启动了, 现在我们测试能否将资源转移到 server02上并且根据设计他不应该自动迁移回server01, 我们输入<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo crm<span class="built_in"> resource </span>migrate db-ha-group server02</span><br><span class="line">sudo crm<span class="built_in"> resource </span>unmigrate db-ha-group</span><br></pre></td></tr></table></figure></p>
+<p>先资源强制分配到 server02, 再取消强制分配. 然后输入 crm_mon, 应该就可以看到资源再慢慢的迁移到 server02, 等一会最终可以看到.<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Online</span>: [ db1 db2 ]</span><br><span class="line"></span><br><span class="line">Master/Slave Set: ms-drbd0 [drbd0]</span><br><span class="line">    <span class="attribute">Masters</span>: [ db2 ]</span><br><span class="line">    <span class="attribute">Slaves</span>: [ db1 ]</span><br><span class="line">Resource Group: db-ha-group</span><br><span class="line">    db-fs      (ocf::heartbeat:Filesystem):    Started db2</span><br><span class="line">    db-ip      (ocf::heartbeat:IPaddr2):      Started db2</span><br><span class="line">    db-pg      (ocf::heartbeat:pgsql): Started db2</span><br><span class="line">    db-nfs    (lsb:nfs-kernel-server):        Started db2</span><br></pre></td></tr></table></figure></p>
+<p>所有的资源都运行于 server02 了. 然后把资源再迁回 server01 可以输入之前的迁移命令也可以简单的重启 pacemaker<br><code>sudo service pacemaker restart</code><br>不一会儿就可以通过 crm status 看到所有的资源又被迁移回了 server01</p>
+<p>最后</p>
+<p>至此基本的 HA 都已经配置完成了. 基本就是让 pacemaker 来负责程序的启动和调度. 另外还可以通过下列命令来设置 crm.<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">crm<span class="built_in"> resource </span>show            # 显示所有的 resource</span><br><span class="line">crm<span class="built_in"> resource </span>cleanup <span class="variable">$&#123;id&#125;</span>    # 清除失败的 action 日志</span><br><span class="line">crm<span class="built_in"> resource </span>stop <span class="variable">$&#123;id&#125;</span>      # 停止某个 resource</span><br><span class="line">crm configure delete <span class="variable">$&#123;id&#125;</span>    # 删除某个配置</span><br><span class="line">crm configure <span class="builtin-name">edit</span>            # 编辑现有的配置文件</span><br></pre></td></tr></table></figure></p>
+<h1 id="故障恢复"><a href="#故障恢复" class="headerlink" title="故障恢复"></a>故障恢复</h1><h2 id="一般故障"><a href="#一般故障" class="headerlink" title="一般故障"></a>一般故障</h2><p>1）单机发生故障<br>当server01发生故障，corosync就会切换资源到server02<br>当server01修复了后，就要立即进行系统切换<br>1&gt; 启动服务<br>启动server01-&gt;启动drbd-&gt;启动corosync-&gt;启动pacemaker<br>2&gt; 迁移数据（可选）<br>当数据同步完成后，迁移资源到server01<br>sudo crm resource migrate db-ha-group server01<br>也可选择不迁移  </p>
+<p>2)同时掉电<br>启动server01-&gt;启动drbd-&gt;启动corosync-&gt;启动pacemaker  </p>
+<p>启动server02-&gt;启动drbd-&gt;启动corosync-&gt;启动pacemaker  </p>
+<h2 id="脑裂故障"><a href="#脑裂故障" class="headerlink" title="脑裂故障"></a>脑裂故障</h2><p>1) 断开主(parmary)节点；关机、断开网络或重新配置其他的IP都可以；这里选择的是断开网络  </p>
+<p>2)查看两节点状态<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[server02@server02 ~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span>:drbd<span class="regexp">/0  WFConnection Primary/</span>Unknown UpToDate<span class="regexp">/DUnknown C r----- /m</span>nt ext4 <span class="number">2.0</span>G <span class="number">68</span>M <span class="number">1.9</span>G <span class="number">4</span>%</span><br><span class="line">[root@nod1 ~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span>:drbd<span class="regexp">/0  StandAlone Secondary/</span>Unknown UpToDate<span class="regexp">/DUnknown r-----</span></span><br></pre></td></tr></table></figure></p>
+<p>由上可以看到两个节点已经无法通信；server02为主节点，server01为备节点  </p>
+<p>3)将server01节点升级为主(primary)节点并挂载资源<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[server01<span class="variable">@server01</span>~]<span class="comment"># drbdadm primary drbd</span></span><br><span class="line">[server01<span class="variable">@server01</span>~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span><span class="symbol">:drbd/</span><span class="number">0</span>  StandAlone Primary/Unknown UpToDate/DUnknown r-----</span><br><span class="line">[server01<span class="variable">@server01</span>~]<span class="comment"># mount /dev/drbd0 /srv/data</span></span><br><span class="line">[server01<span class="variable">@server01</span>~]<span class="comment"># mount | grep drbd0</span></span><br><span class="line">/dev/drbd<span class="number">0</span> on /srv/data type ext4 (rw)</span><br></pre></td></tr></table></figure></p>
+<p>4)假如原来的主(primary)节点修复好重新上线了，这时出现了脑裂情况  </p>
+<p>5)再次查看两节点的状态<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[server01<span class="symbol">@server01</span>~]<span class="meta"># drbdadm role drbd</span></span><br><span class="line">Primary/Unknown</span><br><span class="line">[server02<span class="symbol">@server02</span>~]<span class="meta"># drbdadm role drbd</span></span><br><span class="line">Primary/Unknown</span><br></pre></td></tr></table></figure></p>
+<p>6)查看server01与server02连接状态<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[server01@server01 ~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span>:drbd<span class="regexp">/0  StandAlone Primary/</span>Unknown UpToDate<span class="regexp">/DUnknown r----- /m</span>nt ext4 <span class="number">2.0</span>G <span class="number">68</span>M <span class="number">1.9</span>G <span class="number">4</span>%</span><br><span class="line">[server02@server02 ~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span>:drbd<span class="regexp">/0  WFConnection Primary/</span>Unknown UpToDate<span class="regexp">/DUnknown C r----- /m</span>nt ext4 <span class="number">2.0</span>G <span class="number">68</span>M <span class="number">1.9</span>G <span class="number">4</span>%</span><br></pre></td></tr></table></figure></p>
+<p>由上可见，状态为StandAlone时，主备节点是不会通信的  </p>
+<p>7）查看DRBD的服务状态<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[server01@server01 ~]#<span class="built_in"> service </span>drbd status</span><br><span class="line">drbd driver loaded OK; device status:</span><br><span class="line">version: 8.4.3 (api:1/proto:86-101)</span><br><span class="line">GIT-hash: 89a294209144b68adb3ee85a73221f964d3ee515 build by gardner@, 2013-05-27 04:30:21</span><br><span class="line">m:res   cs          ro               ds                 p       mounted  fstype</span><br><span class="line">0:drbd  StandAlone  Primary/Unknown  UpToDate/DUnknown  r-----  ext4</span><br><span class="line">[server02@server02~]#<span class="built_in"> service </span>drbd status</span><br><span class="line">drbd driver loaded OK; device status:</span><br><span class="line">version: 8.4.3 (api:1/proto:86-101)</span><br><span class="line">GIT-hash: 89a294209144b68adb3ee85a73221f964d3ee515 build by gardner@, 2013-05-27 04:30:21</span><br><span class="line">m:res   cs            ro               ds                 p  mounted  fstype</span><br><span class="line">0:drbd  WFConnection  Primary/Unknown  UpToDate/DUnknown  C  /mnt     ext4</span><br></pre></td></tr></table></figure></p>
+<p>8) 在server01备用节点处理办法<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[server01<span class="variable">@server01</span> ~]<span class="comment"># umount /mnt/</span></span><br><span class="line">[server01<span class="variable">@server01</span> ~]<span class="comment"># drbdadm disconnect drbd</span></span><br><span class="line"><span class="symbol">drbd:</span> <span class="symbol">Failure:</span> (<span class="number">162</span>) Invalid configuration request</span><br><span class="line">additional info from <span class="symbol">kernel:</span></span><br><span class="line">unknown connection</span><br><span class="line">Command <span class="string">'drbdsetup disconnect ipv4:192.168.137.225:7789 ipv4:192.168.137.222:7789'</span> terminated <span class="keyword">with</span> exit code <span class="number">10</span></span><br><span class="line">[server01<span class="variable">@server01</span> ~]<span class="comment"># drbdadm secondary drbd</span></span><br><span class="line">[server01<span class="variable">@server01</span> ~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span><span class="symbol">:drbd/</span><span class="number">0</span>  StandAlone Secondary/Unknown UpToDate/DUnknown r-----</span><br><span class="line">[server01<span class="variable">@server01</span> ~]<span class="comment"># drbdadm connect --discard-my-data drbd</span></span><br><span class="line"><span class="comment">######执行完以上三步后，你查看会发现还是不可用</span></span><br><span class="line">[server01<span class="variable">@server01</span> ~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span><span class="symbol">:drbd/</span><span class="number">0</span>  WFConnection Secondary/Unknown UpToDate/DUnknown C r-----</span><br></pre></td></tr></table></figure></p>
+<p>9） 需要在server02节点上重新建立连接资源<br><code>[server02@server02~]# drbdadm connect drbd</code><br>查看节点连接状态<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[server02@server02~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span>:drbd<span class="regexp">/0  Connected Primary/</span>Secondary UpToDate<span class="regexp">/UpToDate C r----- /m</span>nt ext4 <span class="number">2.0</span>G <span class="number">68</span>M <span class="number">1.9</span>G <span class="number">4</span>%</span><br><span class="line">[server01@server01 ~]<span class="comment"># drbd-overview</span></span><br><span class="line">  <span class="number">0</span>:drbd<span class="regexp">/0  Connected Secondary/</span>Primary UpToDate<span class="regexp">/UpToDate C r-----</span></span><br></pre></td></tr></table></figure></p>
+<p>由上可见已经恢复到正常运行状态  </p>
+<p>待恢复完成后<br>卸载掉/srv/data<br>然后启动服务：<br>启动server01-&gt;启动drbd-&gt;启动corosync-&gt;启动pacemaker<br>启动server02-&gt;启动drbd-&gt;启动corosync-&gt;启动pacemaker  </p>
+<p>这里要考虑相关的服务的启动顺序。  </p>
+<h1 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h1><p>1）需进行ip地址权限设定，在交换机上面做安全策略<br>2）建议配置双网卡，直接背对背连接  </p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="NFS-Client"><a href="#NFS-Client" class="headerlink" title="NFS Client"></a>NFS Client</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">In</span> testing, I chose <span class="keyword">to</span> use this command <span class="keyword">to</span> mount NFS:</span><br><span class="line"></span><br><span class="line">sudo mount -t nfs 192.168.0.250:/srv/data/share /mnt</span><br><span class="line"></span><br><span class="line">sudo dd <span class="attribute">if</span>=/dev/zero <span class="attribute">of</span>=/mnt/test.zero <span class="attribute">bs</span>=1M <span class="attribute">count</span>=4000</span><br></pre></td></tr></table></figure>
+<p>生成一个4G的文件<br>同时写入两个4G的文件，并且拷贝1G的文件<br>第一个4G文件的写入速度为9M左右<br>第二个4G文件的写入速度为80M左右<br>第三个1G文件的读取速度为80M左右<br>具体是否满足性能要求还需要设置  </p>
+<p><img src="http://7xlvqo.com1.z0.glb.clouddn.com/17b96fee66053e8a5c75e91e5a987d8d.png" alt="NFS测试">  </p>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><pre><code>error:
+server02@server02:~$ sudo drbdadm create-md disk1
+md_offset 10736365568
+al_offset 10736332800
+bm_offset 10736005120
+
+Found LVM2 physical volume signature
+    10484736 kB data area apparently used
+    10484380 kB left usable by current configuration
+
+Device size would be truncated, which
+would corrupt data and result in
+&apos;access beyond end of device&apos; errors.
+You need to either
+   * use external meta data (recommended)
+   * shrink that filesystem first
+   * zero out the device (destroy the filesystem)
+Operation refused.
+
+Command &apos;drbdmeta 0 v08 /dev/sdb1 internal create-md&apos; terminated with exit code 40
+</code></pre><p>解决:<br><code>sudo dd if=/dev/zero of=/dev/sdb1 bs=1M count=1</code>  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2016/05/22/帕克胖折腾系列-建立可用的NFS存储/" title="帕克胖折腾系列(-)建立可用的NFS存储">http://www.haibin.me/2016/05/22/帕克胖折腾系列-建立可用的NFS存储/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/nfs/" rel="tag"># nfs</a>
+          
+            <a href="/tags/存储/" rel="tag"># 存储</a>
+          
+            <a href="/tags/折腾/" rel="tag"># 折腾</a>
+          
+            <a href="/tags/配置/" rel="tag"># 配置</a>
+          
+            <a href="/tags/ubuntu/" rel="tag"># ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/12/Sequelizejs-中文手册/" rel="next" title="Sequelizejs-中文手册">
+                <i class="fa fa-chevron-left"></i> Sequelizejs-中文手册
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/23/帕克胖折腾系列-二-Angular单元测试与自动化UI测试实践/" rel="prev" title="Angular单元测试与自动化UI测试实践">
+                Angular单元测试与自动化UI测试实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#需求"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件"><span class="nav-number">1.1.</span> <span class="nav-text">硬件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础系统"><span class="nav-number">2.</span> <span class="nav-text">基础系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分区，系统安装"><span class="nav-number">2.1.</span> <span class="nav-text">分区，系统安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装必要软件"><span class="nav-number">2.2.</span> <span class="nav-text">安装必要软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置固定IP"><span class="nav-number">2.3.</span> <span class="nav-text">配置固定IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置host"><span class="nav-number">2.4.</span> <span class="nav-text">配置host</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步服务器时间"><span class="nav-number">2.5.</span> <span class="nav-text">同步服务器时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核调试"><span class="nav-number">2.6.</span> <span class="nav-text">内核调试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DRBD"><span class="nav-number">3.</span> <span class="nav-text">DRBD</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DRBD安装"><span class="nav-number">3.1.</span> <span class="nav-text">DRBD安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件配置"><span class="nav-number">3.2.</span> <span class="nav-text">文件配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改DRDB权限"><span class="nav-number">3.3.</span> <span class="nav-text">更改DRDB权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建资源"><span class="nav-number">3.4.</span> <span class="nav-text">创建资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动DRBD"><span class="nav-number">3.5.</span> <span class="nav-text">启动DRBD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化同步"><span class="nav-number">3.6.</span> <span class="nav-text">初始化同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试同步"><span class="nav-number">3.7.</span> <span class="nav-text">测试同步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NFS"><span class="nav-number">4.</span> <span class="nav-text">NFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装nfs-kernel-server"><span class="nav-number">4.1.</span> <span class="nav-text">安装nfs kernel server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取消自启动"><span class="nav-number">4.2.</span> <span class="nav-text">取消自启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置NFS到DRBD设备"><span class="nav-number">4.3.</span> <span class="nav-text">配置NFS到DRBD设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共享配置"><span class="nav-number">4.4.</span> <span class="nav-text">共享配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Corosync"><span class="nav-number">5.</span> <span class="nav-text">Corosync</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装配置Corosync"><span class="nav-number">5.1.</span> <span class="nav-text">安装配置Corosync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Corosync"><span class="nav-number">5.2.</span> <span class="nav-text">启动Corosync</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pacemaker"><span class="nav-number">6.</span> <span class="nav-text">Pacemaker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和运行-pacemaker"><span class="nav-number">6.1.</span> <span class="nav-text">安装和运行 pacemaker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-pacemaker"><span class="nav-number">6.2.</span> <span class="nav-text">配置 pacemaker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-drbd"><span class="nav-number">6.3.</span> <span class="nav-text">配置 drbd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-vip"><span class="nav-number">6.4.</span> <span class="nav-text">配置 vip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置NFS"><span class="nav-number">6.5.</span> <span class="nav-text">配置NFS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移资源"><span class="nav-number">7.</span> <span class="nav-text">迁移资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#故障恢复"><span class="nav-number">8.</span> <span class="nav-text">故障恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般故障"><span class="nav-number">8.1.</span> <span class="nav-text">一般故障</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脑裂故障"><span class="nav-number">8.2.</span> <span class="nav-text">脑裂故障</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安全策略"><span class="nav-number">9.</span> <span class="nav-text">安全策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">10.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS-Client"><span class="nav-number">10.1.</span> <span class="nav-text">NFS Client</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">11.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

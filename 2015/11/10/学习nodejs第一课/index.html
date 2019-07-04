@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一步一步学习nodejs-startup讲解点:    nodejs特点 nodejs与v8 nodejs与libuv nodejs的应用场景  概要我们已经有许多web容器，为什么还需要有nodejs呢？  IIS   Apache   Tomcat   nginx …    因为nodejs具有以下特点:  异步I/O   事件与回调   跨平台   单线程    nodejs特点 异步I/O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习nodejs第一课">
+<meta property="og:url" content="http://www.haibin.me/2015/11/10/学习nodejs第一课/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="一步一步学习nodejs-startup讲解点:    nodejs特点 nodejs与v8 nodejs与libuv nodejs的应用场景  概要我们已经有许多web容器，为什么还需要有nodejs呢？  IIS   Apache   Tomcat   nginx …    因为nodejs具有以下特点:  异步I/O   事件与回调   跨平台   单线程    nodejs特点 异步I/O">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/前端异步调用.png">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/服务器端异步调用.png">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/chrome组件图.png">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/node组件图.png">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/node跨平台_origin.png">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/nodejs跨平台_v0.6.0.png">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/libuv.png">
+<meta property="og:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/IOCP模型.png">
+<meta property="og:updated_time" content="2019-07-03T23:28:43.814Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习nodejs第一课">
+<meta name="twitter:description" content="一步一步学习nodejs-startup讲解点:    nodejs特点 nodejs与v8 nodejs与libuv nodejs的应用场景  概要我们已经有许多web容器，为什么还需要有nodejs呢？  IIS   Apache   Tomcat   nginx …    因为nodejs具有以下特点:  异步I/O   事件与回调   跨平台   单线程    nodejs特点 异步I/O">
+<meta name="twitter:image" content="http://7xlp7m.com1.z0.glb.clouddn.com/前端异步调用.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2015/11/10/学习nodejs第一课/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>学习nodejs第一课 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2015/11/10/学习nodejs第一课/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习nodejs第一课
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2015-11-10 07:28:02" itemprop="dateCreated datePublished" datetime="2015-11-10T07:28:02+08:00">2015-11-10</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-04 07:28:43" itemprop="dateModified" datetime="2019-07-04T07:28:43+08:00">2019-07-04</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一步一步学习nodejs-startup"><a href="#一步一步学习nodejs-startup" class="headerlink" title="一步一步学习nodejs-startup"></a>一步一步学习nodejs-startup</h1><p>讲解点:  </p>
+<ul>
+<li>nodejs特点</li>
+<li>nodejs与v8</li>
+<li>nodejs与libuv</li>
+<li>nodejs的应用场景</li>
+</ul>
+<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>我们已经有许多web容器，为什么还需要有nodejs呢？</p>
+<ul>
+<li>IIS  </li>
+<li>Apache  </li>
+<li>Tomcat  </li>
+<li>nginx</li>
+<li>…  </li>
+</ul>
+<p>因为nodejs具有以下特点:</p>
+<ul>
+<li>异步I/O  </li>
+<li>事件与回调  </li>
+<li>跨平台  </li>
+<li>单线程  </li>
+</ul>
+<h2 id="nodejs特点"><a href="#nodejs特点" class="headerlink" title="nodejs特点"></a>nodejs特点</h2><ul>
+<li>异步I/O  {:&amp;.moveIn}   </li>
+</ul>
+<p>这个是经典前端的异步I/O  </p>
+<p><img src="http://7xlp7m.com1.z0.glb.clouddn.com/前端异步调用.png" alt="&quot;前端异步调用&quot;" title="前端异步调用"></p>
+<p><strong>查看代码 N</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.post(<span class="string">'/url'</span>, &#123;<span class="attr">title</span>: <span class="string">'Parkpang讲Node.js'</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'收到讲课请求'</span>);&#125;); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'发送讲课请求完毕'</span>);</span><br></pre></td></tr></table></figure>
+<p>这个是后端的异步操作<br><img src="http://7xlp7m.com1.z0.glb.clouddn.com/服务器端异步调用.png" alt="&quot;后端异步调用&quot;" title="后端异步调用"><br><strong>查看代码 N</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="regexp">/home/</span>parkpang.png;fs.readFile(<span class="string">'path'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, file</span>) </span>&#123; </span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'读取parkpang的照片成功'</span>)&#125;); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'发起读取parkpang的照片'</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>事件与回调函数  </li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);<span class="keyword">var</span> querystring = <span class="built_in">require</span>(<span class="string">'querystring'</span>);<span class="comment">//   服务器的request事件 </span></span><br><span class="line">http.createServer(</span><br><span class="line">	<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;		<span class="keyword">var</span> postData = <span class="string">''</span>; req.setEncoding(<span class="string">'utf8'</span>);		<span class="comment">//   请求的data事件 </span></span><br><span class="line">		req.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">trunk</span>) </span>&#123;			postData += trunk; &#125;);<span class="comment">//   请求的end事件 </span></span><br><span class="line">		req.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;		res.end(postData); </span><br><span class="line">	&#125;);&#125;).listen(<span class="number">8080</span>); </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'服务器启动成功'</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>跨平台</p>
+</li>
+<li><p>单线程 <strong>N</strong>     </p>
+</li>
+</ul>
+<p>单线程的优点:<br>（1） 不用像多线程编程那样处处在意状态的同步问题<br>（2） 没有死锁的存在<br>（3） 没有线程上下文交换所带来的性能上的开销<br>单线程的缺点:<br>（1） 无法利用多核CPU  ？<br>（2） 错误会引起整个应用退出,应用的健壮性值得考验<br>（3） 大量计算占用CPU导致无法继续调用异步I/O   </p>
+<h2 id="nodejs历史"><a href="#nodejs历史" class="headerlink" title="nodejs历史"></a>nodejs历史</h2><ul>
+<li>2009年3月,Ryan Dahl在其博客上宣布准备基于V8创建一个轻量级的Web服务器并提供一套库  {:&amp;.moveIn}</li>
+<li>2009年5月,Ryan Dahl在GitHub上发布了最初的版本  </li>
+<li>2009年12月和2010年4月,两届JSConf大会都安排了Node的讲座  </li>
+<li>2010年年底,Node获得硅谷云计算服务商Joyent公司的资助,其创始人Ryan Dahl加入Joyent公司全职负责Node的发展  </li>
+<li><strong>2011年7月,Node在微软的支持下发布了其Windows版本</strong>  </li>
+<li>2011年11月,Node超越Ruby on Rails,成为GitHub上关注度最高的项目(随后被Bootstrap 7 项目超越,目前仍居第二）  </li>
+<li>2012年1月底,Ryan Dahl在对Node架构设计满意的情况下,将掌门人的身份转交给Isaac Z. Schlueter,自己转向一些研究项目。Isaac Z. Schlueter是Node的包管理器<a href="https://npmjs.org" target="_blank" rel="noopener">NPM</a>的作者,之 后Node的版本发布和bug修复等工作由他接手  {:&amp;.moveIn}  </li>
+<li><strong>2014年12月份左右，iojs从nodejs分裂出来</strong>  </li>
+<li><strong>2015年9月份左右，iojs又回归到nodejs</strong>  </li>
+</ul>
+<h2 id="v8引擎"><a href="#v8引擎" class="headerlink" title="v8引擎"></a>v8引擎</h2><ul>
+<li>chrome与v8组件图  </li>
+</ul>
+<p><img src="http://7xlp7m.com1.z0.glb.clouddn.com/chrome组件图.png" alt="chrome与v8组件图" title="chrome与v8组件图"></p>
+<h3 id="nodejs与v8"><a href="#nodejs与v8" class="headerlink" title="nodejs与v8"></a>nodejs与v8</h3><hr>
+<ul>
+<li>nodejs与v8组件图<br><img src="http://7xlp7m.com1.z0.glb.clouddn.com/node组件图.png" alt="nodejs与v8组件图" title="chrome与v8组件图"></li>
+</ul>
+<h3 id="什么是v8引擎"><a href="#什么是v8引擎" class="headerlink" title="什么是v8引擎?"></a>什么是v8引擎?</h3><p><a href="https://zh.wikipedia.org/wiki/V8_(JavaScript引擎)" target="_blank" rel="noopener">V8</a>是一个由美国Google开发的开源JavaScript引擎，用于Google Chrome中。<br>V8在运行之前将JavaScript编译成了机器码，而非字节码或是解释执行它，以此提升性能。更进一步，使用了如内联缓存（inline caching）等方法来提高性能。有了这些功能，JavaScript程序与V8引擎的速度媲美二进制编译。  </p>
+<h2 id="nodejs如何实现跨平台"><a href="#nodejs如何实现跨平台" class="headerlink" title="nodejs如何实现跨平台"></a>nodejs如何实现跨平台</h2><ul>
+<li>nodejs最初的跨平台方案   </li>
+</ul>
+<p><img src="http://7xlp7m.com1.z0.glb.clouddn.com/node跨平台_origin.png" alt="nodejs最初的跨平台方案" title="nodejs最初的跨平台方案"></p>
+<ul>
+<li>nodejs是通过libuv实现跨平台  </li>
+</ul>
+<p><img src="http://7xlp7m.com1.z0.glb.clouddn.com/nodejs跨平台_v0.6.0.png" alt="nodejs是通过libuv实现跨平台" title="nodejs是通过libuv实现跨平台">  </p>
+<blockquote>
+<p>libuv 是 Node 的新跨平台抽象层，用于抽象 Windows 的 IOCP 及 *nix 的 libev。作者打算在这个库的包含所有平台的差异性。</p>
+</blockquote>
+<p><img src="http://7xlp7m.com1.z0.glb.clouddn.com/libuv.png" alt="libuv与系统" title="libuv与系统"></p>
+<p><a href="http://blog.codingnow.com/2012/01/libuv.html" target="_blank" rel="noopener">http://blog.codingnow.com/2012/01/libuv.html</a><br><a href="http://baike.baidu.com/view/1256215.htm" target="_blank" rel="noopener">http://baike.baidu.com/view/1256215.htm</a></p>
+<p><img src="http://7xlp7m.com1.z0.glb.clouddn.com/IOCP模型.png" alt="IOCP" title="IOCP"></p>
+<p><strong>IOCP定义 N</strong></p>
+<blockquote>
+<p>IOCP（I/O Completion Port）,常称I/O完成端口。 IOCP模型属于一种通讯模型，适用于(能控制并发执行的)高负载服务器的一个技术。 通俗一点说，就是用于高效处理很多很多的客户端进行数据交换的一个模型。或者可以说，就是能异步I/O操作的模型。  </p>
+</blockquote>
+<h2 id="nodejs如何突破单线程"><a href="#nodejs如何突破单线程" class="headerlink" title="nodejs如何突破单线程"></a>nodejs如何突破单线程</h2><ul>
+<li>HTML5如何解决前端javascript大计算阻塞UI渲染的问题？<br>html5是采用<strong>Web Workers</strong>来解决js大计算阻塞ui的问题<br>demo_workers.js源码  </li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var <span class="built_in">i</span>=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timedCount</span><span class="params">()</span></span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">i</span>=<span class="built_in">i</span>+<span class="number">1</span>;</span><br><span class="line">	postMessage(<span class="built_in">i</span>);</span><br><span class="line">	setTimeout(<span class="string">"timedCount()"</span>,<span class="number">500</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">timedCount();</span><br></pre></td></tr></table></figure>
+<p>index.html源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> w;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startWorker</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(typeof(Worker)!==<span class="string">"undefined"</span>)</span><br><span class="line">	&#123;</span><br><span class="line">	  <span class="keyword">if</span>(typeof(w)==<span class="string">"undefined"</span>)</span><br><span class="line">	    &#123;</span><br><span class="line">	    w=<span class="keyword">new</span> Worker(<span class="string">"demo_workers.js"</span>);</span><br><span class="line">	    &#125;</span><br><span class="line">	  w.onmessage = <span class="function"><span class="keyword">function</span> <span class="params">(event)</span> </span>&#123;</span><br><span class="line">	    document.getElementById(<span class="string">"result"</span>).innerHTML=event.data;</span><br><span class="line">	  &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		document.getElementById(<span class="string">"result"</span>).innerHTML=<span class="string">"Sorry, your browser</span></span><br><span class="line"><span class="string">		 does not support Web Workers..."</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stopWorker</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	w.terminate();</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">* nodejs是如何解决javascript大计算阻塞的呢？</span><br><span class="line">node采用了与Web Workers相同的思路来解决单线程中大计算量的问题，使用Nodejs的一个十分重要的模块child_process，通过它可以创建多进程，以利用多核计算资源。</span><br><span class="line"></span><br><span class="line"><span class="comment">## child_process介绍  </span></span><br><span class="line">child_process创建子进程的四个函数  </span><br><span class="line"></span><br><span class="line">spawn,exec,execFile,fork</span><br><span class="line"></span><br><span class="line">![](http:<span class="comment">//7xlp7m.com1.z0.glb.clouddn.com/子进程.png "")</span></span><br><span class="line"></span><br><span class="line">* spawn</span><br></pre></td></tr></table></figure>
+<p>child_process = require (‘child_process’);<br>options ={stdio: [‘ipc’] };<br>child = child_process.spawn(‘coffee’, [‘./child.coffee’], options);   </p>
+<p>注解:  </p>
+<p>IPC（Inter-Process Communication，进程间通信）<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* exec  </span><br><span class="line"></span><br><span class="line">```<span class="built_in">require</span>(<span class="string">'child_process'</span>).exec( <span class="string">'ls -lh /home'</span> , <span class="function"><span class="keyword">function</span><span class="params">(err, stdout , stderr )</span></span> &#123;</span><br><span class="line">   console.<span class="built_in">log</span>( <span class="built_in">stdout</span> );</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>execFile <strong>N</strong></li>
+</ul>
+<figure class="highlight plain"><figcaption><span>childProcess </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var path = &quot;/home&quot;;</span><br><span class="line">childProcess.execFile(&apos;/bin/ls&apos;, [&apos;-l&apos;, path], function (err, result) &#123;</span><br><span class="line">    console.log(result)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>fork</li>
+</ul>
+<p>```var n = require(‘child_process’).fork( ‘./child.js’);<br>n.on ( ‘message’, function(m) {<br>  console. log ( ‘ParkPang got message:’, m);<br>});<br>n.send({ ToChildProcess: ‘讨论需求’ });</p>
+<p>child.js:</p>
+<p>process.on ( ‘message’, function(m) {<br>   console.log ( ‘Homer got message:’, m);<br>});<br>process.send({ ToParentProcess: ‘正在进行需求讨论’ });<br>```   </p>
+<h2 id="nodejs的应用场景"><a href="#nodejs的应用场景" class="headerlink" title="nodejs的应用场景"></a>nodejs的应用场景</h2><ul>
+<li>I/O密集型  </li>
+<li>兼容已有系统  </li>
+<li>分布式应用  </li>
+<li>计算密集???  </li>
+</ul>
+<h2 id="FAQ？"><a href="#FAQ？" class="headerlink" title="FAQ？"></a>FAQ？</h2><ul>
+<li>nodejs是通过什么跨平台的？</li>
+<li>nodejs有哪些特点?</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2015/11/10/学习nodejs第一课/" title="学习nodejs第一课">http://www.haibin.me/2015/11/10/学习nodejs第一课/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/13/互联网女皇2015年报告/" rel="next" title="互联网女皇2015年互联网报告">
+                <i class="fa fa-chevron-left"></i> 互联网女皇2015年互联网报告
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/13/nodejs课程学习第2课/" rel="prev" title="nodejs课程学习第2课">
+                nodejs课程学习第2课 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一步一步学习nodejs-startup"><span class="nav-number">1.</span> <span class="nav-text">一步一步学习nodejs-startup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概要"><span class="nav-number">1.1.</span> <span class="nav-text">概要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs特点"><span class="nav-number">1.2.</span> <span class="nav-text">nodejs特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs历史"><span class="nav-number">1.3.</span> <span class="nav-text">nodejs历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#v8引擎"><span class="nav-number">1.4.</span> <span class="nav-text">v8引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs与v8"><span class="nav-number">1.4.1.</span> <span class="nav-text">nodejs与v8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是v8引擎"><span class="nav-number">1.4.2.</span> <span class="nav-text">什么是v8引擎?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs如何实现跨平台"><span class="nav-number">1.5.</span> <span class="nav-text">nodejs如何实现跨平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs如何突破单线程"><span class="nav-number">1.6.</span> <span class="nav-text">nodejs如何突破单线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs的应用场景"><span class="nav-number">1.7.</span> <span class="nav-text">nodejs的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FAQ？"><span class="nav-number">1.8.</span> <span class="nav-text">FAQ？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

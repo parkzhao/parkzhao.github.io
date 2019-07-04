@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="关于本文：介绍通过karma与jsmine框架对angular开发的应用程序进行单元与E2E测试。这篇文章并非原创，具体的原作者 vipyoumay  一、先决条件 nodejs webstorm  二、创建项目1、webstorm中创建空白web项目 2、创建html、js文件夹在项目中创建2个文件夹分别用于存放项目中用到的html、js文件。 三、安装框架1、安装前端框架项目中所用框架是an">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular单元测试与自动化UI测试实践">
+<meta property="og:url" content="http://www.haibin.me/2016/05/23/帕克胖折腾系列-二-Angular单元测试与自动化UI测试实践/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="关于本文：介绍通过karma与jsmine框架对angular开发的应用程序进行单元与E2E测试。这篇文章并非原创，具体的原作者 vipyoumay  一、先决条件 nodejs webstorm  二、创建项目1、webstorm中创建空白web项目 2、创建html、js文件夹在项目中创建2个文件夹分别用于存放项目中用到的html、js文件。 三、安装框架1、安装前端框架项目中所用框架是an">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xlh63.com1.z0.glb.clouddn.com/bef67a6853ce62867604126f123d68aa.png">
+<meta property="og:image" content="http://7xlh63.com1.z0.glb.clouddn.com/bfa862850c4b224e77e8e4f89117c657.png">
+<meta property="og:image" content="http://7xlh63.com1.z0.glb.clouddn.com/f675c4b60d832e1d407377c62203e40f.png">
+<meta property="og:image" content="http://7xlh63.com1.z0.glb.clouddn.com/4c90f7283a25b91e4ec76835d8698127.png">
+<meta property="og:image" content="http://7xlh63.com1.z0.glb.clouddn.com/aa81509c780345df954477bc2fbf6d88.png">
+<meta property="og:image" content="http://qiniu.xdpie.com/fb0ce841d8781d287d5bc74b49a09091.png?imageView2/2/w/700">
+<meta property="og:image" content="http://7xlh63.com1.z0.glb.clouddn.com/84b941fef69af1c6767156b68f069732.png">
+<meta property="og:updated_time" content="2019-07-03T23:28:43.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular单元测试与自动化UI测试实践">
+<meta name="twitter:description" content="关于本文：介绍通过karma与jsmine框架对angular开发的应用程序进行单元与E2E测试。这篇文章并非原创，具体的原作者 vipyoumay  一、先决条件 nodejs webstorm  二、创建项目1、webstorm中创建空白web项目 2、创建html、js文件夹在项目中创建2个文件夹分别用于存放项目中用到的html、js文件。 三、安装框架1、安装前端框架项目中所用框架是an">
+<meta name="twitter:image" content="http://7xlh63.com1.z0.glb.clouddn.com/bef67a6853ce62867604126f123d68aa.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2016/05/23/帕克胖折腾系列-二-Angular单元测试与自动化UI测试实践/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Angular单元测试与自动化UI测试实践 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2016/05/23/帕克胖折腾系列-二-Angular单元测试与自动化UI测试实践/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Angular单元测试与自动化UI测试实践
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-05-23 08:13:09" itemprop="dateCreated datePublished" datetime="2016-05-23T08:13:09+08:00">2016-05-23</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-04 07:28:43" itemprop="dateModified" datetime="2019-07-04T07:28:43+08:00">2019-07-04</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>关于本文：介绍通过karma与jsmine框架对angular开发的应用程序进行单元与E2E测试。这篇文章并非原创，具体的原作者 <a href="http://my.csdn.net/vipyoumay" target="_blank" rel="noopener">vipyoumay</a></p>
+</blockquote>
+<h2 id="一、先决条件"><a href="#一、先决条件" class="headerlink" title="一、先决条件"></a>一、先决条件</h2><ul>
+<li>nodejs</li>
+<li>webstorm</li>
+</ul>
+<h2 id="二、创建项目"><a href="#二、创建项目" class="headerlink" title="二、创建项目"></a>二、创建项目</h2><h3 id="1、webstorm中创建空白web项目"><a href="#1、webstorm中创建空白web项目" class="headerlink" title="1、webstorm中创建空白web项目"></a>1、webstorm中创建空白web项目</h3><p><img src="http://7xlh63.com1.z0.glb.clouddn.com/bef67a6853ce62867604126f123d68aa.png" alt="空白项目"></p>
+<h3 id="2、创建html、js文件夹"><a href="#2、创建html、js文件夹" class="headerlink" title="2、创建html、js文件夹"></a>2、创建html、js文件夹</h3><p>在项目中创建2个文件夹分别用于存放项目中用到的html、js文件。</p>
+<h2 id="三、安装框架"><a href="#三、安装框架" class="headerlink" title="三、安装框架"></a>三、安装框架</h2><h3 id="1、安装前端框架"><a href="#1、安装前端框架" class="headerlink" title="1、安装前端框架"></a>1、安装前端框架</h3><p>项目中所用框架是angularjs,为了安装框架方便可安装bower包管理器。</p>
+<h4 id="1-安装bower包管理器"><a href="#1-安装bower包管理器" class="headerlink" title="1) 安装bower包管理器"></a>1) 安装bower包管理器</h4><p>在webstorm的terminal中执行脚本<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install </span><span class="keyword">bower </span>-g</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-安装angular等框架"><a href="#2-安装angular等框架" class="headerlink" title="2) 安装angular等框架"></a>2) 安装angular等框架</h4><p>angular、angular-mocks框架</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bower </span>i</span><br></pre></td></tr></table></figure>
+<h3 id="2、安装服务器端框架及依赖模块"><a href="#2、安装服务器端框架及依赖模块" class="headerlink" title="2、安装服务器端框架及依赖模块"></a>2、安装服务器端框架及依赖模块</h3><p>服务器依赖于nodejs，需要安装nodejs的包，首先在根目录下创建package.json文件。</p>
+<ul>
+<li><strong>http-server</strong> 模块</li>
+<li><strong>jasmine-core</strong>:javascript单元测试框架；</li>
+<li><strong>karma</strong>:模拟javascript脚本在各种浏览器执行的工具；</li>
+<li><strong>karma-chrome-launcher</strong>: 在chrome浏览器执行的工具；</li>
+<li><strong>karma-jasmine</strong>: jasmine-core在karma中的适配器；</li>
+<li><strong>karma-junit-reporter</strong>: 生成junit报告；</li>
+<li><strong>protractor</strong>:E2E测试框架<br>安装模块<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> i</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3、启动服务器"><a href="#3、启动服务器" class="headerlink" title="3、启动服务器"></a>3、启动服务器</h3><p>要启动node服务器需要在package.json中配置script节点,dependencies中定义依赖包，在script配置start节点用于启动服务器，test节点的内容会在后面讲解。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">"name": "angularjs-test",</span><br><span class="line">  "version": "0.0.1",</span><br><span class="line">  "dependencies": &#123;</span><br><span class="line">    "bower": "^1.7.7",</span><br><span class="line">    "http-server": "^0.9.0",</span><br><span class="line">    "jasmine-core": "^2.4.1",</span><br><span class="line">    "karma": "^0.13.22",</span><br><span class="line">    "karma-chrome-launcher": "^0.2.3",</span><br><span class="line">    "karma-jasmine": "^0.3.8",</span><br><span class="line">    "karma-junit-reporter": "^0.4.1",</span><br><span class="line">    "protractor": "^3.2.1"</span><br><span class="line">  &#125;,</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "postinstall": "bower install",</span><br><span class="line">    "prestart": "npm install",</span><br><span class="line">    "start": "http-server -a localhost -p 8000 -c-1",</span><br><span class="line">    "pretest": "npm install",</span><br><span class="line">    "test": "karma start karma.conf.js",</span><br><span class="line">    "test-single-run": "karma start karma.conf.js  --single-run"</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>配置后运行命令,启动服务器，浏览器上输入<a href="http://localhost:8000" target="_blank" rel="noopener">http://localhost:8000</a><br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> start</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、开始单元测试"><a href="#四、开始单元测试" class="headerlink" title="四、开始单元测试"></a>四、开始单元测试</h2><h3 id="1、编写功能代码"><a href="#1、编写功能代码" class="headerlink" title="1、编写功能代码"></a>1、编写功能代码</h3><p>在文件js中新建js文件index.js。在index.js中定义congroller,实现简单累加方法add,代码如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by stephen on 2016/3/24.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">angular</span>) </span>&#123;</span><br><span class="line">    angular.module(<span class="string">'app'</span>, []).</span><br><span class="line">    controller(<span class="string">'indexCtrl'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</span><br><span class="line">        $scope.add = <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(a&amp;&amp;b)</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Number</span>(a) + <span class="built_in">Number</span>(b)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)(<span class="built_in">window</span>.angular);</span><br></pre></td></tr></table></figure></p>
+<p>在文件html中新建html文件index.html，加入两个输入框用户获取输入，当输入后绑定controller中的add方法实现计算器功能，代码如下:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span> ng-app=<span class="string">"app"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;index&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div ng-controller=<span class="string">"indexCtrl"</span>&gt;</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> ng-model=<span class="string">"a"</span> value=<span class="string">"0"</span>&gt;</span><br><span class="line">    +</span><br><span class="line">    &lt;input type=<span class="string">"text"</span> ng-model=<span class="string">"b"</span> value=<span class="string">"0"</span>&gt;</span><br><span class="line">    =<span class="xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'result'</span>&gt;</span>&#123;&#123;add(a,b)&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>body&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br><span class="line"><span class="regexp">&lt;script src="/</span>bower_components/angular/angular.min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;script src="</span>/bower_components/angular-mocks/angular-mocks.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;script src="</span>/js/index.js<span class="string">"&gt;&lt;/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>启动服务器看到下图效果</p>
+<p><img src="http://7xlh63.com1.z0.glb.clouddn.com/bfa862850c4b224e77e8e4f89117c657.png" alt="效果"></p>
+<h3 id="2、编写测试代码"><a href="#2、编写测试代码" class="headerlink" title="2、编写测试代码"></a>2、编写测试代码</h3><p>在test文件夹中新建文件index-test.js用于编写index.js的单元测试。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line">describe(<span class="string">'app'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    beforeEach(<span class="built_in">module</span>(<span class="string">'app'</span>));</span><br><span class="line">    describe(<span class="string">'indexCtrl'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        it(<span class="string">'add 测试'</span>, inject(<span class="function"><span class="keyword">function</span> (<span class="params">$controller</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> $scope = &#123;&#125;;</span><br><span class="line">            <span class="comment">//spec body</span></span><br><span class="line">            <span class="keyword">var</span> indexCtrl = $controller(<span class="string">'indexCtrl'</span>, &#123;<span class="attr">$scope</span>: $scope&#125;);</span><br><span class="line">            expect(indexCtrl).toBeDefined();</span><br><span class="line">            expect($scope.add(<span class="number">2</span>, <span class="number">3</span>)).toEqual(<span class="number">5</span>);</span><br><span class="line">        &#125;));</span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、单元测试配置"><a href="#3、单元测试配置" class="headerlink" title="3、单元测试配置"></a>3、单元测试配置</h3><p>初始化karma配置文件,用于配置karma，执行命令<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">karma init</span></span><br></pre></td></tr></table></figure></p>
+<p>在karma配置文件代码中每个节点都有默认注释请参看<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">    config.set(&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// base path that will be used to resolve all patterns (eg. files, exclude)</span></span><br><span class="line">        basePath: <span class="string">'./'</span>,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// frameworks to use</span></span><br><span class="line">        <span class="comment">// available frameworks: https://npmjs.org/browse/keyword/karma-adapter</span></span><br><span class="line">        frameworks: [<span class="string">'jasmine'</span>],</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// list of files / patterns to load in the browser</span></span><br><span class="line">        files: [</span><br><span class="line">            <span class="string">'bower_components/angular/angular.min.js'</span>,</span><br><span class="line">            <span class="string">'bower_components/angular-mocks/angular-mocks.js'</span>,</span><br><span class="line">            <span class="string">'js/index.js'</span>,</span><br><span class="line">            <span class="string">'test/index-test.js'</span></span><br><span class="line">        ],</span><br><span class="line"></span><br><span class="line">        <span class="comment">// test results reporter to use</span></span><br><span class="line">        <span class="comment">// possible values: 'dots', 'progress'</span></span><br><span class="line">        <span class="comment">// available reporters: https://npmjs.org/browse/keyword/karma-reporter</span></span><br><span class="line">        reporters: [<span class="string">'progress'</span>],</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// web server port</span></span><br><span class="line">        port: <span class="number">9876</span>,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// enable / disable colors in the output (reporters and logs)</span></span><br><span class="line">        colors: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// level of logging</span></span><br><span class="line">        <span class="comment">// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG</span></span><br><span class="line">        logLevel: config.LOG_INFO,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// enable / disable watching file and executing tests whenever any file changes</span></span><br><span class="line">        autoWatch: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// start these browsers</span></span><br><span class="line">        <span class="comment">// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher</span></span><br><span class="line">        browsers: [<span class="string">'Chrome'</span>],</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Continuous Integration mode</span></span><br><span class="line">        <span class="comment">// if true, Karma captures browsers, runs the tests and exits</span></span><br><span class="line">        singleRun: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">        plugins: [</span><br><span class="line">            <span class="string">'karma-chrome-launcher'</span>,</span><br><span class="line">            <span class="string">'karma-jasmine'</span>,</span><br><span class="line">            <span class="string">'karma-junit-reporter'</span></span><br><span class="line">        ],</span><br><span class="line"></span><br><span class="line">        junitReporter: &#123;</span><br><span class="line">            outputFile: <span class="string">'/test_out/unit.xml'</span>,</span><br><span class="line">            suite: <span class="string">'unit'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在package.json scripts 配置测试信息,指定karma文件地址<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"test": "karma start karma.conf.js",</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、运行单元测试"><a href="#4、运行单元测试" class="headerlink" title="4、运行单元测试"></a>4、运行单元测试</h3><p>运行命令，执行测试<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
+<p>运行结果如下，可以看到通过测试：</p>
+<p><img src="http://7xlh63.com1.z0.glb.clouddn.com/f675c4b60d832e1d407377c62203e40f.png" alt="测试运行结果"></p>
+<h3 id="5、调试单元测试"><a href="#5、调试单元测试" class="headerlink" title="5、调试单元测试"></a>5、调试单元测试</h3><p>除了运行测试外，很多时候需要调试测试，在karma弹出网页中点击debug,进入<a href="http://localhost:9876/debug.html页面，就可以用chrome自带的调试工具调试代码了：" target="_blank" rel="noopener">http://localhost:9876/debug.html页面，就可以用chrome自带的调试工具调试代码了：</a></p>
+<p><img src="http://7xlh63.com1.z0.glb.clouddn.com/4c90f7283a25b91e4ec76835d8698127.png" alt="debug点击"></p>
+<p><img src="http://7xlh63.com1.z0.glb.clouddn.com/aa81509c780345df954477bc2fbf6d88.png" alt="debug code"></p>
+<h3 id="单元测试覆盖率"><a href="#单元测试覆盖率" class="headerlink" title="单元测试覆盖率"></a>单元测试覆盖率</h3><p>如果需要对单元测试覆盖率进行统计，可以安装karma-coverage并配置karma文件。这样在单元测试完成后，会生成测试覆盖率报告文档。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> karma-coverage -<span class="keyword">save</span></span><br></pre></td></tr></table></figure></p>
+<p>在karma.conf.js文件中加入节点<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 新增节点用于配置输出文件夹</span></span><br><span class="line">coverageReporter: &#123;</span><br><span class="line">           type: <span class="string">'html'</span>,</span><br><span class="line">           dir: <span class="string">'coverage'</span></span><br><span class="line">       &#125;,</span><br><span class="line"><span class="comment">// 新增节点用于配置需要测试的文件地址（这里是controller地址）</span></span><br><span class="line">preprocessors: &#123;<span class="string">'js/*.js'</span>: [<span class="string">'coverage'</span>]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新增元素'karma-coverage'</span></span><br><span class="line">plugins: [</span><br><span class="line">          <span class="string">'karma-chrome-launcher'</span>,</span><br><span class="line">          <span class="string">'karma-jasmine'</span>,</span><br><span class="line">          <span class="string">'karma-junit-reporter'</span>,</span><br><span class="line">          <span class="string">'karma-coverage'</span>,</span><br><span class="line">      ],</span><br><span class="line"><span class="comment">// 新增元素 coverage</span></span><br><span class="line">reporters: [<span class="string">'progress'</span>, <span class="string">'coverage'</span>],</span><br></pre></td></tr></table></figure></p>
+<p>运行单元测试后在目录中生成coverage文件夹，点击index.html可以查看测试覆盖率。</p>
+<p><img src="http://qiniu.xdpie.com/fb0ce841d8781d287d5bc74b49a09091.png?imageView2/2/w/700" alt="测试覆盖率"></p>
+<h2 id="五、E2E测试"><a href="#五、E2E测试" class="headerlink" title="五、E2E测试"></a>五、E2E测试</h2><p>e2e或者端到端（end-to-end）或者UI测试是一种测试方法，它用来测试一个应用从头到尾的流程是否和设计时候所想的一样。简而言之，它从一个用户的角度出发，认为整个系统都是一个黑箱，只有UI会暴露给用户。</p>
+<h3 id="1、配置E2E测试"><a href="#1、配置E2E测试" class="headerlink" title="1、配置E2E测试"></a>1、配置E2E测试</h3><p>新建文件夹e2e-test新建protractor.conf.js文件,用于配置protractor框架，代码如下。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">exports.config = &#123;</span><br><span class="line"></span><br><span class="line">    allScriptsTimeout: <span class="number">11000</span>,</span><br><span class="line"></span><br><span class="line">    baseUrl: <span class="string">'http://localhost:8000/app/'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Capabilities to be passed to the webdriver instance.</span></span><br><span class="line">    capabilities: &#123;</span><br><span class="line">        <span class="string">'browserName'</span>: <span class="string">'chrome'</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    framework: <span class="string">'jasmine'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Spec patterns are relative to the configuration file location passed</span></span><br><span class="line">    <span class="comment">// to protractor (in this example conf.js).</span></span><br><span class="line">    <span class="comment">// They may include glob patterns.</span></span><br><span class="line">    specs: [<span class="string">'*.js'</span>],</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Options to be passed to Jasmine-node.</span></span><br><span class="line">    jasmineNodeOpts: &#123;</span><br><span class="line">        showColors: <span class="literal">true</span>, <span class="comment">// Use colors in the command line report.</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    defaultTimeoutInterval: <span class="number">30000</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>配置package.json scripts脚本节点<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"preupdate-webdriver": "npm install",</span><br><span class="line">"update-webdriver": "webdriver-manager update",</span><br><span class="line">"preprotractor": "npm run update-webdriver",</span><br><span class="line">"protractor": "protractor e2e-test/protractor.conf.js"</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、编写e2e测试脚本"><a href="#2、编写e2e测试脚本" class="headerlink" title="2、编写e2e测试脚本"></a>2、编写e2e测试脚本</h3><p>设计测试用例：文本框a的值录入1，文本框b录入2，期望结果3<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">'index.html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    beforeEach(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        browser.get(<span class="string">'http://localhost:8000/html'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    it(<span class="string">'get index html'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> a = element(by.model(<span class="string">'a'</span>));</span><br><span class="line">        <span class="keyword">var</span> b = element(by.model(<span class="string">'b'</span>));</span><br><span class="line">        a.sendKeys(<span class="number">1</span>);</span><br><span class="line">        b.sendKeys(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">var</span> result = element(by.id(<span class="string">'result'</span>));</span><br><span class="line">        expect(result.getText()).toEqual(<span class="string">'3'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="3、执行测试查看测试结果"><a href="#3、执行测试查看测试结果" class="headerlink" title="3、执行测试查看测试结果"></a>3、执行测试查看测试结果</h3><p>需要执行命名,查看是否更新webdriver(什么是webdriver <a href="http://sentsin.com/web/658.html" target="_blank" rel="noopener">http://sentsin.com/web/658.html</a>),<br>手动安装protractor至全局<br><code>npm i -g protractor</code></p>
+<p><strong>注:安装或更新webdriver需要翻墙，请在webstrom中设置代理地址</strong>。<br>在<code>webstrom</code>中切换至<code>Terminal</code>窗口，在<code>Terminal</code>窗口通过以下方式设置代理:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">set</span> <span class="attribute">PROXY</span>=http://localhost:1080</span><br><span class="line"><span class="builtin-name">set</span> <span class="attribute">HTTP_PROXY</span>=%PROXY%</span><br><span class="line"><span class="builtin-name">set</span> <span class="attribute">HTTPS_PROXY</span>=%PROXY%</span><br></pre></td></tr></table></figure></p>
+<p>代理设置成功后，运行以下命令<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">run</span><span class="bash"> update-webdriver</span></span><br></pre></td></tr></table></figure></p>
+<p>手动安装webdriver  </p>
+<ol>
+<li><p>下载protractor<br>下载的网盘地址:<br><code>http://pan.baidu.com/s/1hr7oYva</code></p>
+</li>
+<li><p>将下载的protractor拷贝到用户的目录下<br><code>C:\Users\laura\AppData\Roaming\npm\node_modules</code> 文件目录中<br>第二步：将webstorm原来项目中node文件删除，<br>第三步：在terminal中输入 nrm ls 显示不报错时执行npm i 命令，报错时执行npm i nrm –g命令，后执行nrm use taobao命令<br>第四步：执行npm i命令，<br>第五步：执行bower i命令如果报错，看项目有没有bower文件，没有的话安装，执行npm I bower -g后执行bower i命令<br>第六步：执行npm start命令，完成后，点击新建窗口“＋”新增窗口执行npm run protractor 命令</p>
+</li>
+</ol>
+<p>执行e2e测试,这是会弹出浏览器，自动点击浏览器，录入脚本输入完成自动化e2e测试，其本质还是调用selenium测试。<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">run</span><span class="bash"> protractor</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7xlh63.com1.z0.glb.clouddn.com/84b941fef69af1c6767156b68f069732.png" alt="自动化ui测试结果"></p>
+<h2 id="执行构建"><a href="#执行构建" class="headerlink" title="执行构建"></a>执行构建</h2><h3 id="构建docker镜像"><a href="#构建docker镜像" class="headerlink" title="构建docker镜像"></a>构建docker镜像</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> build --<span class="literal">no</span>-cache=<span class="literal">true</span> --rm=<span class="literal">true</span> -t angular-e2etest-showcase .</span><br></pre></td></tr></table></figure>
+<h3 id="运行docker镜像"><a href="#运行docker镜像" class="headerlink" title="运行docker镜像"></a>运行docker镜像</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sh</span> <span class="selector-tag">wrapper_docker</span><span class="selector-class">.sh_</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1] 官方测试demo <a href="https://github.com/angular/angular-seed" target="_blank" rel="noopener">https://github.com/angular/angular-seed</a></p>
+<p>[2] protractor 官方文档 <a href="http://angular.github.io/protractor/#/tutorial" target="_blank" rel="noopener">http://angular.github.io/protractor/#/tutorial</a></p>
+<p>[3] 自动化E2E测试 <a href="http://sentsin.com/web/658.html" target="_blank" rel="noopener">http://sentsin.com/web/658.html</a></p>
+<p>[4] karma官方文档 <a href="https://karma-runner.github.io/latest/intro/configuration.html" target="_blank" rel="noopener">https://karma-runner.github.io/latest/intro/configuration.html</a></p>
+<p>[5] angular单元测试官方文档 <a href="https://docs.angularjs.org/guide/unit-testing" target="_blank" rel="noopener">https://docs.angularjs.org/guide/unit-testing</a>    </p>
+<p>[6] 示例项目代码 <a href="https://github.com/haibinpark/angular-e2etest-showcase" target="_blank" rel="noopener">https://github.com/haibinpark/angular-e2etest-showcase</a>  </p>
+<p>[7] 原文地址 <a href="http://blog.csdn.net/vipyoumay/article/details/50978887" target="_blank" rel="noopener">http://blog.csdn.net/vipyoumay/article/details/50978887</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2016/05/23/帕克胖折腾系列-二-Angular单元测试与自动化UI测试实践/" title="Angular单元测试与自动化UI测试实践">http://www.haibin.me/2016/05/23/帕克胖折腾系列-二-Angular单元测试与自动化UI测试实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/22/帕克胖折腾系列-建立可用的NFS存储/" rel="next" title="帕克胖折腾系列(-)建立可用的NFS存储">
+                <i class="fa fa-chevron-left"></i> 帕克胖折腾系列(-)建立可用的NFS存储
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/16/帕克胖夜话Docker-创建jenkins/" rel="prev" title="帕克胖夜话Docker-创建jenkins">
+                帕克胖夜话Docker-创建jenkins <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、先决条件"><span class="nav-number">1.</span> <span class="nav-text">一、先决条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、创建项目"><span class="nav-number">2.</span> <span class="nav-text">二、创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、webstorm中创建空白web项目"><span class="nav-number">2.1.</span> <span class="nav-text">1、webstorm中创建空白web项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、创建html、js文件夹"><span class="nav-number">2.2.</span> <span class="nav-text">2、创建html、js文件夹</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、安装框架"><span class="nav-number">3.</span> <span class="nav-text">三、安装框架</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、安装前端框架"><span class="nav-number">3.1.</span> <span class="nav-text">1、安装前端框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装bower包管理器"><span class="nav-number">3.1.1.</span> <span class="nav-text">1) 安装bower包管理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-安装angular等框架"><span class="nav-number">3.1.2.</span> <span class="nav-text">2) 安装angular等框架</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、安装服务器端框架及依赖模块"><span class="nav-number">3.2.</span> <span class="nav-text">2、安装服务器端框架及依赖模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、启动服务器"><span class="nav-number">3.3.</span> <span class="nav-text">3、启动服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、开始单元测试"><span class="nav-number">4.</span> <span class="nav-text">四、开始单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、编写功能代码"><span class="nav-number">4.1.</span> <span class="nav-text">1、编写功能代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、编写测试代码"><span class="nav-number">4.2.</span> <span class="nav-text">2、编写测试代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、单元测试配置"><span class="nav-number">4.3.</span> <span class="nav-text">3、单元测试配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、运行单元测试"><span class="nav-number">4.4.</span> <span class="nav-text">4、运行单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、调试单元测试"><span class="nav-number">4.5.</span> <span class="nav-text">5、调试单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单元测试覆盖率"><span class="nav-number">4.6.</span> <span class="nav-text">单元测试覆盖率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、E2E测试"><span class="nav-number">5.</span> <span class="nav-text">五、E2E测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、配置E2E测试"><span class="nav-number">5.1.</span> <span class="nav-text">1、配置E2E测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、编写e2e测试脚本"><span class="nav-number">5.2.</span> <span class="nav-text">2、编写e2e测试脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、执行测试查看测试结果"><span class="nav-number">5.3.</span> <span class="nav-text">3、执行测试查看测试结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行构建"><span class="nav-number">6.</span> <span class="nav-text">执行构建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建docker镜像"><span class="nav-number">6.1.</span> <span class="nav-text">构建docker镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行docker镜像"><span class="nav-number">6.2.</span> <span class="nav-text">运行docker镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

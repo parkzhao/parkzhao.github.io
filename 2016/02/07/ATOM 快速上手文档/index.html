@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ATOM 快速上手文档 安装nodejs 安装 atom 代理设置 安装常用插件 如何安装插件 atom配置 配置七牛 修改源码文件   atom 使用小技巧 tips1   tips2 tips3 tip4   使用错误 参考链接    ATOM 快速上手文档安装nodejs略   安装 atom略   代理设置 由于我们伟大的墙，所以我们需要进行代理设置代理我们可以使用shadowsocks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ATOM 快速上手文档">
+<meta property="og:url" content="http://www.haibin.me/2016/02/07/ATOM 快速上手文档/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="ATOM 快速上手文档 安装nodejs 安装 atom 代理设置 安装常用插件 如何安装插件 atom配置 配置七牛 修改源码文件   atom 使用小技巧 tips1   tips2 tips3 tip4   使用错误 参考链接    ATOM 快速上手文档安装nodejs略   安装 atom略   代理设置 由于我们伟大的墙，所以我们需要进行代理设置代理我们可以使用shadowsocks">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xphqb.com1.z0.glb.clouddn.com/cfbdd3816740380930fdb1b7ff5b2f7e.png">
+<meta property="og:image" content="http://7xphqb.com1.z0.glb.clouddn.com/0ac312cde75753f7416f082a42369220.png">
+<meta property="og:updated_time" content="2019-07-03T23:28:43.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ATOM 快速上手文档">
+<meta name="twitter:description" content="ATOM 快速上手文档 安装nodejs 安装 atom 代理设置 安装常用插件 如何安装插件 atom配置 配置七牛 修改源码文件   atom 使用小技巧 tips1   tips2 tips3 tip4   使用错误 参考链接    ATOM 快速上手文档安装nodejs略   安装 atom略   代理设置 由于我们伟大的墙，所以我们需要进行代理设置代理我们可以使用shadowsocks">
+<meta name="twitter:image" content="http://7xphqb.com1.z0.glb.clouddn.com/cfbdd3816740380930fdb1b7ff5b2f7e.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2016/02/07/ATOM 快速上手文档/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ATOM 快速上手文档 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2016/02/07/ATOM 快速上手文档/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ATOM 快速上手文档
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-02-07 12:48:02" itemprop="dateCreated datePublished" datetime="2016-02-07T12:48:02+08:00">2016-02-07</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-04 07:28:43" itemprop="dateModified" datetime="2019-07-04T07:28:43+08:00">2019-07-04</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/OSX-atom-tools-工具/" itemprop="url" rel="index"><span itemprop="name">OSX atom tools 工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><a href="#atom-快速上手文档">ATOM 快速上手文档</a><ul>
+<li><a href="#安装nodejs">安装nodejs</a></li>
+<li><a href="#安装-atom">安装 atom</a></li>
+<li><a href="#代理设置">代理设置</a></li>
+<li><a href="#安装常用插件">安装常用插件</a></li>
+<li><a href="#如何安装插件">如何安装插件</a></li>
+<li><a href="#atom配置">atom配置</a><ul>
+<li><a href="#配置七牛">配置七牛</a></li>
+<li><a href="#修改源码文件">修改源码文件</a></li>
+</ul>
+</li>
+<li><a href="#atom-使用小技巧">atom 使用小技巧</a><ul>
+<li><a href="#tips1">tips1</a></li>
+</ul>
+</li>
+<li><a href="#tips2">tips2</a><ul>
+<li><a href="#tips3">tips3</a></li>
+<li><a href="#tip4">tip4</a></li>
+</ul>
+</li>
+<li><a href="#使用错误">使用错误</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="ATOM-快速上手文档"><a href="#ATOM-快速上手文档" class="headerlink" title="ATOM 快速上手文档"></a>ATOM 快速上手文档</h1><h2 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h2><p>略  </p>
+<h2 id="安装-atom"><a href="#安装-atom" class="headerlink" title="安装 atom"></a>安装 atom</h2><p>略  </p>
+<h2 id="代理设置"><a href="#代理设置" class="headerlink" title="代理设置"></a>代理设置</h2><blockquote>
+<p>由于我们伟大的墙，所以我们需要进行代理设置<br>代理我们可以使用shadowsocks    </p>
+</blockquote>
+<p>安装Atom后,打开C:\Users\xxx\下的.atom文件夹里的.apmrc文件,添加以下三行配置即可:  </p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">http-proxy</span>=http://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">1080</span></span><br><span class="line"><span class="attr">https-proxy</span>=http://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">1080</span></span><br><span class="line"><span class="attr">strict-ssl</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>如果找不到.apmrc文件,就从.apm文件夹里复制一个出来.</p>
+<h2 id="安装常用插件"><a href="#安装常用插件" class="headerlink" title="安装常用插件"></a>安装常用插件</h2><blockquote>
+<p>这些插件写文档基本够用了  </p>
+</blockquote>
+<ul>
+<li>Markdown Assistant  </li>
+<li>Qiniu-uploader  </li>
+<li>Git-Plus  </li>
+<li>Merge Conflicts  </li>
+<li>Markdown preview plus</li>
+</ul>
+<h2 id="如何安装插件"><a href="#如何安装插件" class="headerlink" title="如何安装插件"></a>如何安装插件</h2><p>按住ctrl+, 这个组合键，即可进入atom配置界面<br>选择<code>+Install</code>  </p>
+<p><img src="http://7xphqb.com1.z0.glb.clouddn.com/cfbdd3816740380930fdb1b7ff5b2f7e.png" alt="安装相关插件页面"></p>
+<h2 id="atom配置"><a href="#atom配置" class="headerlink" title="atom配置"></a>atom配置</h2><h3 id="配置七牛"><a href="#配置七牛" class="headerlink" title="配置七牛"></a>配置七牛</h3><p>由于我们使用的是qiniu的图床，所以要配置qiniu-uploader  </p>
+<p>具体参数的获取方法，上面都有相对应的说明  </p>
+<p><img src="http://7xphqb.com1.z0.glb.clouddn.com/0ac312cde75753f7416f082a42369220.png" alt="七牛相关配置信息"></p>
+<h3 id="修改源码文件"><a href="#修改源码文件" class="headerlink" title="修改源码文件"></a>修改源码文件</h3><p>由于复制粘贴有些问题，所以需要对markdown-assistant源码做少许修改<br>修改路径<br><code>C:\Users\xxx\.atom\packages\markdown-assistant\lib\main.coffee</code><br>将33行的<code>e.mataKey</code>替换为<code>e.ctrKey</code>  </p>
+<h2 id="atom-使用小技巧"><a href="#atom-使用小技巧" class="headerlink" title="atom 使用小技巧"></a>atom 使用小技巧</h2><h3 id="tips1"><a href="#tips1" class="headerlink" title="tips1"></a>tips1</h3><p>ctrl+shift+a 快捷键添加单个文件  </p>
+<h2 id="tips2"><a href="#tips2" class="headerlink" title="tips2"></a>tips2</h2><p>ctrl+shift+x 快捷键提交当前修改  </p>
+<h3 id="tips3"><a href="#tips3" class="headerlink" title="tips3"></a>tips3</h3><p>ctrl+shift+h 快捷键打开git命令窗口  </p>
+<h3 id="tip4"><a href="#tip4" class="headerlink" title="tip4"></a>tip4</h3><p>使用<code>unset!</code>取消快捷键<br><figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">'atom</span>-workspace, atom-workspace atom-text-editor':</span><br><span class="line">  <span class="symbol">'ctrl</span>-shift-<span class="type">X'</span>: <span class="symbol">'unset</span>!<span class="string">'</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="使用错误"><a href="#使用错误" class="headerlink" title="使用错误"></a>使用错误</h2><p>这里的主要错误是atom插件的安装错误<br><code>atom tunneling socket could not be established, cause=Parse Error</code><br>这个错误的原因是由于代理设置的问题，我使用的是sockets代理，要转为http代理  </p>
+<pre><code>brew install polipo  
+polipo socksParentProxy=localhost:1080
+</code></pre><p>这样就会产生一个新的端口<br><code>Established listening socket on port 8123.</code>  将上面的端口号修改为<code>8123</code>即可</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.jianshu.com/p/85b11364fa1c" target="_blank" rel="noopener">http://www.jianshu.com/p/85b11364fa1c</a><br><a href="http://blog.csdn.net/crper/article/details/48056435" target="_blank" rel="noopener">http://blog.csdn.net/crper/article/details/48056435</a>  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2016/02/07/ATOM 快速上手文档/" title="ATOM 快速上手文档">http://www.haibin.me/2016/02/07/ATOM 快速上手文档/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/13/nodejs课程学习第2课/" rel="next" title="nodejs课程学习第2课">
+                <i class="fa fa-chevron-left"></i> nodejs课程学习第2课
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/10/grunt打包实践/" rel="prev" title="grunt打包实践">
+                grunt打包实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ATOM-快速上手文档"><span class="nav-number">1.</span> <span class="nav-text">ATOM 快速上手文档</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装nodejs"><span class="nav-number">1.1.</span> <span class="nav-text">安装nodejs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-atom"><span class="nav-number">1.2.</span> <span class="nav-text">安装 atom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理设置"><span class="nav-number">1.3.</span> <span class="nav-text">代理设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装常用插件"><span class="nav-number">1.4.</span> <span class="nav-text">安装常用插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何安装插件"><span class="nav-number">1.5.</span> <span class="nav-text">如何安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#atom配置"><span class="nav-number">1.6.</span> <span class="nav-text">atom配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置七牛"><span class="nav-number">1.6.1.</span> <span class="nav-text">配置七牛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改源码文件"><span class="nav-number">1.6.2.</span> <span class="nav-text">修改源码文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#atom-使用小技巧"><span class="nav-number">1.7.</span> <span class="nav-text">atom 使用小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tips1"><span class="nav-number">1.7.1.</span> <span class="nav-text">tips1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tips2"><span class="nav-number">1.8.</span> <span class="nav-text">tips2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tips3"><span class="nav-number">1.8.1.</span> <span class="nav-text">tips3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tip4"><span class="nav-number">1.8.2.</span> <span class="nav-text">tip4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用错误"><span class="nav-number">1.9.</span> <span class="nav-text">使用错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">1.10.</span> <span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

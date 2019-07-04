@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言现在，各个厂家对数据安全越来越重视，而https是保证数据在网络传输中，不被窃取的有效方式之一。而https也是每个App的标配,通过下面你可以了解到，App如何通过自签名证书，实现数据的https加密传输 签发证书对于有第三方机构签发的https的证书来说，android链接是比较方便的。直接通过https即可具体的链接代码   自签发证书通过脚本生成自签发证书在Linux系统下，可以自动生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端数据安全解决方案之加密传输https">
+<meta property="og:url" content="http://www.haibin.me/2016/12/12/android加密传输之https/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="前言现在，各个厂家对数据安全越来越重视，而https是保证数据在网络传输中，不被窃取的有效方式之一。而https也是每个App的标配,通过下面你可以了解到，App如何通过自签名证书，实现数据的https加密传输 签发证书对于有第三方机构签发的https的证书来说，android链接是比较方便的。直接通过https即可具体的链接代码   自签发证书通过脚本生成自签发证书在Linux系统下，可以自动生">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-03T23:28:43.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端数据安全解决方案之加密传输https">
+<meta name="twitter:description" content="前言现在，各个厂家对数据安全越来越重视，而https是保证数据在网络传输中，不被窃取的有效方式之一。而https也是每个App的标配,通过下面你可以了解到，App如何通过自签名证书，实现数据的https加密传输 签发证书对于有第三方机构签发的https的证书来说，android链接是比较方便的。直接通过https即可具体的链接代码   自签发证书通过脚本生成自签发证书在Linux系统下，可以自动生">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2016/12/12/android加密传输之https/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>移动端数据安全解决方案之加密传输https | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2016/12/12/android加密传输之https/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">移动端数据安全解决方案之加密传输https
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-12-12 17:53:04" itemprop="dateCreated datePublished" datetime="2016-12-12T17:53:04+08:00">2016-12-12</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-04 07:28:43" itemprop="dateModified" datetime="2019-07-04T07:28:43+08:00">2019-07-04</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>现在，各个厂家对数据安全越来越重视，而https是保证数据在网络传输中，不被窃取的有效方式之一。而https也是每个App的标配,通过下面你可以了解到，App如何通过自签名证书，实现数据的https加密传输</p>
+<h1 id="签发证书"><a href="#签发证书" class="headerlink" title="签发证书"></a>签发证书</h1><p>对于有第三方机构签发的https的证书来说，android链接是比较方便的。直接通过https即可具体的链接代码  </p>
+<h1 id="自签发证书"><a href="#自签发证书" class="headerlink" title="自签发证书"></a>自签发证书</h1><p>通过脚本生成自签发证书<br>在Linux系统下，可以自动生成签发证书<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">dir=`<span class="built_in">pwd</span>`/tmp/ssl</span><br><span class="line">workspace=`<span class="built_in">pwd</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="variable">$dir</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">printf</span> <span class="string">"<span class="variable">$&#123;dir&#125;</span> already exists, remove it?  yes/no: "</span></span><br><span class="line">    <span class="built_in">read</span> del</span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$del</span> = <span class="string">"yes"</span> ]; <span class="keyword">then</span></span><br><span class="line">        rm -rf <span class="variable">$dir</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"user cancel"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> <span class="variable">$&#123;dir&#125;</span> <span class="string">"<span class="variable">$&#123;dir&#125;</span>/root"</span> <span class="string">"<span class="variable">$&#123;dir&#125;</span>/server"</span> <span class="string">"<span class="variable">$&#123;dir&#125;</span>/client"</span> <span class="string">"<span class="variable">$&#123;dir&#125;</span>/certs"</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ ! -d <span class="variable">$d</span> ]; <span class="keyword">then</span></span><br><span class="line">        mkdir -p <span class="variable">$d</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'hello world!'</span> &gt;&gt; <span class="string">"<span class="variable">$&#123;dir&#125;</span>/index.php"</span></span><br><span class="line"><span class="built_in">echo</span> 01 &gt; <span class="string">"<span class="variable">$&#123;dir&#125;</span>/serial"</span></span><br><span class="line"></span><br><span class="line">index_file=<span class="string">"<span class="variable">$&#123;dir&#125;</span>/index.txt"</span></span><br><span class="line">rm -f <span class="variable">$index_file</span></span><br><span class="line">touch <span class="variable">$index_file</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"generate openssl.cnf: "</span></span><br><span class="line">openssl_cnf=<span class="string">"<span class="variable">$&#123;dir&#125;</span>/openssl.cnf"</span></span><br><span class="line">touch <span class="variable">$openssl_cnf</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"[ ca ]</span></span><br><span class="line"><span class="string">default_ca = yaoguais_ca</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ yaoguais_ca ]</span></span><br><span class="line"><span class="string">certificate = ./ca.crt</span></span><br><span class="line"><span class="string">private_key = ./ca.key</span></span><br><span class="line"><span class="string">database = ./index.txt</span></span><br><span class="line"><span class="string">serial = ./serial</span></span><br><span class="line"><span class="string">new_certs_dir = ./certs</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">default_days = 3650</span></span><br><span class="line"><span class="string">default_md = sha1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">policy = yaoguais_ca_policy</span></span><br><span class="line"><span class="string">x509_extensions = yaoguais_ca_extensions</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ yaoguais_ca_policy ]</span></span><br><span class="line"><span class="string">commonName = supplied</span></span><br><span class="line"><span class="string">stateOrProvinceName = optional</span></span><br><span class="line"><span class="string">countryName = optional</span></span><br><span class="line"><span class="string">emailAddress = optional</span></span><br><span class="line"><span class="string">organizationName = optional</span></span><br><span class="line"><span class="string">organizationalUnitName = optional</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ yaoguais_ca_extensions ]</span></span><br><span class="line"><span class="string">basicConstraints = CA:false</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ req ]</span></span><br><span class="line"><span class="string">default_bits = 2048</span></span><br><span class="line"><span class="string">default_keyfile = ./ca.key</span></span><br><span class="line"><span class="string">default_md = sha1</span></span><br><span class="line"><span class="string">prompt = yes</span></span><br><span class="line"><span class="string">distinguished_name = root_ca_distinguished_name</span></span><br><span class="line"><span class="string">x509_extensions = root_ca_extensions</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ root_ca_distinguished_name ]</span></span><br><span class="line"><span class="string">countryName_default = CN</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ root_ca_extensions ]</span></span><br><span class="line"><span class="string">basicConstraints = CA:true</span></span><br><span class="line"><span class="string">keyUsage = cRLSign, keyCertSign</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ server_ca_extensions ]</span></span><br><span class="line"><span class="string">basicConstraints = CA:false</span></span><br><span class="line"><span class="string">keyUsage = keyEncipherment</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[ client_ca_extensions ]</span></span><br><span class="line"><span class="string">basicConstraints = CA:false</span></span><br><span class="line"><span class="string">keyUsage = digitalSignature"</span> &gt; <span class="variable">$openssl_cnf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># exit 0</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$dir</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"generate root ca: "</span></span><br><span class="line"><span class="comment"># in this step, I always input a password of "111111"</span></span><br><span class="line">openssl genrsa -des3 -out root/ca.key 2048</span><br><span class="line"><span class="comment"># in this step, I always input these and a password of "111111"</span></span><br><span class="line"><span class="comment">#Country Name (2 letter code) [XX]:CN</span></span><br><span class="line"><span class="comment">#State or Province Name (full name) []:Si Chuan</span></span><br><span class="line"><span class="comment">#Locality Name (eg, city) [Default City]:Cheng Du</span></span><br><span class="line"><span class="comment">#Organization Name (eg, company) [Default Company Ltd]:Yao Guai Ltd</span></span><br><span class="line"><span class="comment">#Organizational Unit Name (eg, section) []:Yao Guai</span></span><br><span class="line"><span class="comment">#Common Name (eg, your name or your server's hostname) []:yaoguai.com</span></span><br><span class="line"><span class="comment">#Email Address []:newtopstdio@163.com</span></span><br><span class="line"><span class="comment">#A challenge password []:111111</span></span><br><span class="line"><span class="comment">#An optional company name []:Yao Guai Ltd</span></span><br><span class="line">openssl req -new -newkey rsa:2048 -key root/ca.key -out root/ca.csr</span><br><span class="line">openssl x509 -req -days 3650 -<span class="keyword">in</span> root/ca.csr -signkey root/ca.key -out root/ca.crt</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"generate server keys: "</span></span><br><span class="line"><span class="comment"># in this step, I always input a password of "111111"</span></span><br><span class="line">openssl genrsa -des3 -out server/server.key 2048</span><br><span class="line"><span class="comment"># in this step, I always input these and a password of none</span></span><br><span class="line"><span class="comment">#Country Name (2 letter code) [XX]:CN</span></span><br><span class="line"><span class="comment">#State or Province Name (full name) []:Si Chuan</span></span><br><span class="line"><span class="comment">#Locality Name (eg, city) [Default City]:Cheng Du</span></span><br><span class="line"><span class="comment">#Organization Name (eg, company) [Default Company Ltd]:Yao Guai Ltd</span></span><br><span class="line"><span class="comment">#Organizational Unit Name (eg, section) []:Yao Guai</span></span><br><span class="line"><span class="comment">#Common Name (eg, your name or your server's hostname) []:yaoguai.com</span></span><br><span class="line"><span class="comment">#Email Address []:newtopstdio@163.com</span></span><br><span class="line"><span class="comment">#A challenge password []:none</span></span><br><span class="line"><span class="comment">#An optional company name []:none</span></span><br><span class="line">openssl req -new -newkey rsa:2048 -key server/server.key -out server/server.csr</span><br><span class="line">openssl ca -config openssl.cnf -<span class="keyword">in</span> server/server.csr -cert root/ca.crt -keyfile root/ca.key -out server/server.crt -days 3650</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"generate client keys: "</span></span><br><span class="line"><span class="comment"># in this step, I always input a password of "111111"</span></span><br><span class="line">openssl genrsa -des3 -out client/client.key 2048</span><br><span class="line"><span class="comment"># in this step, I always input these and a password of none</span></span><br><span class="line"><span class="comment">#Country Name (2 letter code) [XX]:CN</span></span><br><span class="line"><span class="comment">#State or Province Name (full name) []:Si Chuan</span></span><br><span class="line"><span class="comment">#Locality Name (eg, city) [Default City]:Cheng Du</span></span><br><span class="line"><span class="comment">#Organization Name (eg, company) [Default Company Ltd]:Yao Guai Ltd</span></span><br><span class="line"><span class="comment">#Organizational Unit Name (eg, section) []:Yao Guai</span></span><br><span class="line"><span class="comment">#Common Name (eg, your name or your server's hostname) []:yaoguai.com</span></span><br><span class="line"><span class="comment">#Email Address []:newtopstdio@163.com</span></span><br><span class="line"><span class="comment">#A challenge password []:none</span></span><br><span class="line"><span class="comment">#An optional company name []:none</span></span><br><span class="line">openssl req -new -newkey rsa:2048 -key client/client.key -out client/client.csr</span><br><span class="line"><span class="comment"># to prevent error "openssl TXT_DB error number 2 failed to update database"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"unique_subject = no"</span> &gt; <span class="string">"index.txt.attr"</span></span><br><span class="line">openssl ca -config openssl.cnf -<span class="keyword">in</span> client/client.csr -cert root/ca.crt -keyfile root/ca.key -out client/client.crt -days 3650</span><br><span class="line"></span><br><span class="line"><span class="comment"># use these to config nginx</span></span><br><span class="line">: &lt;&lt;EOF</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line">    ssl_certificate /tmp/ssl/server/server.crt;</span><br><span class="line">    ssl_certificate_key /tmp/ssl/server/server.key;</span><br><span class="line">    ssl_client_certificate /tmp/ssl/root/ca.crt;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers <span class="string">"HIGH:!aNULL:!MD5 or HIGH:!aNULL:!MD5:!3DES"</span>;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"helps:"</span></span><br><span class="line"><span class="comment"># view key's file information</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"openssl rsa -in xxx.key -text -noout"</span></span><br><span class="line"><span class="comment"># view csr's file information</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"openssl req -noout -text -in xxx.csr"</span></span><br><span class="line"><span class="comment"># pem convert to der</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"openssl x509 -in server/server.crt -outform DER -out server/server.cer"</span></span><br><span class="line"><span class="comment"># validate key</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'curl -k --cert client/client.crt --key client/client.key --pass 111111 https://devel/index.php'</span></span><br><span class="line"><span class="comment"># generate p12 file</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"openssl pkcs12 -export -in client/client.crt -inkey client/client.key -out client/client.p12 -certfile root/ca.crt"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$workspace</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="导出证书"><a href="#导出证书" class="headerlink" title="导出证书"></a>导出证书</h3><p>前面生成了服务端使用的密钥对，现在可以通过它生成证书给客户端使用<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 -export -<span class="keyword">in</span> client/client<span class="selector-class">.crt</span> -inkey client/client<span class="selector-class">.key</span> -out client/client<span class="selector-class">.p12</span> -certfile root/ca.crt</span><br></pre></td></tr></table></figure></p>
+<h2 id="服务端准备"><a href="#服务端准备" class="headerlink" title="服务端准备"></a>服务端准备</h2><p>一般现在的网络结构都是通过nginx作方向代理，所以直接设置在nginx即可。  </p>
+<h3 id="转换证书"><a href="#转换证书" class="headerlink" title="转换证书"></a>转换证书</h3><h4 id="将-KeyStore-变更为-PKCS-12-格式"><a href="#将-KeyStore-变更为-PKCS-12-格式" class="headerlink" title="将 KeyStore 变更为 PKCS#12 格式"></a>将 KeyStore 变更为 PKCS#12 格式</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -importkeystore -srcstoretype JKS -srckeystore server.jks -srcstorepass 111111 -srcalias<span class="built_in"> server </span>-srckeypass 111111 -deststoretype PKCS12 -destkeystore server.p12 -deststorepass 111111 -destalias<span class="built_in"> server </span>-destkeypass 111111 -noprompt</span><br></pre></td></tr></table></figure>
+<h4 id="使用-OpenSSL-解析-PKCS-12-格式的-KeyStore，并转化为-PEM-格式-包含证书和私钥"><a href="#使用-OpenSSL-解析-PKCS-12-格式的-KeyStore，并转化为-PEM-格式-包含证书和私钥" class="headerlink" title="使用 OpenSSL 解析 PKCS#12 格式的 KeyStore，并转化为 PEM 格式(包含证书和私钥)"></a>使用 OpenSSL 解析 PKCS#12 格式的 KeyStore，并转化为 PEM 格式(包含证书和私钥)</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 -<span class="keyword">in</span> server<span class="selector-class">.p12</span> -out server<span class="selector-class">.pem</span><span class="selector-class">.p12</span> -passin pass:<span class="number">111111</span> -passout pass:<span class="number">111111</span></span><br></pre></td></tr></table></figure>
+<h4 id="单独输出私钥和公钥"><a href="#单独输出私钥和公钥" class="headerlink" title="单独输出私钥和公钥"></a>单独输出私钥和公钥</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -<span class="keyword">in</span> server<span class="selector-class">.pem</span><span class="selector-class">.p12</span> -passin pass:<span class="number">111111</span> -out server<span class="selector-class">.pem</span><span class="selector-class">.key</span> -passout pass:<span class="number">111111</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> server<span class="selector-class">.pem</span><span class="selector-class">.p12</span> -passin pass:<span class="number">111111</span> -out server<span class="selector-class">.pem</span><span class="selector-class">.pub</span> -pubout</span><br></pre></td></tr></table></figure>
+<h4 id="单独输出证书"><a href="#单独输出证书" class="headerlink" title="单独输出证书"></a>单独输出证书</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -<span class="keyword">in</span> server<span class="selector-class">.pem</span><span class="selector-class">.p12</span> -out server<span class="selector-class">.pem</span><span class="selector-class">.cer</span></span><br></pre></td></tr></table></figure>
+<h4 id="通过私钥生成CSR证书签名"><a href="#通过私钥生成CSR证书签名" class="headerlink" title="通过私钥生成CSR证书签名"></a>通过私钥生成CSR证书签名</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key server<span class="selector-class">.pem</span><span class="selector-class">.key</span> -out server<span class="selector-class">.certrequest</span><span class="selector-class">.csr</span></span><br></pre></td></tr></table></figure>
+<h4 id="通过私钥和证书签名生成证书文件"><a href="#通过私钥和证书签名生成证书文件" class="headerlink" title="通过私钥和证书签名生成证书文件"></a>通过私钥和证书签名生成证书文件</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -req -<span class="keyword">in</span> server<span class="selector-class">.certrequest</span><span class="selector-class">.csr</span> -signkey server<span class="selector-class">.pem</span><span class="selector-class">.key</span> -out server<span class="selector-class">.certificate</span><span class="selector-class">.pem</span></span><br></pre></td></tr></table></figure>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://blog.chinaunix.net/uid-631975-id-3313151.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-631975-id-3313151.html</a>  </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2016/12/12/android加密传输之https/" title="移动端数据安全解决方案之加密传输https">http://www.haibin.me/2016/12/12/android加密传输之https/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/21/Tinker实践/" rel="next" title="Tinker实践">
+                <i class="fa fa-chevron-left"></i> Tinker实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/12/Cocos-Creator-原生调试-Android篇-macOS/" rel="prev" title="Cocos Creator 原生调试-Android篇[macOS]">
+                Cocos Creator 原生调试-Android篇[macOS] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#签发证书"><span class="nav-number">2.</span> <span class="nav-text">签发证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自签发证书"><span class="nav-number">3.</span> <span class="nav-text">自签发证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导出证书"><span class="nav-number">3.0.1.</span> <span class="nav-text">导出证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端准备"><span class="nav-number">3.1.</span> <span class="nav-text">服务端准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转换证书"><span class="nav-number">3.1.1.</span> <span class="nav-text">转换证书</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将-KeyStore-变更为-PKCS-12-格式"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">将 KeyStore 变更为 PKCS#12 格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-OpenSSL-解析-PKCS-12-格式的-KeyStore，并转化为-PEM-格式-包含证书和私钥"><span class="nav-number">3.1.1.2.</span> <span class="nav-text">使用 OpenSSL 解析 PKCS#12 格式的 KeyStore，并转化为 PEM 格式(包含证书和私钥)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单独输出私钥和公钥"><span class="nav-number">3.1.1.3.</span> <span class="nav-text">单独输出私钥和公钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单独输出证书"><span class="nav-number">3.1.1.4.</span> <span class="nav-text">单独输出证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过私钥生成CSR证书签名"><span class="nav-number">3.1.1.5.</span> <span class="nav-text">通过私钥生成CSR证书签名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过私钥和证书签名生成证书文件"><span class="nav-number">3.1.1.6.</span> <span class="nav-text">通过私钥和证书签名生成证书文件</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

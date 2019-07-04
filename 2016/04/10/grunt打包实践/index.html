@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="目的学会grunt打包并将grunt打包运用于项目实践   前提 了解 grunt 的作用与用途   熟悉 nodejs   熟悉npm的用法    工具链grunt 安装由于我们在开发web项目的时候，都要用 grunt 打包，为了减少重复操作，所以需要安装 grunt 到全局，具体的安装脚本如下:1npm i grunt grunt-cli -g //安装grunt到全局 less 安装由于在">
+<meta name="keywords" content="工具,grunt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="grunt打包实践">
+<meta property="og:url" content="http://www.haibin.me/2016/04/10/grunt打包实践/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="目的学会grunt打包并将grunt打包运用于项目实践   前提 了解 grunt 的作用与用途   熟悉 nodejs   熟悉npm的用法    工具链grunt 安装由于我们在开发web项目的时候，都要用 grunt 打包，为了减少重复操作，所以需要安装 grunt 到全局，具体的安装脚本如下:1npm i grunt grunt-cli -g //安装grunt到全局 less 安装由于在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qiniu1.kopbit.com/c8616dc12375f991cd17c3e61b93084e.png">
+<meta property="og:updated_time" content="2019-07-03T23:28:43.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="grunt打包实践">
+<meta name="twitter:description" content="目的学会grunt打包并将grunt打包运用于项目实践   前提 了解 grunt 的作用与用途   熟悉 nodejs   熟悉npm的用法    工具链grunt 安装由于我们在开发web项目的时候，都要用 grunt 打包，为了减少重复操作，所以需要安装 grunt 到全局，具体的安装脚本如下:1npm i grunt grunt-cli -g //安装grunt到全局 less 安装由于在">
+<meta name="twitter:image" content="http://qiniu1.kopbit.com/c8616dc12375f991cd17c3e61b93084e.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2016/04/10/grunt打包实践/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>grunt打包实践 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2016/04/10/grunt打包实践/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">grunt打包实践
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-04-10 14:29:25" itemprop="dateCreated datePublished" datetime="2016-04-10T14:29:25+08:00">2016-04-10</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-04 07:28:43" itemprop="dateModified" datetime="2019-07-04T07:28:43+08:00">2019-07-04</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>学会grunt打包<br>并将grunt打包运用于项目实践  </p>
+<h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><ul>
+<li>了解 <code>grunt</code> 的作用与用途  </li>
+<li>熟悉 <code>nodejs</code>  </li>
+<li>熟悉npm的用法  </li>
+</ul>
+<h1 id="工具链"><a href="#工具链" class="headerlink" title="工具链"></a>工具链</h1><h2 id="grunt-安装"><a href="#grunt-安装" class="headerlink" title="grunt 安装"></a><code>grunt</code> 安装</h2><p>由于我们在开发web项目的时候，都要用 <code>grunt</code> 打包，为了减少重复操作，所以需要安装 <code>grunt</code> 到全局，具体的安装脚本如下:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="selector-tag">i</span> grunt grunt-cli -g <span class="comment">//安装grunt到全局</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="less-安装"><a href="#less-安装" class="headerlink" title="less 安装"></a><code>less</code> 安装</h2><p>由于在项目开发的过程中，我们用到了less,所以提交安装less到全局，具体的安装脚本:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="selector-tag">i</span> less@latest -g <span class="comment">//安装less到全局</span></span><br></pre></td></tr></table></figure>
+<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p><img src="http://qiniu1.kopbit.com/c8616dc12375f991cd17c3e61b93084e.png" alt="打包流程"></p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="准备-Grunt-项目"><a href="#准备-Grunt-项目" class="headerlink" title="准备 Grunt 项目"></a>准备 <code>Grunt</code> 项目</h2><p>一般需要在你的项目中添加两份文件：<code>package.json</code> 和 <code>Gruntfile</code>。<br><strong>package.json</strong>: 此文件被<code>npm</code>用于存储项目的元数据，以便将此项目发布为<code>npm</code>模块。你可以在此文件中列出项目依赖的<code>grunt</code>和<code>Grunt插件</code>，放置于<code>devDependencies</code>配置段内。<br><strong>Gruntfile</strong>: 此文件被命名为 <code>Gruntfile.js</code> 或 <code>Gruntfile.coffee</code>，用来配置或定义任务（<code>task</code>）并加载<code>Grunt</code>插件的。 此文档中提到的 <code>Gruntfile</code> 其实说的是一个文件，文件名是 <code>Gruntfile.js</code> 或 <code>Gruntfile.coffee</code>.  </p>
+<h2 id="配置-package-json"><a href="#配置-package-json" class="headerlink" title="配置 package.json"></a>配置 <code>package.json</code></h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"angularjs-e2e-showcase"</span>,     <span class="comment">//项目名称             </span></span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,                   <span class="comment">//版本号</span></span><br><span class="line">  <span class="string">"private"</span>: <span class="literal">true</span>,                      <span class="comment">//</span></span><br><span class="line">  <span class="string">"devDependencies"</span>: &#123;                  <span class="comment">//开发依赖</span></span><br><span class="line">    <span class="string">"grunt-contrib-clean"</span>: <span class="string">"0.6.0"</span>,     <span class="comment">//清楚目录或者文件</span></span><br><span class="line">    <span class="string">"grunt-contrib-jshint"</span>: <span class="string">"0.11.0"</span>,   <span class="comment">//js语法检查</span></span><br><span class="line">    <span class="string">"grunt-contrib-concat"</span>: <span class="string">"0.5.1"</span>,    <span class="comment">//合并</span></span><br><span class="line">    <span class="string">"grunt-contrib-uglify"</span>: <span class="string">"0.8.0"</span>,    <span class="comment">//js压缩</span></span><br><span class="line">    <span class="string">"grunt-contrib-watch"</span>: <span class="string">"0.6.1"</span>,     <span class="comment">//监听</span></span><br><span class="line">    <span class="string">"grunt-contrib-cssmin"</span>: <span class="string">"0.13.0"</span>,   <span class="comment">//css严肃哦</span></span><br><span class="line">    <span class="string">"grunt-filerev"</span>: <span class="string">"2.3.1"</span>,           <span class="comment">//文件重命名</span></span><br><span class="line">    <span class="string">"load-grunt-tasks"</span>: <span class="string">"3.2.0"</span>,        <span class="comment">//加载grunt任务</span></span><br><span class="line">    <span class="string">"grunt-usemin"</span>: <span class="string">"3.0.0"</span>,            <span class="comment">//</span></span><br><span class="line">    <span class="string">"grunt-contrib-copy"</span>: <span class="string">"0.8.0"</span>,      <span class="comment">//拷贝</span></span><br><span class="line">    <span class="string">"grunt-contrib-imagemin"</span>: <span class="string">"0.9.4"</span>,  <span class="comment">//生成雪碧图，并对css相关样式做出调整</span></span><br><span class="line">    <span class="string">"karma-coverage"</span>: <span class="string">"0.4.2"</span>,          <span class="comment">//</span></span><br><span class="line">    <span class="string">"grunt-lesslint"</span>: <span class="string">"1.4.1"</span>,          <span class="comment">//less检查</span></span><br><span class="line">    <span class="string">"grunt-contrib-less"</span>: <span class="string">"~1.0.1"</span>,     <span class="comment">//less生成工具</span></span><br><span class="line">    <span class="string">"grunt-contrib-htmlmin"</span>: <span class="string">"0.6.0"</span>,   <span class="comment">//html压缩</span></span><br><span class="line">    <span class="string">"karma-jasmine"</span>: <span class="string">"0.3.6"</span>,           <span class="comment">//</span></span><br><span class="line">    <span class="string">"busboy"</span>: <span class="string">"^0.2.9"</span>,                 <span class="comment">//</span></span><br><span class="line">    <span class="string">"fs-extra"</span>: <span class="string">"^0.16.4"</span>               <span class="comment">//</span></span><br><span class="line">  &#125;                                     <span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<p>安装依赖包，安装命令<br><code>npm i</code><br>如果是国内的话，可以使用 <code>taoao</code>的npm安装源<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> i nrm -g  </span><br><span class="line">nrm use taobao  </span><br><span class="line"><span class="built_in">npm</span> i</span><br></pre></td></tr></table></figure></p>
+<h2 id="建立-Gruntfile-文件结构"><a href="#建立-Gruntfile-文件结构" class="headerlink" title="建立 Gruntfile 文件结构"></a>建立 <code>Gruntfile</code> 文件结构</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by david on 4/10/2016.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">grunt</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>(<span class="string">'load-grunt-tasks'</span>)(grunt); <span class="comment">//加载 load-grunt-tasks grunt插件</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义路径变量</span></span><br><span class="line">    <span class="keyword">var</span> path = &#123;</span><br><span class="line">        tmp: <span class="string">'.tmp'</span>,                        <span class="comment">//临时目录</span></span><br><span class="line">        dest: <span class="string">'.publish'</span>,                   <span class="comment">//发布目录</span></span><br><span class="line">        web: <span class="string">''</span>  <span class="comment">//项目站点</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//项目配置文件</span></span><br><span class="line">    grunt.initConfig(&#123;</span><br><span class="line"></span><br><span class="line">      pkg: grunt.file.readJSON(<span class="string">'package.json'</span>),</span><br><span class="line">      path: path, <span class="comment">//申明变量</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//清楚文件和目录</span></span><br><span class="line">        clean:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//编译less文件为css</span></span><br><span class="line">        less:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//生成雪碧图，并修改相应的css文件</span></span><br><span class="line">        sprite:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//拷贝文件</span></span><br><span class="line">        copy:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//合并文件</span></span><br><span class="line">        concat:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//压缩css</span></span><br><span class="line">        cssmin:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//压缩Js</span></span><br><span class="line">        uglify:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//文件重命名</span></span><br><span class="line">        filerev:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//替换文件前准备</span></span><br><span class="line">        useminPrepare:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        <span class="comment">//替换文件</span></span><br><span class="line">        usemin:&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    grunt.registerTask(</span><br><span class="line">        <span class="string">'build'</span>, <span class="comment">//分组名称</span></span><br><span class="line">        [        <span class="comment">//该分组包含的任务</span></span><br><span class="line">            <span class="string">'clean:beforebuild'</span>,</span><br><span class="line">            <span class="string">'less'</span>,</span><br><span class="line">            <span class="string">'sprite'</span>,</span><br><span class="line">            <span class="string">'copy'</span>,</span><br><span class="line">            <span class="string">'concat'</span>,</span><br><span class="line">            <span class="string">'cssmin'</span>,</span><br><span class="line">            <span class="string">'uglify'</span>,</span><br><span class="line">            <span class="string">'filerev'</span>,</span><br><span class="line">            <span class="string">'useminPrepare'</span>,</span><br><span class="line">            <span class="string">'usemin'</span>,</span><br><span class="line">            <span class="string">'clean:afterbuild'</span></span><br><span class="line">        ]</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="清除文件目录"><a href="#清除文件目录" class="headerlink" title="清除文件目录"></a>清除文件目录</h3><p>该任务包含两个子任务:  </p>
+<ul>
+<li><p>构建前执行脚本<br>清除 <code>dest</code>，与 <code>tmp</code> 相关目录与文件</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">beforebuild</span>: &#123;</span><br><span class="line">    <span class="attribute">files</span>: [&#123;</span><br><span class="line">        src: [<span class="string">'&lt;%= path.dest %&gt;/'</span>, <span class="string">'&lt;%= path.tmp %&gt;/'</span>]</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构建后执行脚本<br>清除 <code>tmp</code> 相关目录与文件</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">afterbuild</span>: &#123;</span><br><span class="line">     <span class="attribute">files</span>: [&#123;</span><br><span class="line">         src: [<span class="string">'&lt;%= path.tmp %&gt;/'</span>]</span><br><span class="line">     &#125;]</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="编译less文件"><a href="#编译less文件" class="headerlink" title="编译less文件"></a>编译less文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">baseStyleCss:</span> <span class="string">&#123;</span></span><br><span class="line"><span class="attr">     options:</span> <span class="string">&#123;</span></span><br><span class="line"><span class="attr">         strictMath:</span> <span class="literal">true</span><span class="string">,</span></span><br><span class="line"><span class="attr">         sourceMap:</span> <span class="literal">true</span><span class="string">,</span></span><br><span class="line"><span class="attr">         outputSourceFiles:</span> <span class="literal">true</span></span><br><span class="line">     <span class="string">&#125;,</span></span><br><span class="line"><span class="attr">     src:</span> <span class="string">'content/stylesheet/less/config.less'</span><span class="string">,</span> <span class="string">//该less文件将导入其他的less文件</span></span><br><span class="line"><span class="attr">     dest:</span> <span class="string">'content/stylesheet/css/config.css'</span></span><br><span class="line"> <span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="生成雪碧图"><a href="#生成雪碧图" class="headerlink" title="生成雪碧图"></a>生成雪碧图</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">options</span>: &#123;</span><br><span class="line">    <span class="comment">// 给雪碧图追加时间戳，默认不追加</span></span><br><span class="line">    <span class="attribute">spritestamp</span>: true</span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// image-set 示例</span></span><br><span class="line"><span class="attribute">imageKityMinderSprite</span>: &#123;</span><br><span class="line">    <span class="attribute">options</span>: &#123;</span><br><span class="line">        <span class="attribute">useimageset</span>: true,</span><br><span class="line">        <span class="attribute">imagepath</span>: <span class="string">"content/images/slice/"</span>,         <span class="comment">//less文件应用图片的目录地址</span></span><br><span class="line">        <span class="attribute">spritedest</span>: <span class="string">'&lt;%= path.tmp%&gt;/images/slice/'</span>  <span class="comment">//生成后的雪碧图目录地址</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attribute">files</span>: [&#123;</span><br><span class="line">        <span class="comment">// 启用动态扩展</span></span><br><span class="line">        <span class="attribute">expand</span>: true,</span><br><span class="line">        <span class="comment">// css文件源的文件夹</span></span><br><span class="line">        <span class="attribute">cwd</span>: <span class="string">'content/stylesheet/css'</span>,</span><br><span class="line">        <span class="comment">// 匹配规则</span></span><br><span class="line">        <span class="attribute">src</span>: <span class="string">'*.css'</span>,</span><br><span class="line">        <span class="comment">// 导出css和sprite的路径地址</span></span><br><span class="line">        <span class="attribute">dest</span>: <span class="string">'&lt;%= path.tmp%&gt;/css/'</span>,</span><br><span class="line">        <span class="comment">// 导出的css名</span></span><br><span class="line">        <span class="attribute">ext</span>: <span class="string">'.sprite.css'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="拷贝文件"><a href="#拷贝文件" class="headerlink" title="拷贝文件"></a>拷贝文件</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">fonts</span>: &#123;                                     <span class="comment">//拷贝字体</span></span><br><span class="line">     <span class="attribute">expand</span>: true,                           <span class="comment">//展开</span></span><br><span class="line">     <span class="attribute">cwd</span>: <span class="string">'content/fonts/'</span>,                  <span class="comment">//改变当前路径</span></span><br><span class="line">     <span class="attribute">src</span>: [<span class="string">'**'</span>],                            <span class="comment">//匹配文件的正则表达式</span></span><br><span class="line">     <span class="attribute">dest</span>: <span class="string">'&lt;%= path.dest %&gt;/fonts/'</span>,        <span class="comment">//</span></span><br><span class="line">     <span class="attribute">flatten</span>: false                          <span class="comment">//</span></span><br><span class="line"> &#125;,                                          <span class="comment">//拷贝图片</span></span><br><span class="line"> <span class="attribute">images</span>: &#123;                                   <span class="comment">//</span></span><br><span class="line">     <span class="attribute">expand</span>: true,                           <span class="comment">//</span></span><br><span class="line">     <span class="attribute">cwd</span>: <span class="string">'content/images/other'</span>,            <span class="comment">//</span></span><br><span class="line">     <span class="attribute">src</span>: [<span class="string">'**'</span>],                            <span class="comment">//</span></span><br><span class="line">     <span class="attribute">dest</span>: <span class="string">'&lt;%= path.dest%&gt;/images/other'</span>,   <span class="comment">//</span></span><br><span class="line">     <span class="attribute">flatten</span>: false                          <span class="comment">//</span></span><br><span class="line"> &#125;,                                          <span class="comment">//拷贝雪碧图</span></span><br><span class="line"> <span class="attribute">spriteImages</span>: &#123;                             <span class="comment">//</span></span><br><span class="line">     <span class="attribute">expand</span>: true,                           <span class="comment">//</span></span><br><span class="line">     <span class="attribute">cwd</span>: <span class="string">'&lt;%= path.tmp%&gt;/images/slice'</span>,     <span class="comment">//</span></span><br><span class="line">     <span class="attribute">src</span>: [<span class="string">'**'</span>],                            <span class="comment">//</span></span><br><span class="line">     <span class="attribute">dest</span>: <span class="string">'&lt;%= path.dest%&gt;/images/slice'</span>,   <span class="comment">//</span></span><br><span class="line">     <span class="attribute">flatten</span>: false                          <span class="comment">//</span></span><br><span class="line"> &#125;,                                          <span class="comment">//拷贝站点小图标</span></span><br><span class="line"> <span class="attribute">ico</span>: &#123;                                      <span class="comment">//</span></span><br><span class="line">     <span class="attribute">src</span>: <span class="string">'favicon.ico'</span>,                     <span class="comment">//</span></span><br><span class="line">     <span class="attribute">dest</span>: <span class="string">'&lt;%= path.dest%&gt;/'</span>                <span class="comment">//</span></span><br><span class="line"> &#125;,                                          <span class="comment">//</span></span><br><span class="line"> <span class="attribute">indexCopy</span>: &#123;                                <span class="comment">//拷贝index.html</span></span><br><span class="line">     <span class="attribute">expand</span>: true,                           <span class="comment">//</span></span><br><span class="line">     <span class="attribute">src</span>: [<span class="string">'index.html'</span>],                    <span class="comment">//</span></span><br><span class="line">     <span class="attribute">dest</span>: <span class="string">'&lt;%= path.dest%&gt;/'</span>,               <span class="comment">//</span></span><br><span class="line">     <span class="attribute">flatten</span>: false                          <span class="comment">//</span></span><br><span class="line"> &#125;,                                          <span class="comment">//</span></span><br><span class="line"> <span class="attribute">appViewsCopy</span>: &#123;                             <span class="comment">//拷贝应用相关html文件</span></span><br><span class="line">     <span class="attribute">expand</span>: true,                           <span class="comment">//</span></span><br><span class="line">     <span class="attribute">cwd</span>: <span class="string">'app/'</span>,                            <span class="comment">//</span></span><br><span class="line">     <span class="attribute">src</span>: [<span class="string">'**/**.html'</span>],                    <span class="comment">//</span></span><br><span class="line">     <span class="attribute">dest</span>: <span class="string">'&lt;%= path.dest%&gt;/app/'</span>,           <span class="comment">//</span></span><br><span class="line">     <span class="attribute">flatten</span>: false                          <span class="comment">//</span></span><br><span class="line"> &#125;                                           <span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<h3 id="合并文件"><a href="#合并文件" class="headerlink" title="合并文件"></a>合并文件</h3><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">baseCss: &#123; //合并<span class="attribute">css</span></span><br><span class="line"><span class="attribute">    src</span>: [</span><br><span class="line">        "bower_components/bootstrap/dist/css/bootstrap<span class="variable">.css</span>",</span><br><span class="line">        "bower_components/angular/angular-csp<span class="variable">.css</span>",</span><br><span class="line">        "bower_components/color-picker/dist/color-picker<span class="variable">.css</span>",</span><br><span class="line">        "bower_components/codemirror/lib/codemirror<span class="variable">.css</span>",</span><br><span class="line">        "bower_components/hotbox/hotbox<span class="variable">.css</span>",</span><br><span class="line">        "<span class="variable">.tmp</span>/css/config<span class="variable">.sprite</span><span class="variable">.css</span>"</span><br><span class="line">    ],</span><br><span class="line">    dest: "&lt;%= path<span class="variable">.tmp</span>%&gt;/css/showcase<span class="variable">.css</span>"</span><br><span class="line">&#125;,</span><br><span class="line">kityminderJs: &#123;</span><br><span class="line">    src: [ //合并js</span><br><span class="line">        "bower_components/angular/angular<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/jquery/dist/jquery<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/bootstrap/dist/js/bootstrap<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/angular-bootstrap/ui-bootstrap<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/angular-bootstrap/ui-bootstrap-tpls<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/seajs/dist/sea-debug<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/color-picker/src/color-picker<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/lib/codemirror<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/mode/xml/xml<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/mode/javascript/javascript<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/mode/css/css<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/mode/htmlmixed/htmlmixed<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/mode/markdown/markdown<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/addon/mode/overlay<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/codemirror/mode/gfm/gfm<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/angular-ui-codemirror/ui-codemirror<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/kity/dist/kity<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/hotbox/hotbox<span class="variable">.js</span>",</span><br><span class="line">        "lib/kityminder/src/kityminder<span class="variable">.js</span>",</span><br><span class="line">        "bower_components/marked/lib/marked<span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/kityminder<span class="variable">.app</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/templates<span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/commandBinder<span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/config<span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/memory<span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/lang<span class="variable">.zh-cn</span><span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/valueTransfer<span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/minder<span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/resource<span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/service/revokeDialog<span class="variable">.service</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_filter/lang<span class="variable">.filter</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/topTab/topTab<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/undoRedo/undoRedo<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/appendNode/appendNode<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/arrange/arrange<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/operation/operation<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/hyperLink/hyperLink<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/imageBtn/imageBtn<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/noteBtn/noteBtn<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/resourceEditor/resourceEditor<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/priorityEditor/priorityEditor<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/progressEditor/progressEditor<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/noteEditor/noteEditor<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/notePreviewer/notePreviewer<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/templateList/templateList<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/themeList/themeList<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/layout/layout<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/styleOperator/styleOperator<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/fontOperator/fontOperator<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/expandLevel/expandLevel<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/selectAll/selectAll<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/colorPanel/colorPanel<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/navigator/navigator<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/searchBox/searchBox<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/searchBtn/searchBtn<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/dialog/hyperlink/hyperlink<span class="variable">.ctrl</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/dialog/image/image<span class="variable">.ctrl</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/dialog/im-export-node/imExportNode<span class="variable">.ctrl</span><span class="variable">.js</span>",</span><br><span class="line">        "app/_directive/kityminder/kityminderEditor/kityminderEditor<span class="variable">.directive</span><span class="variable">.js</span>",</span><br><span class="line">        "lib/kityminder/src/expose-kityminder<span class="variable">.js</span>",</span><br><span class="line">        "app/app<span class="variable">.module</span><span class="variable">.js</span>",</span><br><span class="line">        "app/kityminder/kityminder-main-controller<span class="variable">.js</span>"</span><br><span class="line">    ],</span><br><span class="line">    dest: "&lt;%= path<span class="variable">.tmp</span>%&gt;/js/showcase<span class="variable">.js</span>"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="压缩css"><a href="#压缩css" class="headerlink" title="压缩css"></a>压缩css</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">kopBaseCss</span>: &#123;</span><br><span class="line">    <span class="attribute">src</span>: [<span class="string">"&lt;%= path.tmp%&gt;/css/showcase.css"</span>],</span><br><span class="line">    dest: <span class="string">"&lt;%= path.dest %&gt;/css/showcase.css"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="压缩Js"><a href="#压缩Js" class="headerlink" title="压缩Js"></a>压缩Js</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">baseJs</span>: &#123;</span><br><span class="line">    <span class="attribute">src</span>: <span class="string">"&lt;%= path.tmp%&gt;/js/showcase.js"</span>,</span><br><span class="line">    dest: <span class="string">"&lt;%= path.dest%&gt;/js/showcase.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="文件重命名"><a href="#文件重命名" class="headerlink" title="文件重命名"></a>文件重命名</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">build</span>: &#123;</span><br><span class="line">    <span class="attribute">files</span>: [&#123;</span><br><span class="line">        src: [<span class="string">'&lt;%= path.dest %&gt;/js/**.js'</span>, <span class="string">'&lt;%= path.dest %&gt;/css/**'</span>] //只是对js于css重新命名</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="替换文件前准备"><a href="#替换文件前准备" class="headerlink" title="替换文件前准备"></a>替换文件前准备</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">html</span>: <span class="string">'&lt;%= path.dest %/**/*.html'</span>,</span><br><span class="line"> <span class="attribute">options</span>: &#123;</span><br><span class="line">     <span class="attribute">dest</span>: <span class="string">'./&lt;%= path.dest %&gt;'</span>,</span><br><span class="line">     <span class="attribute">root</span>: <span class="string">'./&lt;%= path.dest %&gt;'</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="替换文件"><a href="#替换文件" class="headerlink" title="替换文件"></a>替换文件</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>: &#123;</span><br><span class="line">    <span class="attribute">files</span>: [&#123;</span><br><span class="line">        src: <span class="string">'&lt;%= path.dest %&gt;/**/*.html'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;,</span><br><span class="line"><span class="selector-tag">options</span>: &#123;</span><br><span class="line">    <span class="attribute">assetsDirs</span>: [<span class="string">'&lt;%= path.dest %&gt;'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>项目地址传送门:<br><a href="https://github.com/haibinpark/angular-e2etest-showcase.git" target="_blank" rel="noopener">https://github.com/haibinpark/angular-e2etest-showcase.git</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://gruntjs.com/" target="_blank" rel="noopener">Gruntjs官方网站</a><br><a href="http://www.gruntjs.net/" target="_blank" rel="noopener">Gruntjs中文网站</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2016/04/10/grunt打包实践/" title="grunt打包实践">http://www.haibin.me/2016/04/10/grunt打包实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/工具/" rel="tag"># 工具</a>
+          
+            <a href="/tags/grunt/" rel="tag"># grunt</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/07/ATOM 快速上手文档/" rel="next" title="ATOM 快速上手文档">
+                <i class="fa fa-chevron-left"></i> ATOM 快速上手文档
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/12/Sequelizejs-中文手册/" rel="prev" title="Sequelizejs-中文手册">
+                Sequelizejs-中文手册 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前提"><span class="nav-number">2.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具链"><span class="nav-number">3.</span> <span class="nav-text">工具链</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#grunt-安装"><span class="nav-number">3.1.</span> <span class="nav-text">grunt 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#less-安装"><span class="nav-number">3.2.</span> <span class="nav-text">less 安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程"><span class="nav-number">4.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">5.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备-Grunt-项目"><span class="nav-number">5.1.</span> <span class="nav-text">准备 Grunt 项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-package-json"><span class="nav-number">5.2.</span> <span class="nav-text">配置 package.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立-Gruntfile-文件结构"><span class="nav-number">5.3.</span> <span class="nav-text">建立 Gruntfile 文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#清除文件目录"><span class="nav-number">5.3.1.</span> <span class="nav-text">清除文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译less文件"><span class="nav-number">5.3.2.</span> <span class="nav-text">编译less文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成雪碧图"><span class="nav-number">5.3.3.</span> <span class="nav-text">生成雪碧图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝文件"><span class="nav-number">5.3.4.</span> <span class="nav-text">拷贝文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并文件"><span class="nav-number">5.3.5.</span> <span class="nav-text">合并文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩css"><span class="nav-number">5.3.6.</span> <span class="nav-text">压缩css</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩Js"><span class="nav-number">5.3.7.</span> <span class="nav-text">压缩Js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件重命名"><span class="nav-number">5.3.8.</span> <span class="nav-text">文件重命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换文件前准备"><span class="nav-number">5.3.9.</span> <span class="nav-text">替换文件前准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#替换文件"><span class="nav-number">5.3.10.</span> <span class="nav-text">替换文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例"><span class="nav-number">6.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

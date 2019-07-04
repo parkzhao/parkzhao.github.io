@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言为了达到产品快速交互，缩短产品开发周期，我们引入了持续集成，现持续集成有两种方案    方案一.aliyun代码管理，阿里云做镜像管理，并且使用阿里云做自动部署1.使用aliyun的代码管理2.使用阿里云的镜像管理3.阿里云自动部署   方案二.使用gitlab做代码管理，jenkins做测试与镜像构建，aliyun做镜像管理，并采用阿里云自动部署1.使用aliyun的代码管理2.jenkin">
+<meta name="keywords" content="Docker,linux,CI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于云端的持续集成实践">
+<meta property="og:url" content="http://www.haibin.me/2016/08/01/基于云端的持续集成实践/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="前言为了达到产品快速交互，缩短产品开发周期，我们引入了持续集成，现持续集成有两种方案    方案一.aliyun代码管理，阿里云做镜像管理，并且使用阿里云做自动部署1.使用aliyun的代码管理2.使用阿里云的镜像管理3.阿里云自动部署   方案二.使用gitlab做代码管理，jenkins做测试与镜像构建，aliyun做镜像管理，并采用阿里云自动部署1.使用aliyun的代码管理2.jenkin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qiniu1.kopbit.com/a6539a30d4dbea467cbc1621994580b6.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/432e64a12bcd4c61fdc5c226b30d66a6.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/e5370d7f5860fa35736433323668e922.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/13f54e52ea2746c51ae3b63691324605.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/1b477c3c32bcbe12288f071cb3994d34.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/8e1bc14859a0b8991f12718d503f49dc.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/4519ae327b4ce8d49ce0ca57c011f402.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/68338530a326e2b1f614a4f950445d6f.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/e30d1c627d3af4fdf366a78bf7e56d75.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/3ecd7c9532ce938fae46311924032a6e.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/82d6c01b134c2a8b510b3ad290f5d862.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/42941711da3a5b1cef595a92d29709e6.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/e5550dcbc46339ca54764b1534b3fa30.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/2360f40325840395b503da2bcd79c86e.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/d0c8bfb880c020ffe2b48116a52757b2.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/e850002de87e874acea202315fe922af.png">
+<meta property="og:image" content="http://qiniu1.kopbit.com/aee5c48314a64d717ad28e47ba6001c9.png">
+<meta property="og:updated_time" content="2019-07-03T23:28:43.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于云端的持续集成实践">
+<meta name="twitter:description" content="前言为了达到产品快速交互，缩短产品开发周期，我们引入了持续集成，现持续集成有两种方案    方案一.aliyun代码管理，阿里云做镜像管理，并且使用阿里云做自动部署1.使用aliyun的代码管理2.使用阿里云的镜像管理3.阿里云自动部署   方案二.使用gitlab做代码管理，jenkins做测试与镜像构建，aliyun做镜像管理，并采用阿里云自动部署1.使用aliyun的代码管理2.jenkin">
+<meta name="twitter:image" content="http://qiniu1.kopbit.com/a6539a30d4dbea467cbc1621994580b6.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2016/08/01/基于云端的持续集成实践/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>基于云端的持续集成实践 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2016/08/01/基于云端的持续集成实践/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于云端的持续集成实践
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2016-08-01 09:03:23" itemprop="dateCreated datePublished" datetime="2016-08-01T09:03:23+08:00">2016-08-01</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-04 07:28:43" itemprop="dateModified" datetime="2019-07-04T07:28:43+08:00">2019-07-04</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Docker/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Docker/Linux/CI/" itemprop="url" rel="index"><span itemprop="name">CI</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Docker/Linux/CI/Cloud/" itemprop="url" rel="index"><span itemprop="name">Cloud</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>为了达到产品快速交互，缩短产品开发周期，我们引入了持续集成，现持续集成有两种方案  </p>
+<ul>
+<li>方案一.<br>aliyun代码管理，阿里云做镜像管理，并且使用阿里云做自动部署<br>1.使用aliyun的代码管理<br>2.使用阿里云的镜像管理<br>3.阿里云自动部署  </li>
+<li>方案二.<br>使用gitlab做代码管理，jenkins做测试与镜像构建，aliyun做镜像管理，并采用阿里云自动部署<br>1.使用aliyun的代码管理<br>2.jenkins做自动哈测试，与镜像构建<br>3.aliyun做镜像管理<br>4.采用aliyun自动部署<br>我们根据情况，选择了第二种方案。  </li>
+</ul>
+<h1 id="拓扑图"><a href="#拓扑图" class="headerlink" title="拓扑图"></a>拓扑图</h1><p><img src="http://qiniu1.kopbit.com/a6539a30d4dbea467cbc1621994580b6.png" alt="网络图谱图"></p>
+<h1 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h1><p><img src="http://qiniu1.kopbit.com/432e64a12bcd4c61fdc5c226b30d66a6.png" alt="流程图"></p>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><h2 id="代码管理"><a href="#代码管理" class="headerlink" title="代码管理"></a>代码管理</h2><p>由于现在国内的好多的代码管理平台，是基于gitlab进行修改的，并且对gitlab的功能进行了阉割，对jenkins的支持也不是很好，所以我选择gitlab作为代码管理工具<br>使用方法与本地的gitlab相近<br>这里需要注意的是通过github联合登录后，需要重新设置访问的密码，linux的用户可以不重新设定，这里主要是通过开发工具clone项目的时候，windows操作系统需要输入用户名与密码  </p>
+<h2 id="jenkins"><a href="#jenkins" class="headerlink" title="jenkins"></a>jenkins</h2><p>jenkins现在没有网络版本的，所以我们现在需要自己搭建jenkins，jenkins功能，进行持续集成  </p>
+<h2 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h2><p>由于我们整个是采用docker进行构建与部署，所以我们采用aliyun自带的私有镜像管理，对于私有镜像，阿里云有个数限制，限制数量为3个。  </p>
+<h2 id="自动部署"><a href="#自动部署" class="headerlink" title="自动部署"></a>自动部署</h2><p>自动部署，采用的是aliyun的容器服务，采用集群与docker.</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="gitlab配置"><a href="#gitlab配置" class="headerlink" title="gitlab配置"></a>gitlab配置</h2><p>新建项目(略)  </p>
+<ul>
+<li>jenkins-ci 设置<br>这里的用户名与密码是有构建与读权限的用户<br><img src="http://qiniu1.kopbit.com/e5370d7f5860fa35736433323668e922.png" alt=""></li>
+<li>设置发布key<br><img src="http://qiniu1.kopbit.com/13f54e52ea2746c51ae3b63691324605.png" alt=""></li>
+</ul>
+<h2 id="jenkins配置"><a href="#jenkins配置" class="headerlink" title="jenkins配置"></a>jenkins配置</h2><ul>
+<li><p>jenkins 安装  </p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget -q -O - http<span class="variable">s:</span>//jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key <span class="built_in">add</span> -</span><br><span class="line">sudo <span class="keyword">sh</span> -<span class="keyword">c</span> <span class="string">'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ &gt; /etc/apt/sources.list.d/jenkins.list'</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> install jenkins</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装nginx<br><code>sudo aptitude -y install nginx</code>  </p>
+</li>
+<li><p>配置nginx</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> app_server &#123;</span><br><span class="line">    <span class="attribute">server</span> <span class="number">127.0.0.1:8080</span> fail_timeout=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">listen</span> [::]:<span class="number">80</span> default ipv6only=<span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">server_name</span> ci.kopbit.com;</span><br><span class="line">    <span class="attribute">ignore_invalid_headers</span> <span class="literal">off</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        Host <span class="variable">$host</span>:<span class="variable">$server_port</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">        <span class="attribute">proxy_redirect</span> <span class="literal">off</span>;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://app_server;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>jenkins 配置<br><strong>jenkins 基础设置</strong><br>这里的配置，涉及到权限与初始化，在初始化，需要<br>安装必要插件git,git-client,gitlab-client<br>gitlab-client插件设置<br>这里需要注意的是，要在gitlab中获取api token<br><img src="http://qiniu1.kopbit.com/1b477c3c32bcbe12288f071cb3994d34.png" alt="gitlab配置"><br>Gitlab Notifier Configuration<br><img src="http://qiniu1.kopbit.com/8e1bc14859a0b8991f12718d503f49dc.png" alt="gitlab notifier configuration"><br>在访问控制中，消炎药进行项目矩阵授权<br><img src="http://qiniu1.kopbit.com/4519ae327b4ce8d49ce0ca57c011f402.png" alt="项目举证授权"><br><strong>jenkins 项目设置</strong><br>常规设置<br><img src="http://qiniu1.kopbit.com/68338530a326e2b1f614a4f950445d6f.png" alt=""><br>源代码管理配置<br>在源代码管理中，生成的key必须在jenkins目录下的.ssh目录  </p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root<span class="variable">@iZu1bcv8djtZ</span><span class="symbol">:~</span><span class="comment"># ^C</span></span><br><span class="line">root<span class="variable">@iZu1bcv8djtZ</span><span class="symbol">:~</span><span class="comment"># su jenkins</span></span><br><span class="line">jenkins<span class="variable">@iZu1bcv8djtZ</span><span class="symbol">:/root</span><span class="variable">$ </span>cd ~</span><br><span class="line">jenkins<span class="variable">@iZu1bcv8djtZ</span><span class="symbol">:~</span><span class="variable">$ </span>ls .ssh/</span><br><span class="line">id_rsa  id_rsa.pub  known_hosts</span><br><span class="line">jenkins<span class="variable">@iZu1bcv8djtZ</span><span class="symbol">:~</span>$</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>生成key的命令<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ssh-keygen</span> <span class="selector-tag">-C</span> "<span class="selector-tag">park</span>@<span class="keyword">kopbit</span>.<span class="keyword">com</span>"</span><br></pre></td></tr></table></figure></p>
+<p>然后将此key设置到gitlab中。<br><img src="http://qiniu1.kopbit.com/e30d1c627d3af4fdf366a78bf7e56d75.png" alt=""><br>触发器设置<br><img src="http://qiniu1.kopbit.com/3ecd7c9532ce938fae46311924032a6e.png" alt=""></p>
+<ul>
+<li>设置域名<br>在阿里云的域名管理中，添加域名 <code>ci.abc.com</code>  </li>
+</ul>
+<h2 id="docker-配置"><a href="#docker-配置" class="headerlink" title="docker 配置"></a>docker 配置</h2><ul>
+<li>docker安装<br>略  </li>
+<li>docker配置<br>安装docker,并且加入docker的启动参数，修改路径<code>/etc/default/docker</code><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DOCKER_OPTS=' <span class="params">--host=unix</span>:<span class="string">///var/run/docker.sock</span> <span class="params">--restart=false</span> -g <span class="string">/opt/app/jenkins/docker</span> -G jenkins'</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>重新启动docker<br><code>service docker restart</code>  </p>
+<h2 id="aliyun镜像服务配置"><a href="#aliyun镜像服务配置" class="headerlink" title="aliyun镜像服务配置"></a>aliyun镜像服务配置</h2><ul>
+<li>新建镜像<br>镜像服务访问地址:<br><code>https://cr.console.aliyun.com/?spm=5176.1971733.0.2.cnJySP#/docker/image/list</code><br>初次进来的时候，需要修改仓库的密码<br>点击创建按钮<br><img src="http://qiniu1.kopbit.com/82d6c01b134c2a8b510b3ad290f5d862.png" alt="创建镜像"><br>必填项<br>1&gt; 镜像名称<br>2&gt; 摘要<br>3&gt; 仓库类型为私有  </li>
+</ul>
+<h2 id="aliyun集群服务配置"><a href="#aliyun集群服务配置" class="headerlink" title="aliyun集群服务配置"></a>aliyun集群服务配置</h2><ul>
+<li>新建集群<br>在管理控制台，点击产品与服务，在弹性计算中，点击容器服务，点击左侧的集群<br><img src="http://qiniu1.kopbit.com/42941711da3a5b1cef595a92d29709e6.png" alt="创建集群"><br>这里需要注意有两个方面<br>(1) 需要选择自动穿件负载均衡<br>(2) 集群所在地与添加的实例必须在同一个地域</li>
+<li>添加实例<br>在集群列表中，对应的集群行，选择更多操作，执行<code>添加已有实例</code><br>选中实例，点击下一步，这里需要执行相关的脚本，并且安装docker  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -Ls http:<span class="regexp">//</span>aliyuncontainerservice.oss-cn-hangzhou.aliyuncs.com<span class="regexp">/1.11/</span>attachNodeScript | sudo -H bash -s <span class="number">1367</span>f76c5fb2028ee56a1f64454f1f46f5974368 --instance-id i-<span class="number">94</span>o82v9bt</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>没添加一个实例的脚本都不一样，请仔细辨认。</p>
+</blockquote>
+<p>选择服务，就可以看见相关的服务列表<br>这些都是系统的服务<br><img src="http://qiniu1.kopbit.com/e5550dcbc46339ca54764b1534b3fa30.png" alt="系统服务"></p>
+<ul>
+<li>创建应用<br>创建应用前，需要准备编排模板<br>编排模板脚本  <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">web:</span></span><br><span class="line">    <span class="symbol">image:</span> <span class="string">'registry.aliyuncs.com/stephen/kop-onteditor-ui'</span></span><br><span class="line">    <span class="symbol">ports:</span></span><br><span class="line">        - <span class="string">"58200:80"</span></span><br><span class="line">        - <span class="string">"58222:22"</span></span><br><span class="line">    <span class="symbol">volumes:</span></span><br><span class="line">        - <span class="regexp">/etc/localtime</span><span class="symbol">:/etc/localtime</span><span class="symbol">:ro</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用编排模板创建应用<br><img src="http://qiniu1.kopbit.com/2360f40325840395b503da2bcd79c86e.png" alt="创建应用"><br>选择上面准备的模板<br><img src="http://qiniu1.kopbit.com/d0c8bfb880c020ffe2b48116a52757b2.png" alt="模板"><br>点击创建并且部署，我们在应用列表可参看相关应用<br><img src="http://qiniu1.kopbit.com/e850002de87e874acea202315fe922af.png" alt="">  </p>
+<ul>
+<li>设置域名<br>选择服务，并变更配置,在web路由规则中添加端口与域名<br><img src="http://qiniu1.kopbit.com/aee5c48314a64d717ad28e47ba6001c9.png" alt=""></li>
+</ul>
+<h1 id="脚本准备"><a href="#脚本准备" class="headerlink" title="脚本准备"></a>脚本准备</h1><p><code>autologin.sh</code> 自动登录脚本<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">#!/usr/bin/expect</span></span><br><span class="line">spawn docker login --username=demo@kopbit.com registry.aliyuncs.com</span><br><span class="line">expect <span class="string">"Password:"</span></span><br><span class="line">send <span class="string">"1231321\r"</span></span><br><span class="line">expect <span class="string">"Email:"</span></span><br><span class="line">send <span class="string">"demo@kopbit.com\r"</span></span><br><span class="line">expect eof</span><br><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure></p>
+<p><code>autlogout.sh</code> 自动登出脚本<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> #!/usr/bin/env bash</span><br><span class="line">docker logout registry<span class="selector-class">.aliyuncs</span><span class="selector-class">.com</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>访问<code>http://web1.abc.com</code></p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>可以满足自动构建，自动发布的需求<br>缺点:</p>
+<ol>
+<li>就是太慢了，jenkins的效率要提高。</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2016/08/01/基于云端的持续集成实践/" title="基于云端的持续集成实践">http://www.haibin.me/2016/08/01/基于云端的持续集成实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/CI/" rel="tag"># CI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/28/帕克胖夜话Docker-安装-Docker-Engine/" rel="next" title="帕克胖夜话Docker-安装Docker Engine">
+                <i class="fa fa-chevron-left"></i> 帕克胖夜话Docker-安装Docker Engine
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/15/Android开发系列-帕克胖水煮Dagger2/" rel="prev" title="Android开发系列-帕克胖水煮Dagger2">
+                Android开发系列-帕克胖水煮Dagger2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拓扑图"><span class="nav-number">2.</span> <span class="nav-text">拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程图"><span class="nav-number">3.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工具"><span class="nav-number">4.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码管理"><span class="nav-number">4.1.</span> <span class="nav-text">代码管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jenkins"><span class="nav-number">4.2.</span> <span class="nav-text">jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像管理"><span class="nav-number">4.3.</span> <span class="nav-text">镜像管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动部署"><span class="nav-number">4.4.</span> <span class="nav-text">自动部署</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">5.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gitlab配置"><span class="nav-number">5.1.</span> <span class="nav-text">gitlab配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jenkins配置"><span class="nav-number">5.2.</span> <span class="nav-text">jenkins配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-配置"><span class="nav-number">5.3.</span> <span class="nav-text">docker 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#aliyun镜像服务配置"><span class="nav-number">5.4.</span> <span class="nav-text">aliyun镜像服务配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#aliyun集群服务配置"><span class="nav-number">5.5.</span> <span class="nav-text">aliyun集群服务配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本准备"><span class="nav-number">6.</span> <span class="nav-text">脚本准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">7.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">8.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
