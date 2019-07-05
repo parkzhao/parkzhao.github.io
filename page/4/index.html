@@ -657,9 +657,20 @@
       
         
           
-            <p>「创业就是一个在钱烧完以前不断试错的过程，试出来了就成功了，没试出来就准备下一次挑战。试错不是做一堆东西然后等它自生自灭，而是用最小的成本快速验证核心功能，发现不对立马关掉。方向不对拖越久对公司伤害越大，所以做好每6个月调整一次产品的准备，拥抱变化。我知道这很艰难，但必须如此。」</p>
+            <p>
+              「创业就是一个在钱烧完以前不断试错的过程，试出来了就成功了，没试出来就准备下一次挑战。试错不是做一堆东西然后等它自生自灭，而是用最小的成本快速验证核心功能，发现不对立马关掉。方向不对拖越久对公司伤害越大，所以做好每6个月调整一次产品的准备，拥抱变化。我知道这很艰难，但必须如此。」
 
+              
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/05/13/2014-05-13-product-tips/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1014,15 +1025,19 @@
       
         
           
-            <p>最近想用<a href="http://www.docker.io" target="_blank" rel="noopener">docker</a>部署自己的一些应用，但在部署构建镜像的时候经常会出现错误，那么镜像构建不成功。<br>最好的办法是删除不成功的镜像<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images|<span class="type">grep</span> <span class="string">"&lt;none&gt;"</span>|<span class="type">awk</span> '&#123;print $<span class="number">3</span>&#125;'|<span class="type">sudo</span> xargs docker rmi</span><br></pre></td></tr></table></figure></p>
-<p>如果不成功，那么就应该删除container<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a|<span class="type">grep</span> <span class="string">"&lt;image id&gt;"</span>|<span class="type">awk</span> '&#123;print $<span class="number">1</span>&#125;'|<span class="type">sudo</span> xargs docker rm</span><br></pre></td></tr></table></figure></p>
-<p>\<image id\="">替换为无法删除的镜像ID。<br>如果删除container错误,有以下几个办法解决  </image></p>
-<ul>
-<li>停止容器<code>sudo docker stop &lt;container id&gt;</code>或者<code>sudo docker kill &lt;container id&gt;</code>;  </li>
-<li>重新启动docker守护进程，然后在执行上面删除操作,<code>sudo service docker restart</code>.<br>这下重新构建进行就重头开始了。 </li>
-</ul>
-
+            <p>
+              最近想用docker部署自己的一些应用，但在部署构建镜像的时候经常会出现错误，那么镜像构建不成功。最好的办法是删除不成功的镜像sudo docker images|grep "&lt;none&gt;"|awk '&#123;print $3&#125;'|sudo xargs docker rmi
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/02/18/2014-02-18-docker-tips/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1573,12 +1588,21 @@
       
         
           
-            <p>以前是使用<a href="https://code.google.com/p/goagent" target="_blank" rel="noopener">goagent</a>代理上网，由于需要看youtube视频，所以就更改为<a href="https://github.com/wallproxy/wallproxy" target="_blank" rel="noopener">wallproxy</a>。<br><a href="https://github.com/wallproxy/wallproxy" target="_blank" rel="noopener">wallproxy</a>设置好了后，会出现<a href="https://www.youtube.com" target="_blank" rel="noopener">youtube</a>无法访问，所以需要导入证书。  </p>
-<pre><code>sudo yum install nss-tools  
-certutil -d sql:$HOME/.pki/nssdb -A -t TC -n &quot;goagent&quot; -i &lt;my wallproxy path&gt;/wallproxy/local/cert/missing/CA.crt
-</code></pre><p>记录下来，方便以后查找.  </p>
-
+            <p>
+              以前是使用goagent代理上网，由于需要看youtube视频，所以就更改为wallproxy。wallproxy设置好了后，会出现youtube无法访问，所以需要导入证书。  
+sudo yum install nss-tools  
+certutil -d sql:$HOME/.pki/nssd
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/02/01/2014-02-01-how-to-set-proxy-with-wallproxy/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1942,11 +1966,20 @@ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n &quot;goagent&quot; -i &lt;my wallp
       
         
           
-            <p>在国内，由于网络原因，在docker部署的时候，经常会出现<code>can&#39;t reach index.docker.io</code>,解决方法:<br>首先获得IP地址:<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ping registry-<span class="number">1</span>.docker.io</span><br><span class="line">```  </span><br><span class="line"><span class="symbol">获得IP地址:</span></span><br><span class="line">`54.<span class="number">224.119</span>.<span class="number">89</span>`</span><br><span class="line">添加一下内容到/etc/hosts</span><br></pre></td></tr></table></figure></p>
-<p>54.224.119.89 cdn-registry-1.docker.io<br><code>``
-Windows路径：</code>C:\Windows\System32\drivers\etc`</p>
-
+            <p>
+              在国内，由于网络原因，在docker部署的时候，经常会出现can&#39;t reach index.docker.io,解决方法:首先获得IP地址:ping registry-1.docker.io```  获得IP地址:`54.224.119.89`添加一下内容到/etc/hosts
+54.22
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/01/20/2014-01-20-how-to-start-docker/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -2124,10 +2157,20 @@ Windows路径：</code>C:\Windows\System32\drivers\etc`</p>
       
         
           
-            <p>2014年,新的一年，对自己提出了新的要求，希望自己在新的一年能够有所提高，有所专注。  </p>
-<p>翻译<br>继续关注CoreOS,并且文档继续翻译，完成2013年未完成的部分，更新新的特性，具体的项目地址<br><code>https://github.com/cloudcube/coreos-manual-chinese</code><br>项目<br>使用golang，完成一个项目,并且开源.<br>读书<br>阅读6本以上专业书籍，阅读10本以上非专业书籍。<br>专注<br>图形数据库在推荐系统中的应用<br>技能<br>继续深入c++,加强这方面的基本功<br>深入了解jvm虚拟机<br>深入了解Android内核<br>深层次对比关系数据库和图形数据库.<br>爱好<br>2014年继续关注<code>逻辑思维</code>自媒体，听罗胖子讲他的互联网思维。<br>持续关注的有价值的自媒体还有:<br><code>人生如戏</code><br><code>鬼脚七</code><br><code>道哥的黑办报</code><br>在2014年，尝试做做手工。到时候，代码写不动了，还可以编草鞋!不至于被饿死.呵呵呵…<br>当然博客也要继续写下去，练练文笔也不错啊!</p>
-
+            <p>
+              2014年,新的一年，对自己提出了新的要求，希望自己在新的一年能够有所提高，有所专注。  
+翻译继续关注CoreOS,并且文档继续翻译，完成2013年未完成的部分，更新新的特性，具体的项目地址https://github.com/cloudcube/coreos-manual-chinese项目使用
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2014/01/16/2014-01-16-plan/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
