@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '7.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
@@ -95,7 +95,7 @@
 
 
   <meta name="description" content="为什么加班的总是我？我总结了一下，主要有以下几个方面:    讨论的问题的时间过长了这会花掉我三分之一的事情来应对各种各样的讨论，没有目的，来的也很突然。如果我能够有效的解决这个问题，那么我的可支配的时间就会多一些    阅读电子邮件这个还不是很严重，只是没有专门花时间统一处理。  做一些不必要的事情这个也会花掉我比较多的时间， 有一些事情其实可以找人帮助，或者不做也行     希望今天对上">
-<meta name="keywords" content="生活,感悟">
+<meta name="keywords" content="感悟,生活">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[晨写于20150916]">
 <meta property="og:url" content="http://www.haibin.me/2015/09/16/晨写于20150916-1/index.html">
@@ -448,6 +448,18 @@
           
             
             
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2015/09/16/晨写于20150916-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/16/晨写于20150916-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -578,9 +590,9 @@
         
         <div class="post-tags">
           
-            <a href="/tags/生活/" rel="tag"># 生活</a>
-          
             <a href="/tags/感悟/" rel="tag"># 感悟</a>
+          
+            <a href="/tags/生活/" rel="tag"># 生活</a>
           
         </div>
       
@@ -626,6 +638,13 @@
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
 
   
 
@@ -931,6 +950,20 @@
 
           
           
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com" title="http://example.com" rel="noopener" target="_blank">Title</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
 
           
             
@@ -975,7 +1008,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.2.0</div>
 
 
 
@@ -1067,6 +1100,7 @@
 
 
 
+
   
   <script src="/js/scrollspy.js?v=7.2.0"></script>
 <script src="/js/post-details.js?v=7.2.0"></script>
@@ -1086,6 +1120,56 @@
   
 
   
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.haibin.me/2015/09/16/晨写于20150916-1/";
+    this.page.identifier = "2015/09/16/晨写于20150916-1/";
+    this.page.title = '[晨写于20150916]';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
+
+
+
 
 
   

@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '7.2.0',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
     back2top: true,
@@ -95,7 +95,7 @@
 
 
   <meta name="description" content="昨晚逼迫自己早早的睡了，开始虽然有些痛苦，习惯是慢慢养成的一个过程每天想做的事情太多太多了，而时间呢感觉太少，每天忙忙碌碌，却不知道自己的事情都花在了哪些地方.想想如果有一款软件能够记录自己的时间轨迹，帮忙规划自己的时间，该软件具有以下特点:    通过情景感知，可以连续记录我每个时间段都再干些什么?   实用的任务四象限管理，四象限包括: 紧急且重要，紧急不重要，不紧急重要，不紧急不重要   每">
-<meta name="keywords" content="生活,感悟,软件,想法">
+<meta name="keywords" content="感悟,生活,软件,想法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[晨写于20150915]">
 <meta property="og:url" content="http://www.haibin.me/2015/09/15/晨写于20150915/index.html">
@@ -446,6 +446,18 @@
           
             
             
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2015/09/15/晨写于20150915/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/15/晨写于20150915/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -578,9 +590,9 @@
         
         <div class="post-tags">
           
-            <a href="/tags/生活/" rel="tag"># 生活</a>
-          
             <a href="/tags/感悟/" rel="tag"># 感悟</a>
+          
+            <a href="/tags/生活/" rel="tag"># 生活</a>
           
             <a href="/tags/软件/" rel="tag"># 软件</a>
           
@@ -630,6 +642,13 @@
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
 
   
 
@@ -935,6 +954,20 @@
 
           
           
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://example.com" title="http://example.com" rel="noopener" target="_blank">Title</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
 
           
             
@@ -979,7 +1012,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.2.0</div>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.2.0</div>
 
 
 
@@ -1071,6 +1104,7 @@
 
 
 
+
   
   <script src="/js/scrollspy.js?v=7.2.0"></script>
 <script src="/js/post-details.js?v=7.2.0"></script>
@@ -1090,6 +1124,56 @@
   
 
   
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.haibin.me/2015/09/15/晨写于20150915/";
+    this.page.identifier = "2015/09/15/晨写于20150915/";
+    this.page.title = '[晨写于20150915]';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
+
+
+
 
 
   
