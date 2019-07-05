@@ -254,9 +254,9 @@
       <category term="Dagger2" scheme="http://www.haibin.me/categories/Android/Dagger2/"/>
     
     
-      <category term="Dagger2" scheme="http://www.haibin.me/tags/Dagger2/"/>
-    
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
+    
+      <category term="Dagger2" scheme="http://www.haibin.me/tags/Dagger2/"/>
     
       <category term="Linux" scheme="http://www.haibin.me/tags/Linux/"/>
     
@@ -1236,9 +1236,9 @@ polipo socksParentProxy=localhost:1080
       <category term="感悟" scheme="http://www.haibin.me/categories/life/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
-    
       <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
     
   </entry>
   
@@ -1276,9 +1276,9 @@ polipo socksParentProxy=localhost:1080
       <category term="感悟" scheme="http://www.haibin.me/categories/life/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
-    
       <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
     
       <category term="软件" scheme="http://www.haibin.me/tags/%E8%BD%AF%E4%BB%B6/"/>
     
@@ -1324,9 +1324,9 @@ polipo socksParentProxy=localhost:1080
       <category term="生活" scheme="http://www.haibin.me/categories/%E6%84%9F%E6%82%9F/life/"/>
     
     
-      <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
-    
       <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+      <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
     
   </entry>
   
