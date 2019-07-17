@@ -53,7 +53,7 @@ Cocos Creator 原生调试-Android篇[macOS]
 
 由于里面的调试端口是 6068，所以要进行端口转发，在`terminal`中执行
 ```
-✘> adb forward tcp:6068 tcp:6068
+✘> adb forward tcp:6086 tcp:6086
 ```
 打开浏览器，在地址栏中输入上面的内容
 ```
