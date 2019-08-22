@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.haibin.me/"/>
-  <updated>2019-08-16T08:54:21.048Z</updated>
+  <updated>2019-08-22T07:56:05.661Z</updated>
   <id>http://www.haibin.me/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>android手机通讯录读取</title>
+    <link href="http://www.haibin.me/2019/08/22/android%E6%89%8B%E6%9C%BA%E9%80%9A%E8%AE%AF%E5%BD%95%E8%8E%B7%E5%8F%96/"/>
+    <id>http://www.haibin.me/2019/08/22/android手机通讯录获取/</id>
+    <published>2019-08-22T07:46:27.000Z</published>
+    <updated>2019-08-22T07:56:05.661Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在App开发过程中，如果要实现电话号码的选择，但是默认的通讯录选择又不满足我们需求的时候，我们就需要对用户的通讯录进行读取。</p>
+<h1 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h1><p><code>Java</code> <code>kotlin</code> <code>Rxjava</code></p>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><h2 id="权限配置-AndroidManifest-xml"><a href="#权限配置-AndroidManifest-xml" class="headerlink" title="权限配置 AndroidManifest.xml"></a>权限配置 <code>AndroidManifest.xml</code></h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="attribute">name</span>=<span class="string">"android.permission.READ_CONTACTS"</span>/&gt;</span><br><span class="line">&lt;uses-permission android:<span class="attribute">name</span>=<span class="string">"android.permission.WRITE_CONTACTS"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="代码实现片段"><a href="#代码实现片段" class="headerlink" title="代码实现片段"></a>代码实现片段</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 获取通讯录</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">fun</span> <span class="title">getContacts</span><span class="params">(context: <span class="type">Context</span>)</span></span>: Observable&lt;List&lt;ContactBean&gt;&gt; &#123;</span><br><span class="line">       <span class="keyword">return</span> Observable.create(<span class="keyword">object</span> : ObservableOnSubscribe&lt;List&lt;ContactBean&gt;&gt; &#123;</span><br><span class="line">           <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">subscribe</span><span class="params">(emitter: <span class="type">ObservableEmitter</span>&lt;<span class="type">List</span>&lt;<span class="type">ContactBean</span>&gt;&gt;)</span></span> &#123;</span><br><span class="line">               <span class="keyword">val</span> contactBeen = ArrayList&lt;ContactBean&gt;()</span><br><span class="line">               <span class="keyword">try</span> &#123;</span><br><span class="line">                   <span class="comment">//得到ContentResolver对象</span></span><br><span class="line">                   <span class="keyword">val</span> cr = context.contentResolver</span><br><span class="line">                   <span class="comment">//取得电话本中开始一项的光标</span></span><br><span class="line">                   <span class="keyword">val</span> cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>)</span><br><span class="line">                   <span class="keyword">if</span> (cursor == <span class="literal">null</span>) &#123;</span><br><span class="line">                       emitter.onError(AppException(<span class="string">"无法获取通讯录"</span>))</span><br><span class="line">                       <span class="keyword">return</span></span><br><span class="line">                   &#125;</span><br><span class="line">                   <span class="comment">//向下移动光标</span></span><br><span class="line">                   <span class="keyword">while</span> (cursor.moveToNext()) &#123;</span><br><span class="line">                       <span class="comment">//取得联系人名字</span></span><br><span class="line">                       <span class="keyword">val</span> nameFieldColumnIndex = cursor.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME)</span><br><span class="line">                       <span class="keyword">val</span> contact = cursor.getString(nameFieldColumnIndex)</span><br><span class="line">                       <span class="comment">// 获得联系人的ID号</span></span><br><span class="line">                       <span class="keyword">val</span> contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))</span><br><span class="line">                       <span class="comment">//取得电话号码</span></span><br><span class="line">                       <span class="keyword">val</span> phone = cr.query(</span><br><span class="line">                           ContactsContract.CommonDataKinds.Phone.CONTENT_URI,</span><br><span class="line">                           <span class="literal">null</span>,</span><br><span class="line">                           ContactsContract.CommonDataKinds.Phone.CONTACT_ID + <span class="string">"="</span> + contactId,</span><br><span class="line">                           <span class="literal">null</span>,</span><br><span class="line">                           <span class="literal">null</span></span><br><span class="line">                       )</span><br><span class="line">                       <span class="keyword">val</span> phones = ArrayList&lt;String&gt;()</span><br><span class="line">                       <span class="keyword">while</span> (phone!!.moveToNext()) &#123;</span><br><span class="line">                           <span class="keyword">var</span> phoneNumber =</span><br><span class="line">                               phone.getString(phone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))</span><br><span class="line">                           <span class="comment">//格式化手机号</span></span><br><span class="line">                           phoneNumber = phoneNumber.replace(<span class="string">"-"</span>, <span class="string">""</span>)</span><br><span class="line">                           phoneNumber = phoneNumber.replace(<span class="string">" "</span>, <span class="string">""</span>)</span><br><span class="line">                           phones.add(phoneNumber)</span><br><span class="line">                       &#125;</span><br><span class="line">                       <span class="comment">// 获取备注信息</span></span><br><span class="line">                       <span class="keyword">val</span> notes = context.contentResolver.query(</span><br><span class="line">                           ContactsContract.Data.CONTENT_URI,</span><br><span class="line">                           arrayOf(ContactsContract.Data._ID, ContactsContract.CommonDataKinds.Note.NOTE),</span><br><span class="line">                           ContactsContract.Data.CONTACT_ID + <span class="string">"=?"</span> + <span class="string">" AND "</span> + ContactsContract.Data.MIMETYPE + <span class="string">"='"</span></span><br><span class="line">                                   + ContactsContract.CommonDataKinds.Note.CONTENT_ITEM_TYPE + <span class="string">"'"</span>,</span><br><span class="line">                           arrayOf(contactId),</span><br><span class="line">                           <span class="literal">null</span></span><br><span class="line">                       )</span><br><span class="line">                       <span class="keyword">var</span> noteInfo: String? = <span class="literal">null</span></span><br><span class="line">                       <span class="keyword">if</span> (notes!!.moveToFirst()) &#123;</span><br><span class="line">                           <span class="keyword">do</span> &#123;</span><br><span class="line">                               noteInfo =</span><br><span class="line">                                   notes.getString(notes.getColumnIndex(ContactsContract.CommonDataKinds.Note.NOTE))</span><br><span class="line">                           &#125; <span class="keyword">while</span> (notes.moveToNext())</span><br><span class="line">                       &#125;</span><br><span class="line">                       notes.close()</span><br><span class="line">                       contactBeen.add(ContactBean(contact, phones, noteInfo))</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125; <span class="keyword">catch</span> (e: java.lang.Exception) &#123;</span><br><span class="line">                   e.printStackTrace()</span><br><span class="line">               &#125;</span><br><span class="line">               emitter.onNext(contactBeen)</span><br><span class="line">               emitter.onComplete()</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>对于读取用户的私密信息，如非必要，千万不能滥用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;在App开发过程中，如果要实现电话号码的选择，但是默认的通讯录选择又不满足我们需求的时候，我们就需要对用户的通讯录进行读取。&lt;/p&gt;
+&lt;h1
+    
+    </summary>
+    
+    
+      <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
+    
+      <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
+    
+      <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
+    
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
+    
+      <category term="通讯录" scheme="http://www.haibin.me/tags/%E9%80%9A%E8%AE%AF%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>android手机消息监听</title>
@@ -319,9 +353,9 @@
       <category term="Dagger2" scheme="http://www.haibin.me/categories/Android/Dagger2/"/>
     
     
-      <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
-    
       <category term="Dagger2" scheme="http://www.haibin.me/tags/Dagger2/"/>
+    
+      <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
     
       <category term="Linux" scheme="http://www.haibin.me/tags/Linux/"/>
     
@@ -422,9 +456,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="linux" scheme="http://www.haibin.me/tags/linux/"/>
-    
       <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
+    
+      <category term="linux" scheme="http://www.haibin.me/tags/linux/"/>
     
   </entry>
   
@@ -574,9 +608,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
-    
       <category term="jenkins" scheme="http://www.haibin.me/tags/jenkins/"/>
+    
+      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
     
       <category term="持续集成" scheme="http://www.haibin.me/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     
