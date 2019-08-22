@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.haibin.me/"/>
-  <updated>2019-08-22T07:56:05.661Z</updated>
+  <updated>2019-08-22T09:36:22.741Z</updated>
   <id>http://www.haibin.me/</id>
   
   <author>
@@ -14,6 +14,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>android构建速度优化</title>
+    <link href="http://www.haibin.me/2019/08/22/android%E6%9E%84%E5%BB%BA%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96/"/>
+    <id>http://www.haibin.me/2019/08/22/android构建速度优化/</id>
+    <published>2019-08-22T09:23:17.000Z</published>
+    <updated>2019-08-22T09:36:22.741Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>Android Studio</code> 开发，到了构建阶段，是一个漫长的过程，当然优化的方式有很多中，我们就从gradle配置方面来进行初步的优化  </p>
+<h1 id="gradle-配置"><a href="#gradle-配置" class="headerlink" title="gradle 配置"></a>gradle 配置</h1><p>由于默认的新建的工程，在构建的话，比较耗时步骤</p>
+<ul>
+<li>下载<code>gradle</code></li>
+<li>同步相关包<br>对于上面的情况，首先可以手动下载gralde安装包，然后解压，在<code>android studio</code>中设置<code>gralde</code>路径 <h2 id="设置本地的gradle"><a href="#设置本地的gradle" class="headerlink" title="设置本地的gradle"></a>设置本地的<code>gradle</code></h2><img src="http://tp.linqmind.com/2019-08-22-092817.jpg" alt=""><h2 id="启用内部的maven仓库"><a href="#启用内部的maven仓库" class="headerlink" title="启用内部的maven仓库"></a>启用内部的maven仓库</h2><img src="http://tp.linqmind.com/2019-08-22-092944.jpg" alt=""><h2 id="设置maven仓库为国内的aliyun"><a href="#设置maven仓库为国内的aliyun" class="headerlink" title="设置maven仓库为国内的aliyun"></a>设置maven仓库为国内的<code>aliyun</code></h2><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">allprojects </span>&#123;</span><br><span class="line">    <span class="class">repositories </span>&#123;</span><br><span class="line">        mavenLocal()</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"https://maven.aliyun.com/repository/apache-snapshots"</span> &#125;</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"https://maven.aliyun.com/repository/google"</span> &#125;</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"https://maven.aliyun.com/repository/central"</span> &#125;</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"https://maven.aliyun.com/repository/gradle-plugin"</span> &#125;</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"https://maven.aliyun.com/repository/jcenter"</span> &#125;</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"https://maven.aliyun.com/repository/spring"</span> &#125;</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"http://maven.aliyun.com/nexus/content/repositories/releases/"</span> &#125;</span><br><span class="line">        <span class="class">maven </span>&#123; url <span class="string">"https://jitpack.io"</span> &#125;</span><br><span class="line">        google()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>希望<code>google</code>能够把<code>android studio</code>的调试和构建的时间，优化的好点~~~~。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;&lt;code&gt;Android Studio&lt;/code&gt; 开发，到了构建阶段，是一个漫长的过程，当然优化的方式有很多中，我们就从gradle配
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://www.haibin.me/tags/android/"/>
+    
+      <category term="gradle" scheme="http://www.haibin.me/tags/gradle/"/>
+    
+      <category term="构建速度" scheme="http://www.haibin.me/tags/%E6%9E%84%E5%BB%BA%E9%80%9F%E5%BA%A6/"/>
+    
+      <category term="android studio" scheme="http://www.haibin.me/tags/android-studio/"/>
+    
+  </entry>
   
   <entry>
     <title>android手机通讯录读取</title>
@@ -353,9 +387,9 @@
       <category term="Dagger2" scheme="http://www.haibin.me/categories/Android/Dagger2/"/>
     
     
-      <category term="Dagger2" scheme="http://www.haibin.me/tags/Dagger2/"/>
-    
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
+    
+      <category term="Dagger2" scheme="http://www.haibin.me/tags/Dagger2/"/>
     
       <category term="Linux" scheme="http://www.haibin.me/tags/Linux/"/>
     
@@ -456,9 +490,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
-    
       <category term="linux" scheme="http://www.haibin.me/tags/linux/"/>
+    
+      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
     
   </entry>
   
@@ -608,9 +642,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="jenkins" scheme="http://www.haibin.me/tags/jenkins/"/>
-    
       <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
+    
+      <category term="jenkins" scheme="http://www.haibin.me/tags/jenkins/"/>
     
       <category term="持续集成" scheme="http://www.haibin.me/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     
