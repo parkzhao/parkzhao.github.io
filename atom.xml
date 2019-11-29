@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.haibin.me/"/>
-  <updated>2019-09-05T01:05:30.323Z</updated>
+  <updated>2019-11-29T10:28:50.467Z</updated>
   <id>http://www.haibin.me/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小程序博文伴读</title>
+    <link href="http://www.haibin.me/2019/11/29/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8D%9A%E6%96%87%E4%BC%B4%E8%AF%BB/"/>
+    <id>http://www.haibin.me/2019/11/29/小程序博文伴读/</id>
+    <published>2019-11-29T09:42:31.000Z</published>
+    <updated>2019-11-29T10:28:50.467Z</updated>
+    
+    <content type="html"><![CDATA[<p>自己抽空为小孩写了一个管理阅读时间的小程序《博文伴读》，自己用了，感觉还不错，共享出来，希望能够帮到各位宝爸，宝妈们，通过该小程序，能够清楚地去记录小孩在阅读的过程中的每一条记录。同时我也整理了一些书籍目录，共大家进行阅读参考。<br>欢迎大家通过微信扫码体验，遇到问题，希望大家通过客服联系我,希望大家用的开心。</p>
+<div align="center"><br><img src="http://tp.linqmind.com/2019-11-29-gh_42be8749e7dd_344.jpeg" alt="博文伴读"><br></div>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自己抽空为小孩写了一个管理阅读时间的小程序《博文伴读》，自己用了，感觉还不错，共享出来，希望能够帮到各位宝爸，宝妈们，通过该小程序，能够清楚地去记录小孩在阅读的过程中的每一条记录。同时我也整理了一些书籍目录，共大家进行阅读参考。&lt;br&gt;欢迎大家通过微信扫码体验，遇到问题，希
+    
+    </summary>
+    
+    
+      <category term="小程序" scheme="http://www.haibin.me/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+      <category term="博文伴读" scheme="http://www.haibin.me/tags/%E5%8D%9A%E6%96%87%E4%BC%B4%E8%AF%BB/"/>
+    
+      <category term="时间记录" scheme="http://www.haibin.me/tags/%E6%97%B6%E9%97%B4%E8%AE%B0%E5%BD%95/"/>
+    
+      <category term="小孩阅读时间管理" scheme="http://www.haibin.me/tags/%E5%B0%8F%E5%AD%A9%E9%98%85%E8%AF%BB%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>rxjava2.0常用方法使用</title>
@@ -71,13 +98,13 @@
     </summary>
     
     
-      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
-    
-      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
+      <category term="android" scheme="http://www.haibin.me/tags/android/"/>
     
       <category term="java" scheme="http://www.haibin.me/tags/java/"/>
     
-      <category term="android" scheme="http://www.haibin.me/tags/android/"/>
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
+    
+      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
     
   </entry>
   
@@ -102,11 +129,11 @@
     </summary>
     
     
-      <category term="java" scheme="http://www.haibin.me/tags/java/"/>
-    
       <category term="android" scheme="http://www.haibin.me/tags/android/"/>
     
       <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
+    
+      <category term="java" scheme="http://www.haibin.me/tags/java/"/>
     
       <category term="相册" scheme="http://www.haibin.me/tags/%E7%9B%B8%E5%86%8C/"/>
     
@@ -172,11 +199,11 @@
     
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
     
-      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
-    
       <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
     
       <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
+    
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
     
       <category term="通讯录" scheme="http://www.haibin.me/tags/%E9%80%9A%E8%AE%AF%E5%BD%95/"/>
     
@@ -589,9 +616,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="linux" scheme="http://www.haibin.me/tags/linux/"/>
-    
       <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
+    
+      <category term="linux" scheme="http://www.haibin.me/tags/linux/"/>
     
   </entry>
   
@@ -741,9 +768,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
-    
       <category term="jenkins" scheme="http://www.haibin.me/tags/jenkins/"/>
+    
+      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
     
       <category term="持续集成" scheme="http://www.haibin.me/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     
