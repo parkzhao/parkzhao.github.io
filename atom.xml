@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.haibin.me/"/>
-  <updated>2019-11-29T10:28:50.467Z</updated>
+  <updated>2019-12-16T15:14:28.692Z</updated>
   <id>http://www.haibin.me/</id>
   
   <author>
@@ -14,6 +14,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>『译文』Queues vs. Topics vs. Virtual Topics (in ActiveMQ)</title>
+    <link href="http://www.haibin.me/2019/12/16/Queues-vs-Topics-vs-Virtual-Topics-in-ActiveMQ/"/>
+    <id>http://www.haibin.me/2019/12/16/Queues-vs-Topics-vs-Virtual-Topics-in-ActiveMQ/</id>
+    <published>2019-12-16T14:05:31.000Z</published>
+    <updated>2019-12-16T15:14:28.692Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>ActiveMQ</code>提供了一种不同的消息模式，当队列(<code>queues</code>)和主题(<code>topics</code>)越来越流行的时候。<code>virtual topics</code>将两者很好的统一在了一起:多个消费者拥有自己的专属队列。</p>
+<h1 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h1><p><img src="http://tp.linqmind.com/2019-12-16-141044.jpg" alt="队列"><br>队列(<code>queues</code>)作为一种最常见的消息模式被<code>ActiveMQ</code>实现.在消费者与生产者之间提供了一个直接的通道。生产者创建消息，消费者一个一个的读取，读取此消息后，该消息就消失了。如果多个消费者注册了同一个队列(<code>queues</code>),只有一个会获取到该消息。</p>
+<h2 id="Pros"><a href="#Pros" class="headerlink" title="Pros"></a>Pros</h2><ul>
+<li>简单的消息模式与一个透明的通信流。</li>
+<li>可以通过把消息放回到队列中，恢复过来。</li>
+</ul>
+<h2 id="Cons"><a href="#Cons" class="headerlink" title="Cons"></a>Cons</h2><ul>
+<li>只有一个消费者可以得到消息</li>
+<li>意味着生产者和消费者之间的耦合,因为它是一个一对一的关系</li>
+</ul>
+<h1 id="Topics"><a href="#Topics" class="headerlink" title="Topics"></a>Topics</h1><p><img src="http://tp.linqmind.com/2019-12-16-141851.jpg" alt=""><br>主题(<code>Topics</code>)在一个生产者与多个消费者直接实现了一个一对多的通道。主题和队列不同，每一个消费者将会接收到生产者发送的消息。</p>
+<h2 id="Pros-1"><a href="#Pros-1" class="headerlink" title="Pros"></a>Pros</h2><ul>
+<li>多个消费者获取同一个消息</li>
+<li>生产者与消费者之间解耦(发布订阅模式)</li>
+</ul>
+<h2 id="Cons-1"><a href="#Cons-1" class="headerlink" title="Cons"></a>Cons</h2><ul>
+<li>更加复杂的通信流</li>
+<li>相对于单个监听器，消息不能够被恢复</li>
+</ul>
+<h1 id="Virtual-Topics"><a href="#Virtual-Topics" class="headerlink" title="Virtual Topics"></a>Virtual Topics</h1><p><img src="http://tp.linqmind.com/2019-12-16-145734.jpg" alt=""></p>
+<p>虚拟主题(<code>Virtual topics</code>) 将上面的两种进行了合并。当生产者发送了一个消息到一个主题, 消费者将从他们自己的队列中，获取一份消息拷贝。</p>
+<h2 id="Pros-2"><a href="#Pros-2" class="headerlink" title="Pros"></a>Pros</h2><ul>
+<li>单个消息可以被多个消费者获取。</li>
+<li>生产者与消费者解耦,发布订阅模式(publish-and-subscribe pattern)</li>
+<li>消息可以通过重新放回到队列中进行恢复。</li>
+</ul>
+<h2 id="Cons-2"><a href="#Cons-2" class="headerlink" title="Cons"></a>Cons</h2><ul>
+<li>可能需要在节点进行额外的配置。</li>
+</ul>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>队列和主题,都有自己的缺点。队列耦合生产者和消费者,主题缺乏一个简单的方法来恢复单个消费者的错误。虚拟主题提供一个解决方案的问题。生产者和消费者是解耦的发布-订阅模式,错误恢复可以放在单个队列。</p>
+<h1 id="原文"><a href="#原文" class="headerlink" title="原文"></a>原文</h1><p><a href="https://tuhrig.de/queues-vs-topics-vs-virtual-topics-in-activemq/" target="_blank" rel="noopener">https://tuhrig.de/queues-vs-topics-vs-virtual-topics-in-activemq/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;ActiveMQ&lt;/code&gt;提供了一种不同的消息模式，当队列(&lt;code&gt;queues&lt;/code&gt;)和主题(&lt;code&gt;topics&lt;/code&gt;)越来越流行的时候。&lt;code&gt;virtual topics&lt;/code&gt;将两者很好的统一在了一起:多个消费者拥
+    
+    </summary>
+    
+    
+      <category term="ActiveMQ" scheme="http://www.haibin.me/tags/ActiveMQ/"/>
+    
+      <category term="Topic" scheme="http://www.haibin.me/tags/Topic/"/>
+    
+      <category term="Queues" scheme="http://www.haibin.me/tags/Queues/"/>
+    
+      <category term="Virtual Topics" scheme="http://www.haibin.me/tags/Virtual-Topics/"/>
+    
+  </entry>
   
   <entry>
     <title>小程序博文伴读</title>
@@ -98,13 +155,13 @@
     </summary>
     
     
-      <category term="android" scheme="http://www.haibin.me/tags/android/"/>
-    
-      <category term="java" scheme="http://www.haibin.me/tags/java/"/>
+      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
     
       <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
     
-      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
+      <category term="java" scheme="http://www.haibin.me/tags/java/"/>
+    
+      <category term="android" scheme="http://www.haibin.me/tags/android/"/>
     
   </entry>
   
@@ -129,11 +186,11 @@
     </summary>
     
     
+      <category term="java" scheme="http://www.haibin.me/tags/java/"/>
+    
       <category term="android" scheme="http://www.haibin.me/tags/android/"/>
     
       <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
-    
-      <category term="java" scheme="http://www.haibin.me/tags/java/"/>
     
       <category term="相册" scheme="http://www.haibin.me/tags/%E7%9B%B8%E5%86%8C/"/>
     
@@ -199,11 +256,11 @@
     
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
     
-      <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
     
       <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
     
-      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
+      <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
     
       <category term="通讯录" scheme="http://www.haibin.me/tags/%E9%80%9A%E8%AE%AF%E5%BD%95/"/>
     
@@ -616,9 +673,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
-    
       <category term="linux" scheme="http://www.haibin.me/tags/linux/"/>
+    
+      <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
     
   </entry>
   
@@ -768,9 +825,9 @@
     
       <category term="Docker" scheme="http://www.haibin.me/tags/Docker/"/>
     
-      <category term="jenkins" scheme="http://www.haibin.me/tags/jenkins/"/>
-    
       <category term="CI" scheme="http://www.haibin.me/tags/CI/"/>
+    
+      <category term="jenkins" scheme="http://www.haibin.me/tags/jenkins/"/>
     
       <category term="持续集成" scheme="http://www.haibin.me/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     
