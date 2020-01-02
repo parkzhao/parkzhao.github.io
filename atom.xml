@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.haibin.me/"/>
-  <updated>2020-01-02T14:15:41.132Z</updated>
+  <updated>2020-01-02T14:19:47.003Z</updated>
   <id>http://www.haibin.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.haibin.me/2019/12/31/2019%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
     <id>http://www.haibin.me/2019/12/31/2019工作总结/</id>
     <published>2019-12-31T14:11:24.000Z</published>
-    <updated>2020-01-02T14:15:41.132Z</updated>
+    <updated>2020-01-02T14:19:47.003Z</updated>
     
     <content type="html"><![CDATA[<p>虽然2019年已经过去两天，由于拖延症的关系，总结迟迟没写。正好今天有时间，盘点一下我的2019年。<br>先说收获吧</p>
 <ol>
@@ -34,8 +34,8 @@
 <li>自己练手的游戏，《塔罗世界》夭折了，主要是自己的恒心不够，遇到困难就放弃了。搭建了一个大概的框架，基本玩法已经有了，剩下的工作，主要是对整个游戏的美化与丰富。</li>
 <li>重要的知识点学习的不是很扎实。这个是比较的致命的，有些东西不会的还是不会。</li>
 <li>没有认识什么新的朋友，自己的社交圈还是比较的窄。</li>
-<li>反正缺点还有很多很多，也不列举了，希望自己在新的2020年能够走得越来越好吧。</li>
 </ol>
+<p>反正缺点还有很多很多，也不列举了，希望自己在新的2020年能够走得越来越好吧。</p>
 ]]></content>
     
     <summary type="html">
@@ -350,11 +350,11 @@
     
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
     
-      <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
-    
       <category term="消息监听" scheme="http://www.haibin.me/tags/%E6%B6%88%E6%81%AF%E7%9B%91%E5%90%AC/"/>
     
       <category term="通知栏消息" scheme="http://www.haibin.me/tags/%E9%80%9A%E7%9F%A5%E6%A0%8F%E6%B6%88%E6%81%AF/"/>
+    
+      <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
     
   </entry>
   
