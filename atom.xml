@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.haibin.me/"/>
-  <updated>2020-01-02T15:08:43.250Z</updated>
+  <updated>2020-01-02T15:11:07.591Z</updated>
   <id>http://www.haibin.me/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>2020个人工作计划</title>
+    <title>2020计划</title>
     <link href="http://www.haibin.me/2020/12/31/2020%E4%B8%AA%E4%BA%BA%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92/"/>
     <id>http://www.haibin.me/2020/12/31/2020个人工作计划/</id>
     <published>2020-12-31T14:46:24.000Z</published>
-    <updated>2020-01-02T15:08:43.250Z</updated>
+    <updated>2020-01-02T15:11:07.591Z</updated>
     
     <content type="html"><![CDATA[<p>工作计划其实比较难写，目标定得太高，搭梯子都够不着，定得太低，很容易达到了又没有什么挑战，我个人以为，定计划是对自己重新认识的一个过程，通过定计划，我可以一点一点的靠近我的临界值。一点一点的认识到自己的边界在哪里。<br>我现在发现，个人计划是一个不断修正的过程，我们在确定总体目标后，要不停的对计划做修正，已达到自己期望的那个结果。<br>目标1: 加强自己的写作能力，固定微信公众号的更新频次，每个月四篇文章。<br>目标2: 把自己的知识分享出来，每个月录制一个教学视频，或者直播一次也可以。<br>目标3: 继续完善博文伴读的功能，优化现在已有的功能点。<br>目标4: 加强自己的阅读量,读20本(小说不算)，专业书籍6本，其余的随便，在博文伴读上面进行打卡。<br>目标5: 扩展自己的交际圈，认识一些新的朋友，至少认识6个新朋友。<br>目标6: 扩展自己的专业知识，增加自己的职业周期，在自己已有的知识的基础上，向移动端游戏开发(unity 3D)方向与移动端轻量级机器学习(TensorFlow Lite)上探索。<br>目标7: 培养一门爱好(画画)，水平能够达到初级水平。<br>目标8: 多陪伴家人，常回家看看。</p>
 ]]></content>
@@ -234,13 +234,13 @@
     </summary>
     
     
-      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
-    
-      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
-    
       <category term="java" scheme="http://www.haibin.me/tags/java/"/>
     
       <category term="android" scheme="http://www.haibin.me/tags/android/"/>
+    
+      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
+    
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
     
   </entry>
   
@@ -265,11 +265,11 @@
     </summary>
     
     
+      <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
+    
       <category term="java" scheme="http://www.haibin.me/tags/java/"/>
     
       <category term="android" scheme="http://www.haibin.me/tags/android/"/>
-    
-      <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
     
       <category term="相册" scheme="http://www.haibin.me/tags/%E7%9B%B8%E5%86%8C/"/>
     
@@ -335,9 +335,9 @@
     
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
     
-      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
-    
       <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
+    
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
     
       <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
     
@@ -369,11 +369,11 @@
     
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
     
-      <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
-    
       <category term="消息监听" scheme="http://www.haibin.me/tags/%E6%B6%88%E6%81%AF%E7%9B%91%E5%90%AC/"/>
     
       <category term="通知栏消息" scheme="http://www.haibin.me/tags/%E9%80%9A%E7%9F%A5%E6%A0%8F%E6%B6%88%E6%81%AF/"/>
+    
+      <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
     
   </entry>
   
@@ -649,9 +649,9 @@
       <category term="Dagger2" scheme="http://www.haibin.me/categories/Android/Dagger2/"/>
     
     
-      <category term="Dagger2" scheme="http://www.haibin.me/tags/Dagger2/"/>
-    
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
+    
+      <category term="Dagger2" scheme="http://www.haibin.me/tags/Dagger2/"/>
     
       <category term="Linux" scheme="http://www.haibin.me/tags/Linux/"/>
     
@@ -1631,9 +1631,9 @@ polipo socksParentProxy=localhost:1080
       <category term="感悟" scheme="http://www.haibin.me/categories/life/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
       <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
+    
+      <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
@@ -1671,9 +1671,9 @@ polipo socksParentProxy=localhost:1080
       <category term="感悟" scheme="http://www.haibin.me/categories/life/%E6%84%9F%E6%82%9F/"/>
     
     
-      <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
       <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
+    
+      <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
       <category term="软件" scheme="http://www.haibin.me/tags/%E8%BD%AF%E4%BB%B6/"/>
     
@@ -1719,9 +1719,9 @@ polipo socksParentProxy=localhost:1080
       <category term="生活" scheme="http://www.haibin.me/categories/%E6%84%9F%E6%82%9F/life/"/>
     
     
-      <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
-    
       <category term="感悟" scheme="http://www.haibin.me/tags/%E6%84%9F%E6%82%9F/"/>
+    
+      <category term="生活" scheme="http://www.haibin.me/tags/%E7%94%9F%E6%B4%BB/"/>
     
   </entry>
   
