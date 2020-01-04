@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="对于Flutter的更新，没有现成的模块可以使用，需要自己动手封装，App内的更新，是每个App需要考虑的事情，对于Android和iOS更新的机制是不一样的。更新这块我们分为两个部分来说  Android的更新Android的应用内更新处理起来应该比较的简单，应用的App可以放在自己的网站进行下载，也可以放在公共的存储云上进行下载。在App启动的时候，检查App的更新，如果有新的App就下载。否">
+<meta name="keywords" content="Android,flutter,更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter更新模块-Android版">
+<meta property="og:url" content="http://www.haibin.me/2020/01/04/Flutter更新模块-Android版/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="对于Flutter的更新，没有现成的模块可以使用，需要自己动手封装，App内的更新，是每个App需要考虑的事情，对于Android和iOS更新的机制是不一样的。更新这块我们分为两个部分来说  Android的更新Android的应用内更新处理起来应该比较的简单，应用的App可以放在自己的网站进行下载，也可以放在公共的存储云上进行下载。在App启动的时候，检查App的更新，如果有新的App就下载。否">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-01-04T09:30:12.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter更新模块-Android版">
+<meta name="twitter:description" content="对于Flutter的更新，没有现成的模块可以使用，需要自己动手封装，App内的更新，是每个App需要考虑的事情，对于Android和iOS更新的机制是不一样的。更新这块我们分为两个部分来说  Android的更新Android的应用内更新处理起来应该比较的简单，应用的App可以放在自己的网站进行下载，也可以放在公共的存储云上进行下载。在App启动的时候，检查App的更新，如果有新的App就下载。否">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2020/01/04/Flutter更新模块-Android版/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Flutter更新模块-Android版 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2020/01/04/Flutter更新模块-Android版/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Flutter更新模块-Android版
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-04 17:18:22 / Modified: 17:30:12" itemprop="dateCreated datePublished" datetime="2020-01-04T17:18:22+08:00">2020-01-04</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2020/01/04/Flutter更新模块-Android版/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/04/Flutter更新模块-Android版/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对于Flutter的更新，没有现成的模块可以使用，需要自己动手封装，App内的更新，是每个App需要考虑的事情，对于Android和iOS更新的机制是不一样的。<br>更新这块我们分为两个部分来说</p>
+<ul>
+<li>Android的更新<br>Android的应用内更新处理起来应该比较的简单，应用的App可以放在自己的网站进行下载，也可以放在公共的存储云上进行下载。在App启动的时候，检查App的更新，如果有新的App就下载。否者进行下一步流程。</li>
+<li>iOS的更新<br>由于iOS的特殊原因，iOS的更新，需要分为两个不分，1. 已经上架的App，2. 还未上架的App，这两个考虑是不一样的。这个处理起来要麻烦一些。这个我将在下一篇进行介绍。</li>
+</ul>
+<p>在这一篇文章主要描述Flutter Android版本的App更新模块的设计与实现</p>
+<h2 id="Andoird端更新流程"><a href="#Andoird端更新流程" class="headerlink" title="Andoird端更新流程"></a>Andoird端更新流程</h2><p>更新流程图</p>
+<pre class="mermaid">graph TD
+A[启动App] -->|拉取App最新的版本信息| B(获取本地的应用版本)
+B --> C{检查版本信息}
+C -->|本地版本等于线上版本号| D[执行正常的流程]
+C -->|本地版本小于线上版本| E[启动更新]
+E -->|获取下载链接| F[启动flutter_downloader下载Apk]
+F --> G[通过method_channel安装Apk]
+G --> H[更新完成]
+D --> H</pre>
+
+<h2 id="具体的代码实现"><a href="#具体的代码实现" class="headerlink" title="具体的代码实现"></a>具体的代码实现</h2><h3 id="Fluter端代码"><a href="#Fluter端代码" class="headerlink" title="Fluter端代码"></a>Fluter端代码</h3><h4 id="检查App的线上的最新版本"><a href="#检查App的线上的最新版本" class="headerlink" title="检查App的线上的最新版本"></a>检查App的线上的最新版本</h4><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">updateAppVersion() &#123;</span><br><span class="line">    if (Platform.isAndroid) &#123;</span><br><span class="line">      var req = SoftwareTabletIn();</span><br><span class="line"><span class="comment">//      req.id = API.build;</span></span><br><span class="line">      NetUtils.post(</span><br><span class="line"><span class="symbol">          url:</span> API.softwareTabletInfo,</span><br><span class="line"><span class="symbol">          params:</span> req.toJson(),</span><br><span class="line"><span class="symbol">          success:</span> (result) &#123;</span><br><span class="line">            var bean = SoftwareTabletResp.fromJson(result);</span><br><span class="line">            if (bean != null) &#123;</span><br><span class="line">              if (bean.buildVersion &gt; API.build) &#123;</span><br><span class="line">                showDialog(</span><br><span class="line"><span class="symbol">                    context:</span> context,</span><br><span class="line"><span class="symbol">                    child:</span> AlertDialog(</span><br><span class="line"><span class="symbol">                        title:</span> Text(<span class="string">"提示"</span>),</span><br><span class="line"><span class="symbol">                        content:</span> Text(<span class="string">"有新的版本($&#123;bean.version&#125;)需要升级"</span>),</span><br><span class="line"><span class="symbol">                        actions:</span> <span class="params">&lt;Widget&gt;</span>[</span><br><span class="line">                          FlatButton(</span><br><span class="line"><span class="symbol">                              onPressed:</span> () =&gt; Navigator.of(context).pop(),</span><br><span class="line"><span class="symbol">                              child:</span> Text(<span class="string">"取消"</span>)),</span><br><span class="line">                          FlatButton(</span><br><span class="line"><span class="symbol">                              onPressed:</span> () &#123;</span><br><span class="line">                                Navigator.of(context).pop(true);</span><br><span class="line">                                _downloadAndInstall(bean);</span><br><span class="line">                              &#125;,</span><br><span class="line"><span class="symbol">                              child:</span> Text(<span class="string">"确定"</span>))</span><br><span class="line">                        ]));</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="下载Apk应用包"><a href="#下载Apk应用包" class="headerlink" title="下载Apk应用包"></a>下载Apk应用包</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _downloadAndInstall(SoftwareTabletResp bean) <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="comment">//权限判断</span></span><br><span class="line">    <span class="keyword">var</span> permission = PermissionGroup.storage;</span><br><span class="line">    <span class="keyword">var</span> accessStatus =</span><br><span class="line">        <span class="keyword">await</span> PermissionHandler().checkPermissionStatus(permission);</span><br><span class="line">    <span class="keyword">if</span> (accessStatus == PermissionStatus.granted) &#123;</span><br><span class="line">      executeDownload(bean.affixPath);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> requestStatus = <span class="keyword">await</span> PermissionHandler()</span><br><span class="line">          .requestPermissions(&lt;PermissionGroup&gt;[permission]);</span><br><span class="line">      <span class="keyword">if</span> (requestStatus[permission] == PermissionStatus.granted) &#123;</span><br><span class="line">        executeDownload(bean.affixPath);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Fluttertoast.showToast(msg: <span class="string">"请授权后重试"</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"> <span class="comment">// 下载</span></span><br><span class="line">  Future&lt;<span class="keyword">void</span>&gt; executeDownload(<span class="built_in">String</span> downloadApkUrl) <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> path = <span class="keyword">await</span> _apkLocalPath;</span><br><span class="line">    <span class="comment">//下载</span></span><br><span class="line">    FlutterDownloader.initialize().then((e) &#123;</span><br><span class="line">      startDownload(downloadApkUrl, path);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Future startDownload(<span class="built_in">String</span> downloadApkUrl, <span class="built_in">String</span> path) <span class="keyword">async</span> &#123;</span><br><span class="line">    Future.delayed(<span class="built_in">Duration</span>(milliseconds: <span class="number">0</span>), () &#123;</span><br><span class="line">      Global.loadingPage = LoadingPage(context);</span><br><span class="line">      Global.loadingPage.show();</span><br><span class="line">    &#125;);</span><br><span class="line">    FlutterDownloader.registerCallback(downloadCallback);</span><br><span class="line">    taskId = <span class="keyword">await</span> FlutterDownloader.enqueue(</span><br><span class="line">        url: downloadApkUrl,</span><br><span class="line">        savedDir: path,</span><br><span class="line">        fileName: <span class="string">"app-release.apk"</span>,</span><br><span class="line">        showNotification: <span class="keyword">true</span>,</span><br><span class="line">        openFileFromNotification: <span class="keyword">true</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="通过Method-Channel安装App"><a href="#通过Method-Channel安装App" class="headerlink" title="通过Method Channel安装App"></a>通过<code>Method Channel</code>安装App</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">下载监听</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> downloadCallback(</span><br><span class="line">      <span class="built_in">String</span> id, DownloadTaskStatus status, <span class="built_in">int</span> progress) &#123;</span><br><span class="line">    <span class="comment">// 当下载完成时，调用安装</span></span><br><span class="line">    <span class="keyword">if</span> (status == DownloadTaskStatus.complete) &#123;</span><br><span class="line">      closeLoadingPage();</span><br><span class="line">      _installApk();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 安装</span></span><br><span class="line">  <span class="keyword">static</span> Future&lt;<span class="built_in">Null</span>&gt; _installApk() <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">final</span> path = <span class="keyword">await</span> _apkLocalPath;</span><br><span class="line">      <span class="comment">// 调用app地址</span></span><br><span class="line">      _channel.invokeMethod(<span class="string">'installApk'</span>, &lt;<span class="built_in">String</span>, <span class="keyword">dynamic</span>&gt;&#123;</span><br><span class="line">      <span class="string">"downloadUrl"</span>: downloadUrl</span><br><span class="line">    &#125;).then((e) &#123;</span><br><span class="line">        <span class="built_in">print</span>(e);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (_) &#123;&#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Android端的代码实现"><a href="#Android端的代码实现" class="headerlink" title="Android端的代码实现"></a>Android端的代码实现</h3><p>在Android原生端，主要实现App的安装，在这里也是有许多的坑的。</p>
+<h4 id="安装代码的实现"><a href="#安装代码的实现" class="headerlink" title="安装代码的实现"></a>安装代码的实现</h4><h4 id="AndroidManifest-xml配置"><a href="#AndroidManifest-xml配置" class="headerlink" title="AndroidManifest.xml配置"></a>AndroidManifest.xml配置</h4><p>flutter_downloader配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;provider</span><br><span class="line">    android:name="vn.hunghd.flutterdownloader.DownloadedFileProvider"</span><br><span class="line">    android:authorities="$&#123;applicationId&#125;.flutter_downloader.provider"</span><br><span class="line">    android:exported="false"</span><br><span class="line">    android:grantUriPermissions="true"&gt;</span><br><span class="line">    &lt;meta-data</span><br><span class="line">        android:name="android.support.FILE_PROVIDER_PATHS"</span><br><span class="line">        android:resource="@xml/provider_paths"/&gt;</span><br><span class="line">&lt;/provider&gt;</span><br><span class="line"></span><br><span class="line">&lt;provider</span><br><span class="line">    android:name="androidx.work.impl.WorkManagerInitializer"</span><br><span class="line">    android:authorities="$&#123;applicationId&#125;.workmanager-init"</span><br><span class="line">    android:enabled="false"</span><br><span class="line">    android:exported="false" /&gt;</span><br><span class="line"></span><br><span class="line">&lt;provider</span><br><span class="line">    android:name="vn.hunghd.flutterdownloader.FlutterDownloaderInitializer"</span><br><span class="line">    android:authorities="$&#123;applicationId&#125;.flutter-downloader-init"</span><br><span class="line">    android:exported="false"&gt;</span><br><span class="line">    &lt;meta-data</span><br><span class="line">        android:name="vn.hunghd.flutterdownloader.MAX_CONCURRENT_TASKS"</span><br><span class="line">        android:value="5" /&gt;</span><br><span class="line">&lt;/provider&gt;</span><br><span class="line"></span><br><span class="line">&lt;provider</span><br><span class="line">    android:name=".updateApk.UpdateFileProvider"</span><br><span class="line">    android:authorities="com.sctuopuyi.hcms.downloadedfileprovider"</span><br><span class="line">    android:exported="false"</span><br><span class="line">    android:grantUriPermissions="true"&gt;</span><br><span class="line">    &lt;meta-data</span><br><span class="line">        android:name="android.support.FILE_PROVIDER_PATHS"</span><br><span class="line">        android:resource="@xml/provider_paths1"/&gt;</span><br><span class="line">&lt;/provider&gt;</span><br></pre></td></tr></table></figure></p>
+<p>provider_path1.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">paths</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">external-path</span> <span class="attr">name</span>=<span class="string">"external_files"</span> <span class="attr">path</span>=<span class="string">"."</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">paths</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="android-端method-channel处理"><a href="#android-端method-channel处理" class="headerlink" title="android 端method channel处理"></a>android 端method channel处理</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onMethodCall</span><span class="params">(call: <span class="type">MethodCall</span>, result: <span class="type">Result</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">when</span> (call.method) &#123;</span><br><span class="line">        <span class="string">"installApk"</span> -&gt; &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Log.i(<span class="string">"updateApk"</span>, <span class="string">"开始下载软件包"</span>)</span><br><span class="line">                    <span class="comment">//更新APK</span></span><br><span class="line">                    apkFileUrl = call.argument(<span class="string">"downloadUrl"</span>)</span><br><span class="line"><span class="comment">//                    apkFileUrl = "/storage/emulated/0/Android/data/com.sctuopuyi.hcms/files/app-release.apk"</span></span><br><span class="line">                    Log.i(<span class="string">"updateApk"</span>, <span class="string">"获取参数成功"</span>)</span><br><span class="line">                    <span class="keyword">val</span> file = File(apkFileUrl)</span><br><span class="line">                    Updater.install(<span class="keyword">this</span>.applicationContext, file, <span class="literal">true</span>)</span><br><span class="line">                &#125; <span class="keyword">catch</span> (e: Exception) &#123;</span><br><span class="line">                    e.printStackTrace()</span><br><span class="line">                &#125;</span><br><span class="line">                result.success(<span class="literal">null</span>)</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="安装Apk"><a href="#安装Apk" class="headerlink" title="安装Apk"></a>安装Apk</h4><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> static void install(Context context, <span class="keyword">File</span> <span class="keyword">file</span>, boolean force) &#123;</span><br><span class="line">  <span class="keyword">Intent</span> <span class="keyword">intent</span> = new <span class="keyword">Intent</span>(<span class="keyword">Intent</span>.ACTION_VIEW);</span><br><span class="line">  <span class="keyword">if</span> (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.N) &#123;</span><br><span class="line">            <span class="keyword">intent</span>.setDataAndType(Uri.fromFile(<span class="keyword">file</span>), <span class="string">"application/vnd.android.package-archive"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Uri uri = FileProvider.getUriForFile(context, context.getPackageName() + <span class="string">".downloadedfileprovider"</span>, <span class="keyword">file</span>);</span><br><span class="line">            <span class="keyword">intent</span>.setDataAndType(uri, <span class="string">"application/vnd.android.package-archive"</span>);</span><br><span class="line">            <span class="keyword">intent</span>.addFlags(<span class="keyword">Intent</span>.FLAG_GRANT_READ_URI_PERMISSION);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">intent</span>.addFlags(<span class="keyword">Intent</span>.FLAG_ACTIVITY_NEW_TASK);</span><br><span class="line">        context.startActivity(<span class="keyword">intent</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里，<code>Flutter App android</code> 端的更新已经处理完毕。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2020/01/04/Flutter更新模块-Android版/" title="Flutter更新模块-Android版">http://www.haibin.me/2020/01/04/Flutter更新模块-Android版/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+            <a href="/tags/更新/" rel="tag"># 更新</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/31/2019工作总结/" rel="next" title="2019工作总结">
+                <i class="fa fa-chevron-left"></i> 2019工作总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/31/2020个人工作计划/" rel="prev" title="2020计划">
+                2020计划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://macshuo.com/" title="http://macshuo.com/" rel="noopener" target="_blank">MacTalk</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Andoird端更新流程"><span class="nav-number">1.</span> <span class="nav-text">Andoird端更新流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体的代码实现"><span class="nav-number">2.</span> <span class="nav-text">具体的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fluter端代码"><span class="nav-number">2.1.</span> <span class="nav-text">Fluter端代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检查App的线上的最新版本"><span class="nav-number">2.1.1.</span> <span class="nav-text">检查App的线上的最新版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载Apk应用包"><span class="nav-number">2.1.2.</span> <span class="nav-text">下载Apk应用包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过Method-Channel安装App"><span class="nav-number">2.1.3.</span> <span class="nav-text">通过Method Channel安装App</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android端的代码实现"><span class="nav-number">2.2.</span> <span class="nav-text">Android端的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装代码的实现"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装代码的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AndroidManifest-xml配置"><span class="nav-number">2.2.2.</span> <span class="nav-text">AndroidManifest.xml配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android-端method-channel处理"><span class="nav-number">2.2.3.</span> <span class="nav-text">android 端method channel处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Apk"><span class="nav-number">2.2.4.</span> <span class="nav-text">安装Apk</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.haibin.me/2020/01/04/Flutter更新模块-Android版/";
+    this.page.identifier = "2020/01/04/Flutter更新模块-Android版/";
+    this.page.title = 'Flutter更新模块-Android版';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
