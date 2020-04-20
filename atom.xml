@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.haibin.me/"/>
-  <updated>2020-01-02T15:11:07.591Z</updated>
+  <updated>2020-04-20T15:28:46.173Z</updated>
   <id>http://www.haibin.me/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://www.haibin.me/2020/12/31/2020%E4%B8%AA%E4%BA%BA%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92/"/>
     <id>http://www.haibin.me/2020/12/31/2020个人工作计划/</id>
     <published>2020-12-31T14:46:24.000Z</published>
-    <updated>2020-01-02T15:11:07.591Z</updated>
+    <updated>2020-04-20T15:28:46.173Z</updated>
     
-    <content type="html"><![CDATA[<p>工作计划其实比较难写，目标定得太高，搭梯子都够不着，定得太低，很容易达到了又没有什么挑战，我个人以为，定计划是对自己重新认识的一个过程，通过定计划，我可以一点一点的靠近我的临界值。一点一点的认识到自己的边界在哪里。<br>我现在发现，个人计划是一个不断修正的过程，我们在确定总体目标后，要不停的对计划做修正，已达到自己期望的那个结果。<br>目标1: 加强自己的写作能力，固定微信公众号的更新频次，每个月四篇文章。<br>目标2: 把自己的知识分享出来，每个月录制一个教学视频，或者直播一次也可以。<br>目标3: 继续完善博文伴读的功能，优化现在已有的功能点。<br>目标4: 加强自己的阅读量,读20本(小说不算)，专业书籍6本，其余的随便，在博文伴读上面进行打卡。<br>目标5: 扩展自己的交际圈，认识一些新的朋友，至少认识6个新朋友。<br>目标6: 扩展自己的专业知识，增加自己的职业周期，在自己已有的知识的基础上，向移动端游戏开发(unity 3D)方向与移动端轻量级机器学习(TensorFlow Lite)上探索。<br>目标7: 培养一门爱好(画画)，水平能够达到初级水平。<br>目标8: 多陪伴家人，常回家看看。</p>
+    <content type="html"><![CDATA[<p>工作计划其实比较难写，目标定得太高，搭梯子都够不着，定得太低，很容易达到了又没有什么挑战，我个人以为，定计划是对自己重新认识的一个过程，通过定计划，我可以一点一点的靠近我的临界值。一点一点的认识到自己的边界在哪里。<br>我现在发现，个人计划是一个不断修正的过程，我们在确定总体目标后，要不停的对计划做修正，已达到自己期望的那个结果。<br>目标1: 加强自己的写作能力，固定微信公众号的更新频次，每个月四篇文章。<br>目标2: 把自己的知识分享出来，每个月录制一个教学视频，或者直播一次也可以。<br>目标3: 继续完善博文伴读的功能，优化现在已有的功能点。<br>目标4: 加强自己的阅读量,读20本(小说不算)，专业书籍6本，其余的随便，在博文伴读上面进行打卡。<br>目标5: 扩展自己的专业知识，增加自己的职业周期，在自己已有的知识的基础上，向移动端轻量级机器学习(TensorFlow Lite)上探索。<br>目标6: 培养一门爱好(画画)，水平能够达到初级水平。</p>
 ]]></content>
     
     <summary type="html">
@@ -39,7 +39,7 @@
     <link href="http://www.haibin.me/2020/01/04/Flutter%E6%9B%B4%E6%96%B0%E6%A8%A1%E5%9D%97-Android%E7%89%88/"/>
     <id>http://www.haibin.me/2020/01/04/Flutter更新模块-Android版/</id>
     <published>2020-01-04T09:18:22.000Z</published>
-    <updated>2020-01-04T09:30:12.685Z</updated>
+    <updated>2020-01-04T09:30:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>对于Flutter的更新，没有现成的模块可以使用，需要自己动手封装，App内的更新，是每个App需要考虑的事情，对于Android和iOS更新的机制是不一样的。<br>更新这块我们分为两个部分来说</p>
 <ul>
@@ -91,7 +91,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/12/31/2019%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
     <id>http://www.haibin.me/2019/12/31/2019工作总结/</id>
     <published>2019-12-31T14:11:24.000Z</published>
-    <updated>2020-01-02T14:19:47.003Z</updated>
+    <updated>2020-01-02T14:19:47.000Z</updated>
     
     <content type="html"><![CDATA[<p>虽然2019年已经过去两天，由于拖延症的关系，总结迟迟没写。正好今天有时间，盘点一下我的2019年。<br>先说收获吧</p>
 <ol>
@@ -125,7 +125,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/12/31/Flutter%E9%80%9A%E8%BF%87Mqtt%E6%B6%88%E8%B4%B9ActivieMQ/"/>
     <id>http://www.haibin.me/2019/12/31/Flutter通过Mqtt消费ActivieMQ/</id>
     <published>2019-12-31T03:22:13.000Z</published>
-    <updated>2019-12-31T04:29:14.198Z</updated>
+    <updated>2019-12-31T04:29:14.000Z</updated>
     
     <content type="html"><![CDATA[<p>Flutter通过mqtt消费activemq，在android端主要使用插件的方式进行</p>
 <h1 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h1><p><img src="http://tp.linqmind.com/2019-12-31-042856.jpg" alt=""></p>
@@ -151,7 +151,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/12/16/Queues-vs-Topics-vs-Virtual-Topics-in-ActiveMQ/"/>
     <id>http://www.haibin.me/2019/12/16/Queues-vs-Topics-vs-Virtual-Topics-in-ActiveMQ/</id>
     <published>2019-12-16T14:05:31.000Z</published>
-    <updated>2019-12-16T15:14:28.692Z</updated>
+    <updated>2019-12-16T15:14:28.000Z</updated>
     
     <content type="html"><![CDATA[<p><code>ActiveMQ</code>提供了一种不同的消息模式，当队列(<code>queues</code>)和主题(<code>topics</code>)越来越流行的时候。<code>virtual topics</code>将两者很好的统一在了一起:多个消费者拥有自己的专属队列。</p>
 <h1 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h1><p><img src="http://tp.linqmind.com/2019-12-16-141044.jpg" alt="队列"><br>队列(<code>queues</code>)作为一种最常见的消息模式被<code>ActiveMQ</code>实现.在消费者与生产者之间提供了一个直接的通道。生产者创建消息，消费者一个一个的读取，读取此消息后，该消息就消失了。如果多个消费者注册了同一个队列(<code>queues</code>),只有一个会获取到该消息。</p>
@@ -208,7 +208,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/11/29/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8D%9A%E6%96%87%E4%BC%B4%E8%AF%BB/"/>
     <id>http://www.haibin.me/2019/11/29/小程序博文伴读/</id>
     <published>2019-11-29T09:42:31.000Z</published>
-    <updated>2019-11-29T10:28:50.467Z</updated>
+    <updated>2019-11-29T10:28:50.000Z</updated>
     
     <content type="html"><![CDATA[<p>自己抽空为小孩写了一个管理阅读时间的小程序《博文伴读》，自己用了，感觉还不错，共享出来，希望能够帮到各位宝爸，宝妈们，通过该小程序，能够清楚地去记录小孩在阅读的过程中的每一条记录。同时我也整理了一些书籍目录，共大家进行阅读参考。<br>欢迎大家通过微信扫码体验，遇到问题，希望大家通过客服联系我,希望大家用的开心。</p>
 <div align="center"><br><img src="http://tp.linqmind.com/2019-11-29-gh_42be8749e7dd_344.jpeg" alt="博文伴读"><br></div>]]></content>
@@ -235,7 +235,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/09/05/Rxjava2.0%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E4%BD%BF%E7%94%A8/"/>
     <id>http://www.haibin.me/2019/09/05/Rxjava2.0常用方法使用/</id>
     <published>2019-09-05T00:59:52.000Z</published>
-    <updated>2019-09-05T01:05:30.323Z</updated>
+    <updated>2019-09-05T01:05:30.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="zip的使用方法"><a href="#zip的使用方法" class="headerlink" title="zip的使用方法"></a>zip的使用方法</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Zip通过一个函数将多个Observable发送的事件结合到一起，然后发送这些组合到一起的事件. 它按照严格的顺序应用这个函数。它只发射与发射数据项最少的那个Observable一样多的数据 </p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><img src="http://tp.linqmind.com/2018-09-12-071734.jpg" alt="Rxjava2 ZIP"><br>其中一根水管负责发送圆形事件 , 另外一根水管负责发送三角形事件 , 通过Zip操作符, 使得圆形事件 和三角形事件 合并为了一个矩形事件</p>
@@ -286,13 +286,13 @@ D --> H</pre>
     </summary>
     
     
-      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
-    
-      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
-    
       <category term="java" scheme="http://www.haibin.me/tags/java/"/>
     
       <category term="android" scheme="http://www.haibin.me/tags/android/"/>
+    
+      <category term="rxjava2.0" scheme="http://www.haibin.me/tags/rxjava2-0/"/>
+    
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
     
   </entry>
   
@@ -301,7 +301,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/08/23/android%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87%E5%88%B0%E7%9B%B8%E5%86%8C/"/>
     <id>http://www.haibin.me/2019/08/23/android保存图片到相册/</id>
     <published>2019-08-23T06:53:26.000Z</published>
-    <updated>2019-08-23T07:01:31.122Z</updated>
+    <updated>2019-08-23T07:01:31.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>我们在开发应用的时候，会有保存图片到相册的功能。</p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:<span class="attribute">name</span>=<span class="string">"android.permission.READ_EXTERNAL_STORAGE"</span>/&gt;</span><br><span class="line">&lt;uses-permission android:<span class="attribute">name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span><br></pre></td></tr></table></figure>
@@ -317,11 +317,11 @@ D --> H</pre>
     </summary>
     
     
+      <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
+    
       <category term="java" scheme="http://www.haibin.me/tags/java/"/>
     
       <category term="android" scheme="http://www.haibin.me/tags/android/"/>
-    
-      <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
     
       <category term="相册" scheme="http://www.haibin.me/tags/%E7%9B%B8%E5%86%8C/"/>
     
@@ -334,7 +334,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/08/22/android%E6%9E%84%E5%BB%BA%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96/"/>
     <id>http://www.haibin.me/2019/08/22/android构建速度优化/</id>
     <published>2019-08-22T09:23:17.000Z</published>
-    <updated>2019-08-22T09:36:22.741Z</updated>
+    <updated>2019-08-22T09:36:22.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>Android Studio</code> 开发，到了构建阶段，是一个漫长的过程，当然优化的方式有很多中，我们就从gradle配置方面来进行初步的优化  </p>
 <h1 id="gradle-配置"><a href="#gradle-配置" class="headerlink" title="gradle 配置"></a>gradle 配置</h1><p>由于默认的新建的工程，在构建的话，比较耗时步骤</p>
@@ -368,7 +368,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/08/22/android%E6%89%8B%E6%9C%BA%E9%80%9A%E8%AE%AF%E5%BD%95%E8%8E%B7%E5%8F%96/"/>
     <id>http://www.haibin.me/2019/08/22/android手机通讯录获取/</id>
     <published>2019-08-22T07:46:27.000Z</published>
-    <updated>2019-08-22T07:56:05.661Z</updated>
+    <updated>2019-08-22T07:56:05.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在App开发过程中，如果要实现电话号码的选择，但是默认的通讯录选择又不满足我们需求的时候，我们就需要对用户的通讯录进行读取。</p>
 <h1 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h1><p><code>Java</code> <code>kotlin</code> <code>Rxjava</code></p>
@@ -387,9 +387,9 @@ D --> H</pre>
     
       <category term="Android" scheme="http://www.haibin.me/tags/Android/"/>
     
-      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
-    
       <category term="kotlin" scheme="http://www.haibin.me/tags/kotlin/"/>
+    
+      <category term="rxjava" scheme="http://www.haibin.me/tags/rxjava/"/>
     
       <category term="Java" scheme="http://www.haibin.me/tags/Java/"/>
     
@@ -402,7 +402,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/08/16/android%E6%89%8B%E6%9C%BA%E6%B6%88%E6%81%AF%E7%9B%91%E5%90%AC/"/>
     <id>http://www.haibin.me/2019/08/16/android手机消息监听/</id>
     <published>2019-08-16T08:36:29.000Z</published>
-    <updated>2019-08-16T08:54:21.048Z</updated>
+    <updated>2019-08-16T08:54:21.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>以前做了个项目，客户要求对手机的消息进行监听，并通过监听的消息，推送到智能手环，要如何实现，经过查找发现，我们可以监听通知栏的消息，然后再根据通知栏的消息按照相关类型进行推送。</p>
 <h1 id="开发语言"><a href="#开发语言" class="headerlink" title="开发语言"></a>开发语言</h1><p>java,kotlin,android,</p>
@@ -434,7 +434,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2019/08/07/android%E5%BC%80%E5%8F%91%E5%B0%8F%E6%8A%80%E5%B7%A7-%E5%9B%BE%E7%89%87/"/>
     <id>http://www.haibin.me/2019/08/07/android开发小技巧-图片/</id>
     <published>2019-08-07T02:53:55.000Z</published>
-    <updated>2019-08-07T03:31:35.993Z</updated>
+    <updated>2019-08-07T03:31:35.000Z</updated>
     
     <content type="html"><![CDATA[<p>在我们进行开发的时候，图片是常用布局控件之一。<br>在新的databinding中，<code>ImageView</code>使用上面还是有差异的。接下来的实例，我们将展示如何使用glide进行图片设置。</p>
 <h1 id="开发语言"><a href="#开发语言" class="headerlink" title="开发语言"></a>开发语言</h1><p><code>kotlin</code>,<code>Android</code></p>
@@ -467,7 +467,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2018/12/12/Cocos-Creator-%E5%8E%9F%E7%94%9F%E8%B0%83%E8%AF%95-Android%E7%AF%87-macOS/"/>
     <id>http://www.haibin.me/2018/12/12/Cocos-Creator-原生调试-Android篇-macOS/</id>
     <published>2018-12-12T03:08:26.000Z</published>
-    <updated>2019-07-17T06:22:11.681Z</updated>
+    <updated>2019-07-17T06:22:11.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Cocos-Creator-原生调试-Android篇-macOS"><a href="#Cocos-Creator-原生调试-Android篇-macOS" class="headerlink" title="Cocos Creator 原生调试-Android篇[macOS]"></a>Cocos Creator 原生调试-Android篇[macOS]</h1><p>在进行<code>Cocos creator</code> 进行开发的时候，一般我们用模拟器就可进行原生调试，但是有些问题只是在原生平台才会出现，我们需要对原生进行调试。</p>
 <h1 id="软件准备"><a href="#软件准备" class="headerlink" title="软件准备"></a>软件准备</h1><h2 id="step1-安装Android-studio-可选"><a href="#step1-安装Android-studio-可选" class="headerlink" title="step1 安装Android studio[可选]"></a>step1 安装<code>Android studio</code>[可选]</h2><p>软件准备  </p>
@@ -502,7 +502,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/12/12/android%E5%8A%A0%E5%AF%86%E4%BC%A0%E8%BE%93%E4%B9%8Bhttps/"/>
     <id>http://www.haibin.me/2016/12/12/android加密传输之https/</id>
     <published>2016-12-12T09:53:04.000Z</published>
-    <updated>2019-07-03T23:28:43.811Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>现在，各个厂家对数据安全越来越重视，而https是保证数据在网络传输中，不被窃取的有效方式之一。而https也是每个App的标配,通过下面你可以了解到，App如何通过自签名证书，实现数据的https加密传输</p>
 <h1 id="签发证书"><a href="#签发证书" class="headerlink" title="签发证书"></a>签发证书</h1><p>对于有第三方机构签发的https的证书来说，android链接是比较方便的。直接通过https即可具体的链接代码  </p>
@@ -532,7 +532,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/11/21/Tinker%E5%AE%9E%E8%B7%B5/"/>
     <id>http://www.haibin.me/2016/11/21/Tinker实践/</id>
     <published>2016-11-21T09:46:50.000Z</published>
-    <updated>2019-07-03T23:28:43.810Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="什么是Tinker"><a href="#什么是Tinker" class="headerlink" title="什么是Tinker"></a>什么是Tinker</h1><p>Tinker是腾讯开源的热更新方案，通过热更新，可以使android应用的bug得到及时修复，并让用户得到无感升级，tinker的热更新方案，并不能够替代版本发布。但他非常适合紧急且重要的BUG修复。  </p>
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="准备Android工程"><a href="#准备Android工程" class="headerlink" title="准备Android工程"></a>准备Android工程</h2><p>准备一个项目<code>TinkerPractice</code><br><img src="http://tp.linqmind.com/2016-11-21-tinker_create_project.png" alt="创建项目"><br><img src="http://tp.linqmind.com/2016-11-21-tinker_create_project2.png" alt=""></p>
@@ -586,7 +586,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/09/22/Android-Studio%E5%8D%87%E7%BA%A7%E5%90%8E%E5%AF%BC%E5%85%A5%E9%A1%B9%E7%9B%AE%E5%87%BA%E7%8E%B0-Error-No-service-of-type-Factory-available-in-ProjectScopeServices/"/>
     <id>http://www.haibin.me/2016/09/22/Android-Studio升级后导入项目出现-Error-No-service-of-type-Factory-available-in-ProjectScopeServices/</id>
     <published>2016-09-22T03:15:41.000Z</published>
-    <updated>2019-07-03T23:28:43.808Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>将 Android studio由原来的2.1.3 升级到2.2,再导入项目的时候，出现了错误：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error:No<span class="built_in"> service </span>of<span class="built_in"> type </span>Factory available <span class="keyword">in</span> ProjectScopeServices.</span><br></pre></td></tr></table></figure></p>
 <p>通过排查，把问题定位到根目录的build.gradle<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.android.tools.build:gradle:2.1.3'</span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'</span></span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'com.github.dcendents:android-maven-gradle-plugin:1.3'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -616,7 +616,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/08/15/Android%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97-%E5%B8%95%E5%85%8B%E8%83%96%E6%B0%B4%E7%85%AEDagger2/"/>
     <id>http://www.haibin.me/2016/08/15/Android开发系列-帕克胖水煮Dagger2/</id>
     <published>2016-08-15T01:28:28.000Z</published>
-    <updated>2019-07-03T23:28:43.808Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><ul>
 <li>dagger2中的Inject,Component,Module,Provides的含义，他们有什么作用?</li>
@@ -714,7 +714,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/08/01/%E5%9F%BA%E4%BA%8E%E4%BA%91%E7%AB%AF%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E5%AE%9E%E8%B7%B5/"/>
     <id>http://www.haibin.me/2016/08/01/基于云端的持续集成实践/</id>
     <published>2016-08-01T01:03:23.000Z</published>
-    <updated>2019-07-03T23:28:43.813Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>为了达到产品快速交互，缩短产品开发周期，我们引入了持续集成，现持续集成有两种方案  </p>
 <ul>
@@ -815,7 +815,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/07/28/%E5%B8%95%E5%85%8B%E8%83%96%E5%A4%9C%E8%AF%9DDocker-%E5%AE%89%E8%A3%85-Docker-Engine/"/>
     <id>http://www.haibin.me/2016/07/28/帕克胖夜话Docker-安装-Docker-Engine/</id>
     <published>2016-07-28T02:44:14.000Z</published>
-    <updated>2019-07-03T23:28:43.814Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="安装系统必要软件"><a href="#安装系统必要软件" class="headerlink" title="安装系统必要软件"></a>安装系统必要软件</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">$ sudo apt-<span class="built_in">get</span> install apt-transport-https <span class="keyword">ca</span>-certificates</span><br><span class="line"></span><br><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.ne<span class="variable">t:80</span> --recv-<span class="built_in">keys</span> <span class="number">58118</span>E89F3A912897C070ADBF76221572C52609D</span><br><span class="line">$ lsb_release -<span class="keyword">a</span></span><br></pre></td></tr></table></figure>
 <h2 id="添加安装docker-engine的镜像源"><a href="#添加安装docker-engine的镜像源" class="headerlink" title="添加安装docker engine的镜像源"></a>添加安装docker engine的镜像源</h2><h3 id="查看操作系统版本"><a href="#查看操作系统版本" class="headerlink" title="查看操作系统版本"></a>查看操作系统版本</h3><p>执行命令 <code>lsb_release -a</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">No</span> <span class="string">LSB</span> <span class="string">modules</span> <span class="string">are</span> <span class="string">available.</span></span><br><span class="line"><span class="string">Distributor</span> <span class="attr">ID:</span> <span class="string">Ubuntu</span></span><br><span class="line"><span class="attr">Description:</span>    <span class="string">Ubuntu</span> <span class="number">14.04</span><span class="number">.3</span> <span class="string">LTS</span></span><br><span class="line"><span class="attr">Release:</span>        <span class="number">14.04</span></span><br><span class="line"><span class="attr">Codename:</span>       <span class="string">trusty</span></span><br></pre></td></tr></table></figure></p>
@@ -854,7 +854,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/07/17/%E7%A9%B7%E7%88%B8%E7%88%B8%E5%AF%8C%E7%88%B8%E7%88%B8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
     <id>http://www.haibin.me/2016/07/17/穷爸爸富爸爸读书笔记/</id>
     <published>2016-07-17T09:38:09.000Z</published>
-    <updated>2019-07-03T23:28:43.818Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="基础的财务知识"><a href="#基础的财务知识" class="headerlink" title="基础的财务知识"></a>基础的财务知识</h1><p>什么是资产，什么是负债呢，下面结合图形进行了简单的定义<br><strong>资产现金流图</strong><br><img src="http://7xlvqo.com1.z0.glb.clouddn.com/9817fb219c360ed111d8c2a1a6db61d8.png" alt="资产现金流"><br><strong>负债现金流图</strong><br><img src="http://7xlvqo.com1.z0.glb.clouddn.com/e253b68f165a0ed9af4af7134b0967c4.png" alt="负债现金流图"><br>很多人陷入财务陷阱的最根本的原因在于，他们不明白资产与负债的区别<br>那什么是资产，什么是负债呢？<br><strong>资产</strong> 是能够把钱放进你口袋里的东西<br><strong>负债</strong> 是把钱从你口袋里取走的东西  </p>
 <p>通常在财务报告中，现金流能够告诉我们先向哪里留了<br>下图是<strong>穷人的现金流图</strong><br><img src="http://7xlvqo.com1.z0.glb.clouddn.com/cb18fc868d728ed295f37a3b28f8632a.png" alt="穷人的现金流"></p>
@@ -921,7 +921,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/06/16/%E5%B8%95%E5%85%8B%E8%83%96%E5%A4%9C%E8%AF%9DDocker-%E5%88%9B%E5%BB%BAjenkins/"/>
     <id>http://www.haibin.me/2016/06/16/帕克胖夜话Docker-创建jenkins/</id>
     <published>2016-06-16T01:12:09.000Z</published>
-    <updated>2019-07-03T23:28:43.814Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>通过<code>docker</code>部署<code>jenkins</code>超简单  </p>
 <h1 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h1><h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker<span class="meta">@ubuntu</span>-<span class="string">docker03:</span>~/shell$ lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor <span class="string">ID:</span> Ubuntu</span><br><span class="line"><span class="string">Description:</span>    Ubuntu <span class="number">14.04</span><span class="number">.3</span> LTS</span><br><span class="line"><span class="string">Release:</span>        <span class="number">14.04</span></span><br><span class="line"><span class="string">Codename:</span>       trusty</span><br></pre></td></tr></table></figure>
@@ -969,7 +969,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/05/23/%E5%B8%95%E5%85%8B%E8%83%96%E6%8A%98%E8%85%BE%E7%B3%BB%E5%88%97-%E4%BA%8C-Angular%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B8%8E%E8%87%AA%E5%8A%A8%E5%8C%96UI%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/"/>
     <id>http://www.haibin.me/2016/05/23/帕克胖折腾系列-二-Angular单元测试与自动化UI测试实践/</id>
     <published>2016-05-23T00:13:09.000Z</published>
-    <updated>2019-07-03T23:28:43.815Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>关于本文：介绍通过karma与jsmine框架对angular开发的应用程序进行单元与E2E测试。这篇文章并非原创，具体的原作者 <a href="http://my.csdn.net/vipyoumay" target="_blank" rel="noopener">vipyoumay</a></p>
@@ -1058,7 +1058,7 @@ D --> H</pre>
     <link href="http://www.haibin.me/2016/05/22/%E5%B8%95%E5%85%8B%E8%83%96%E6%8A%98%E8%85%BE%E7%B3%BB%E5%88%97-%E5%BB%BA%E7%AB%8B%E5%8F%AF%E7%94%A8%E7%9A%84NFS%E5%AD%98%E5%82%A8/"/>
     <id>http://www.haibin.me/2016/05/22/帕克胖折腾系列-建立可用的NFS存储/</id>
     <published>2016-05-22T03:47:43.000Z</published>
-    <updated>2019-07-03T23:28:43.815Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><blockquote>
 <p>生命不息，折腾不止!  </p>
@@ -1196,7 +1196,7 @@ Command &apos;drbdmeta 0 v08 /dev/sdb1 internal create-md&apos; terminated with 
     <link href="http://www.haibin.me/2016/04/12/Sequelizejs-%E4%B8%AD%E6%96%87%E6%89%8B%E5%86%8C/"/>
     <id>http://www.haibin.me/2016/04/12/Sequelizejs-中文手册/</id>
     <published>2016-04-11T23:37:03.000Z</published>
-    <updated>2019-07-03T23:28:43.809Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近翻译了一些关于Sequelizejs的文章，希望对大家有帮助<br>文章地址:</p>
 <p><a href="https://haibinpark.gitbooks.io/sequelize-zh-manual/content/" target="_blank" rel="noopener">https://haibinpark.gitbooks.io/sequelize-zh-manual/content/</a></p>
@@ -1217,7 +1217,7 @@ Command &apos;drbdmeta 0 v08 /dev/sdb1 internal create-md&apos; terminated with 
     <link href="http://www.haibin.me/2016/04/10/grunt%E6%89%93%E5%8C%85%E5%AE%9E%E8%B7%B5/"/>
     <id>http://www.haibin.me/2016/04/10/grunt打包实践/</id>
     <published>2016-04-10T06:29:25.000Z</published>
-    <updated>2019-07-03T23:28:43.811Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>学会grunt打包<br>并将grunt打包运用于项目实践  </p>
 <h1 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h1><ul>
@@ -1276,7 +1276,7 @@ Command &apos;drbdmeta 0 v08 /dev/sdb1 internal create-md&apos; terminated with 
     <link href="http://www.haibin.me/2016/02/07/ATOM%20%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B%E6%96%87%E6%A1%A3/"/>
     <id>http://www.haibin.me/2016/02/07/ATOM 快速上手文档/</id>
     <published>2016-02-07T04:48:02.000Z</published>
-    <updated>2019-07-03T23:28:43.807Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<ul>
 <li><a href="#atom-快速上手文档">ATOM 快速上手文档</a><ul>
@@ -1359,7 +1359,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/11/13/nodejs%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%AC2%E8%AF%BE/"/>
     <id>http://www.haibin.me/2015/11/13/nodejs课程学习第2课/</id>
     <published>2015-11-13T12:10:52.000Z</published>
-    <updated>2019-07-03T23:28:43.811Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="课程目标"><a href="#课程目标" class="headerlink" title="课程目标"></a>课程目标</h2><ul>
 <li>建立nodejs web项目  </li>
@@ -1429,7 +1429,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/11/10/%E5%AD%A6%E4%B9%A0nodejs%E7%AC%AC%E4%B8%80%E8%AF%BE/"/>
     <id>http://www.haibin.me/2015/11/10/学习nodejs第一课/</id>
     <published>2015-11-09T23:28:02.000Z</published>
-    <updated>2019-07-03T23:28:43.814Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="一步一步学习nodejs-startup"><a href="#一步一步学习nodejs-startup" class="headerlink" title="一步一步学习nodejs-startup"></a>一步一步学习nodejs-startup</h1><p>讲解点:  </p>
 <ul>
@@ -1556,7 +1556,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/10/13/%E4%BA%92%E8%81%94%E7%BD%91%E5%A5%B3%E7%9A%872015%E5%B9%B4%E6%8A%A5%E5%91%8A/"/>
     <id>http://www.haibin.me/2015/10/13/互联网女皇2015年报告/</id>
     <published>2015-10-12T16:10:10.000Z</published>
-    <updated>2019-07-03T23:28:43.813Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>2015 年互联网女皇<a href="http://en.wikipedia.org/wiki/Mary_Meeker" target="_blank" rel="noopener">Mary_Meeker</a>出报告了，<br>报告下载地址:<br><a href="http://7bv984.com1.z0.glb.clouddn.com/“互联网女皇报告”中文版_腾讯科技.pdf" target="_blank" rel="noopener">2015 互联网报告下载</a>  </p>
 <blockquote>
@@ -1582,7 +1582,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/09/18/%E6%99%A8%E5%86%99%E4%BA%8E20150918/"/>
     <id>http://www.haibin.me/2015/09/18/晨写于20150918/</id>
     <published>2015-09-17T23:33:07.000Z</published>
-    <updated>2019-07-03T23:28:43.818Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://7xlp7m.com1.z0.glb.clouddn.com/udisk.jpg" alt="U 盘"><br>在大的社会化协作中，我们应该勇敢做u盘人生，把自己这个智能操作系统，经过裁剪与修正，装进一个小的盒子，并通过类似的’USB’口共享出来，U盘人生的特点:  </p>
 <ul>
@@ -1622,7 +1622,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/09/17/%E6%99%A8%E5%86%99%E4%BA%8E20150917/"/>
     <id>http://www.haibin.me/2015/09/17/晨写于20150917/</id>
     <published>2015-09-16T23:22:32.000Z</published>
-    <updated>2019-07-03T23:28:43.817Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://img12.360buyimg.com/n0/jfs/t1417/333/1184132989/129633/2ec4b74e/55c07133Nb42cb74a.jpg" alt="增长黑客"><br>最近正在阅读大神<a href="http://www.fanbing.net" target="_blank" rel="noopener">范冰</a>的力作，<a href="http://www.duokan.com/book/97382" target="_blank" rel="noopener">增长黑客</a>,这本书由多位大神联合作序，看起来牛逼闪闪的样子，不过按照我们的话说，并无卵，你对该书感兴趣，可以直接忽略序的部分，直接跳至目录，寻找你感兴趣的章节进行阅读。<br>我也是刚开始阅读这本书，不过从目录看，虽然都是讲解的现在比较成功的创业公司，在公司初期的时候。  </p>
 <ul>
@@ -1656,7 +1656,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/09/16/%E6%99%A8%E5%86%99%E4%BA%8E20150916-1/"/>
     <id>http://www.haibin.me/2015/09/16/晨写于20150916-1/</id>
     <published>2015-09-15T23:49:59.000Z</published>
-    <updated>2019-07-03T23:28:43.817Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://s-media-cache-ak0.pinimg.com/474x/49/13/89/491389feb719839fa38612999a5559df.jpg" alt="加班">  </p>
 <p>为什么加班的总是我？<br>我总结了一下，主要有以下几个方面:  </p>
@@ -1694,7 +1694,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/09/15/%E6%99%A8%E5%86%99%E4%BA%8E20150915/"/>
     <id>http://www.haibin.me/2015/09/15/晨写于20150915/</id>
     <published>2015-09-14T23:26:51.000Z</published>
-    <updated>2019-07-03T23:28:43.816Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>昨晚逼迫自己早早的睡了，开始虽然有些痛苦，习惯是慢慢养成的一个过程<br>每天想做的事情太多太多了，而时间呢感觉太少，每天忙忙碌碌，却不知道自己的事情都花在了哪些地方.<br>想想如果有一款软件能够记录自己的时间轨迹，帮忙规划自己的时间，该软件具有以下特点:  </p>
 <ul>
@@ -1738,7 +1738,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/09/14/%E6%99%A8%E5%86%99%E4%B8%8E20150914/"/>
     <id>http://www.haibin.me/2015/09/14/晨写与20150914/</id>
     <published>2015-09-13T23:37:05.000Z</published>
-    <updated>2019-07-03T23:28:43.816Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h2><p>上周很难得的休息了两天，如果每周都能够这样，那就太好了，在家休息一下，顺便给自己充电，学习，提升自己。<br>这周有是忙碌的一周，本体编辑器的第二次迭代，进入了一个关键的开发阶段，所以我把自己的时间分成了三种类型  </p>
 <ul>
@@ -1782,7 +1782,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/09/13/%E6%99%A8%E5%86%99/"/>
     <id>http://www.haibin.me/2015/09/13/晨写/</id>
     <published>2015-09-12T23:00:00.000Z</published>
-    <updated>2019-07-03T23:28:43.816Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h2><p>现在想写一些东西呢？试试早上花半个小时写写看吧，希望自己能够坚持！！！</p>
 <h2 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h2><p>今天是周末，由于昨天晚上睡的比较晚，所以早上起的比较的晚，我发觉现在我已近习惯晚睡了，我发觉这样很不好，从今天开始，还是应该早睡，早起。这样对身体也比较的好。生活尽量规则些<br>今天计划为自己充电  </p>
@@ -1809,7 +1809,7 @@ polipo socksParentProxy=localhost:1080
     <link href="http://www.haibin.me/2015/09/09/startup/"/>
     <id>http://www.haibin.me/2015/09/09/startup/</id>
     <published>2015-09-09T15:35:18.000Z</published>
-    <updated>2019-07-03T23:28:43.812Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h2><ul>
 <li>Github新建博客项目  </li>
@@ -1932,7 +1932,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2015/02/07/2015-02-07-code-in-osx/"/>
     <id>http://www.haibin.me/2015/02/07/2015-02-07-code-in-osx/</id>
     <published>2015-02-07T04:48:02.000Z</published>
-    <updated>2019-07-03T23:28:43.807Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p><img style="float: right" height="200" width="180" src="http://triz.qiniudn.com/xcode_tool.jpg"><br>最近公司需要开发iOS的应用，本来是做Android开发的，根据需要，再加上我也比较喜欢折腾，所以就接下了这个艰巨的任务…<br>在开发之前，其实之前也看过object-c的语法，并且写了一个demo（其实也就是hello world）给人的感觉和Java还是有比较大的差别。但当时也没这方面的开发需要，所以也就废弃了。吐槽:主要当时没有苹果开发工具，自己在虚拟机中进行折腾。<br>新任务接下来后呢，需要学习的东西还很多，因为什么都不知道吗？所以在接下来这个任务后，首先的明确需求。<br>由于Android客户端也在开发中，所以服务端不用我们操心，接口那些基本都是好的，可用的，我们只需要开发iOS客户端即可，开发相关已经确定；  </p>
 <ol>
@@ -1969,7 +1969,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2015/01/22/2015-01-22-baidu-api-lixian-map-download/"/>
     <id>http://www.haibin.me/2015/01/22/2015-01-22-baidu-api-lixian-map-download/</id>
     <published>2015-01-22T13:51:13.000Z</published>
-    <updated>2019-07-03T23:28:43.807Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>在进行集成百度iOS sdk的时候，进行离线地图下载的时候，会出现错误:  </p>
 <p>availableDiskSpace方法找不到，但是如何解决呢，需要对UIDevice进行扩展:<br>具体的代码片段:<br>“UIDevice+Manager.h”  </p>
@@ -1995,7 +1995,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/07/17/2014-07-17-how-to-grow-up-a-wonderfull-pm/"/>
     <id>http://www.haibin.me/2014/07/17/2014-07-17-how-to-grow-up-a-wonderfull-pm/</id>
     <published>2014-07-17T14:57:57.000Z</published>
-    <updated>2019-07-03T23:28:43.806Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://triz.qiniudn.com/pm_1.jpg">  </p>
 <p>要想成为产品经理，换句话说你要做成产品经理这个“产品”，至少让它可用，可能需要满足以下几个方面的需求：  </p>
@@ -2063,7 +2063,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/06/18/2014-06-18-chan-pin-32zi-sheng-si-jue/"/>
     <id>http://www.haibin.me/2014/06/18/2014-06-18-chan-pin-32zi-sheng-si-jue/</id>
     <published>2014-06-18T13:21:59.000Z</published>
-    <updated>2019-07-03T23:28:43.806Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>唐沐产品观点:  </p>
 <blockquote>
@@ -2092,7 +2092,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/05/29/2014-05-29-product-manager-books/"/>
     <id>http://www.haibin.me/2014/05/29/2014-05-29-product-manager-books/</id>
     <published>2014-05-29T15:15:47.000Z</published>
-    <updated>2019-07-03T23:28:43.806Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>本文主体部分根据《壹读》“失控的微信先生”与《商业周刊中文版》“张小龙的盗梦空间”整理。 </p>
@@ -2129,7 +2129,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/05/29/2014-05-29-internet-2014-report/"/>
     <id>http://www.haibin.me/2014/05/29/2014-05-29-internet-2014-report/</id>
     <published>2014-05-29T14:36:01.000Z</published>
-    <updated>2019-07-03T23:28:43.805Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://triz.qiniudn.com/Mary_Meeker.jpg" align="center"></p>
 <blockquote>
@@ -2156,7 +2156,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/05/16/2014-05-16-miss-x-product-view/"/>
     <id>http://www.haibin.me/2014/05/16/2014-05-16-miss-x-product-view/</id>
     <published>2014-05-16T14:41:02.000Z</published>
-    <updated>2019-07-03T23:28:43.805Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://img.51netu.com/uploads/120727/8758_125308_2.jpg"><br>今天在<a href="http://www.36kr.com" target="_blank" rel="noopener">36kr</a>看到了一篇关于产品经理PM的文章,讲的是与程序猿RD的故事<br>总结起来，可以归纳为以下几点:<br>一个合格的产品经理需要具有:  </p>
 <ol>
@@ -2200,7 +2200,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/05/13/2014-05-13-product-tips/"/>
     <id>http://www.haibin.me/2014/05/13/2014-05-13-product-tips/</id>
     <published>2014-05-13T15:01:25.000Z</published>
-    <updated>2019-07-03T23:28:43.805Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>「创业就是一个在钱烧完以前不断试错的过程，试出来了就成功了，没试出来就准备下一次挑战。试错不是做一堆东西然后等它自生自灭，而是用最小的成本快速验证核心功能，发现不对立马关掉。方向不对拖越久对公司伤害越大，所以做好每6个月调整一次产品的准备，拥抱变化。我知道这很艰难，但必须如此。」</p>
 ]]></content>
@@ -2221,7 +2221,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/04/13/%E4%B8%BA%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE%E6%8C%A4%E5%87%BA%E6%97%B6%E9%97%B4%E7%9A%84-10-%E4%B8%AA%E7%BB%9D%E5%A6%99%E6%96%B9%E6%B3%95/"/>
     <id>http://www.haibin.me/2014/04/13/为个人项目挤出时间的-10-个绝妙方法/</id>
     <published>2014-04-13T05:06:38.000Z</published>
-    <updated>2019-07-03T23:28:43.813Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<ol>
 <li>把它个人化  </li>
@@ -2297,7 +2297,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/02/18/2014-02-18-docker-tips/"/>
     <id>http://www.haibin.me/2014/02/18/2014-02-18-docker-tips/</id>
     <published>2014-02-18T15:02:22.000Z</published>
-    <updated>2019-07-03T23:28:43.805Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近想用<a href="http://www.docker.io" target="_blank" rel="noopener">docker</a>部署自己的一些应用，但在部署构建镜像的时候经常会出现错误，那么镜像构建不成功。<br>最好的办法是删除不成功的镜像<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker images|<span class="type">grep</span> <span class="string">"&lt;none&gt;"</span>|<span class="type">awk</span> '&#123;print $<span class="number">3</span>&#125;'|<span class="type">sudo</span> xargs docker rmi</span><br></pre></td></tr></table></figure></p>
 <p>如果不成功，那么就应该删除container<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker ps -a|<span class="type">grep</span> <span class="string">"&lt;image id&gt;"</span>|<span class="type">awk</span> '&#123;print $<span class="number">1</span>&#125;'|<span class="type">sudo</span> xargs docker rm</span><br></pre></td></tr></table></figure></p>
@@ -2324,7 +2324,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/02/13/2014-02-13-pandora-priority-product-evaluation-system/"/>
     <id>http://www.haibin.me/2014/02/13/2014-02-13-pandora-priority-product-evaluation-system/</id>
     <published>2014-02-13T06:08:35.000Z</published>
-    <updated>2019-07-03T23:28:43.804Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>准备好用于“购买”想法的便利贴<br>下面是<a href="http://www.pandora.com" target="_blank" rel="noopener">Pandora</a>践行上述理论的真实场景：<br>每个季度，<a href="http://investor.pandora.com/phoenix.zhtml?c=227956&amp;p=irol-govBio&amp;ID=212489" target="_blank" rel="noopener">Conrad</a> 都会将展示所有 80 个想法的幻灯片打印出来并贴在墙上，每个幻灯片上都会贴上所述想法所值的美元数。然后他会给所有的优先产品评定小组成员一些便利贴。举例来说，如果优先产品评定团队共有 5 个人，你所拥有的工作量共值 150 美元。那么你需要准备 30 份便利贴，每个便利贴上都写上“5 美元”字样，这说明这张便利贴值 5 美元。团队里的 5 个人每人分 6 张便利贴，这样每人拥有的便利贴共值 30 美元，他们也就可以用自己值钱的便利贴“购买”自己看中的想法，这和投票的意思差不多。  </p>
 <a id="more"></a>
@@ -2365,7 +2365,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/02/05/2014-02-05-what-triz/"/>
     <id>http://www.haibin.me/2014/02/05/2014-02-05-what-triz/</id>
     <published>2014-02-05T03:52:35.000Z</published>
-    <updated>2019-07-03T23:28:43.804Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>TRIZ，中文音译为：萃智；<br>TRIZ，就是“发明问题解决理论”的俄文首字母对应转换为拉丁字母的缩写；<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TRIZ <span class="comment">---Teoriya Resheniya Izobretatelskikh Zadatch （拉丁文）  </span></span><br><span class="line">        Теория  Решения  Изобретательских   Задач  (俄文)</span><br></pre></td></tr></table></figure></p>
 <p>Altshuller被尊称为TRIZ之父。<br><img src="http://triz.qiniudn.com/triz_father.jpg"><br><a id="more"></a><br>1946年，前苏联发明家G. S. Altshuller完成了他的第一项成熟的发明——在没有潜水服的情况下，从被困的潜水艇中逃生的方法，也正是在这一年，TRIZ（发明问题解决理论）开始萌芽。<br>1946年之后，Altshuller逐渐展开发明问题解决理论的研究工作。当时Altshuller在前苏联里海海军的专利局工作，在处理世界各国著名的发明专利过程中，他总是考虑这样一个问题：当人们进行发明创造、解决技术难题时，是否有可遵循的科学方法和法则，从而能迅速地实现新的发明创造或解决技术难题呢？Altshuller坚信这样的发明创造方法一定存在。在发现从心理学角度不能很好地揭示发明创造的客观规律之后，他逐渐认识到发明的实质就是技术系统发生根本性变化，他因此将注意力转移到专利文献的分析研究上。他从来自于世界各地的20多万项专利中挑选了4万已产生发明成就的专利开始进行严格分析。这一工作成果铸就了TRIZ的理论基础，也为日后将要开发的问题解决工具奠定了基础。<br>Altshuller在研究过程中发现任何领域的产品改进、技术的变革、创新和生物系统一样，都存在产生、生长、成熟、衰老、灭亡的过程，都是有规律可循的。人们一旦掌握这些规律，能动地进行产品设计并预测产品的未来发展趋势便成为可能。以后数十年中，Altshuller穷其毕生的精力致力于TRIZ理论的研究和完善。在他的组织参与下，前苏联的数十家研究机构、大学、企业组成了TRIZ的研究团体，分析研究了世界200万份发明专利。经过多年努力，Altshuller及其团队总结出各种技术发展进化遵循的规律模式，以及解决各种技术矛盾和物理矛盾的创新原理和法则，建立一个由解决技术问题，实现创新开发的各种方法、算法组成的综合理论体系，并综合多学科领域的原理和法则，建立起TRIZ理论体系。<br>相对于传统的创新方法，比如试错法，头脑风暴法等，TRIZ理论具有鲜明的特点和优势。它成功地揭示了创造发明的内在规律和原理，着力于澄清和强调系统中存在的矛盾，而不是逃避矛盾，其目标是完全解决矛盾，获得最终的理想解，而不是采取折衷或者妥协的做法，而且它是基于技术的发展演化规律研究整个设计与开发过程，而不再是随机的行为。实践证明，运用TRIZ理论，可大大加快人们创造发明的进程而且能得到高质量的创新产品。它能够帮助我们系统的分析问题情境，快速发现问题本质或者矛盾，它能够准确确定问题探索方向，不会错过各种可能，而且它能够帮助我们突破思维障碍，打破思维定势，以新的视觉分析问题，进行逻辑性和非逻辑性的系统思维，还能根据技术进化规律预测未来发展趋势，帮助我们开发富有竞争力的新产品。<br>在前苏联，大多数有工程专业的高等学府，都长期为学生提供TRIZ理论课程。TRIZ同时也广泛应用于前苏联的工程领域中。苏联解体后，随着大批TRIZ理论研究者移居美国等西方国家，TRIZ也在西方迅速流传开，并受到极大重视，而TRIZ的研究与实践随之得以普及和发展。之后不久，西北欧、美国、日本、台湾等地出现了以TRIZ为基础的研究、咨询机构和公司，一些大学将TRIZ列为工程设计方法学课程。经过半个多世纪的发展，如今TRIZ理论和方法已经发展成为一套解决新产品开发实际问题的成熟的理论和方法体系。经过无数实践检验的TRIZ理论，具有工程实用性强等显著特征，如今正在被全世界广泛应用，创造出成千上万项重大发明，为众多知名企业取得了重大的经济效益和社会效益。<br>TRIZ理论进入中国应该在上世纪70-80年代，但对其深入研究和应用则是近10年的事情。近年来，TRIZ理论已经逐渐得到国内诸多科研机构、公司和专家的重视。  </p>
@@ -2388,7 +2388,7 @@ Please copy above key to github deploy key,then continue
     <link href="http://www.haibin.me/2014/02/01/2014-02-01-how-to-set-proxy-with-wallproxy/"/>
     <id>http://www.haibin.me/2014/02/01/2014-02-01-how-to-set-proxy-with-wallproxy/</id>
     <published>2014-02-01T13:11:07.000Z</published>
-    <updated>2019-07-03T23:28:43.803Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>以前是使用<a href="https://code.google.com/p/goagent" target="_blank" rel="noopener">goagent</a>代理上网，由于需要看youtube视频，所以就更改为<a href="https://github.com/wallproxy/wallproxy" target="_blank" rel="noopener">wallproxy</a>。<br><a href="https://github.com/wallproxy/wallproxy" target="_blank" rel="noopener">wallproxy</a>设置好了后，会出现<a href="https://www.youtube.com" target="_blank" rel="noopener">youtube</a>无法访问，所以需要导入证书。  </p>
 <pre><code>sudo yum install nss-tools  
@@ -2412,7 +2412,7 @@ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n &quot;goagent&quot; -i &lt;my wallp
     <link href="http://www.haibin.me/2014/01/24/2014-01-24-my-partner-fedora/"/>
     <id>http://www.haibin.me/2014/01/24/2014-01-24-my-partner-fedora/</id>
     <published>2014-01-24T15:22:29.000Z</published>
-    <updated>2019-07-03T23:28:43.803Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>经过几年的开发，尝试过无数的操作系统，渐渐的也形成了自己的御用操作系统，我选择的是fedora，你要问我原因，其实我也不知道，如果非要找一个理由的话，你可以用谷歌找出N个理由。<br>下面我主要是记录我和我的小伙伴之间的故事。<br><a id="more"></a><br>一. 基础系统<br>1.1 准备镜像<br>这一步是比较简单的，在站点上下载<a href="http://download.fedoraproject.org/pub/fedora/linux/releases/20/Live/x86_64/Fedora-Live-Desktop-x86_64-20-1.iso" target="_blank" rel="noopener">fedora的安装镜像</a><br>1.2 准备live-usb<br>下载<a href="https://fedorahosted.org/releases/l/i/liveusb-creator/liveusb-creator-3.12.0-setup.exe" target="_blank" rel="noopener">live usb creator</a>,根据提示将fedora烧录到u盘中。<br>1.3 安装系统<br>从u盘启动,按照提示安装fedora操作系统<br>二. 开发环境<br>由于安装是桌面的android系统，所以需要对其进行必要的配置<br>2.1 安装基础软件<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum<span class="built_in"> upgrade </span>-y  </span><br><span class="line">sudo yum install vim zsh tmux openssh-server openssh-client -y</span><br></pre></td></tr></table></figure></p>
 <p>2.2 虚拟系统LXC<br>虚拟系统LXC，我选择更加灵活和快速的<a href="http://www.docker.io" target="_blank" rel="noopener">docker-io</a>,<a href="http://www.docker.io" target="_blank" rel="noopener">docker-io</a>的安装在<a href="http://www.fedoraproject.org" target="_blank" rel="noopener">fedora</a>下更加方便.<br><a href="http://www.docker.io" target="_blank" rel="noopener">docker-io</a>与docker会发生冲突,所以，如果<a href="http://www.fedoraproject.org" target="_blank" rel="noopener">fedora</a>中安装的有docker，首先必须删除:<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> rpm -qa <span class="string">"docker"</span></span><br></pre></td></tr></table></figure></p>
@@ -2454,7 +2454,7 @@ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n &quot;goagent&quot; -i &lt;my wallp
     <link href="http://www.haibin.me/2014/01/20/2014-01-20-how-to-start-docker/"/>
     <id>http://www.haibin.me/2014/01/20/2014-01-20-how-to-start-docker/</id>
     <published>2014-01-20T09:28:35.000Z</published>
-    <updated>2019-07-03T23:28:43.802Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>在国内，由于网络原因，在docker部署的时候，经常会出现<code>can&#39;t reach index.docker.io</code>,解决方法:<br>首先获得IP地址:<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ping registry-<span class="number">1</span>.docker.io</span><br><span class="line">```  </span><br><span class="line"><span class="symbol">获得IP地址:</span></span><br><span class="line">`54.<span class="number">224.119</span>.<span class="number">89</span>`</span><br><span class="line">添加一下内容到/etc/hosts</span><br></pre></td></tr></table></figure></p>
 <p>54.224.119.89 cdn-registry-1.docker.io<br><code>``
@@ -2477,7 +2477,7 @@ Windows路径：</code>C:\Windows\System32\drivers\etc`</p>
     <link href="http://www.haibin.me/2014/01/16/2014-01-16-plan/"/>
     <id>http://www.haibin.me/2014/01/16/2014-01-16-plan/</id>
     <published>2014-01-16T13:58:50.000Z</published>
-    <updated>2019-07-03T23:28:43.802Z</updated>
+    <updated>2019-07-03T23:28:43.000Z</updated>
     
     <content type="html"><![CDATA[<p>2014年,新的一年，对自己提出了新的要求，希望自己在新的一年能够有所提高，有所专注。  </p>
 <p>翻译<br>继续关注CoreOS,并且文档继续翻译，完成2013年未完成的部分，更新新的特性，具体的项目地址<br><code>https://github.com/cloudcube/coreos-manual-chinese</code><br>项目<br>使用golang，完成一个项目,并且开源.<br>读书<br>阅读6本以上专业书籍，阅读10本以上非专业书籍。<br>专注<br>图形数据库在推荐系统中的应用<br>技能<br>继续深入c++,加强这方面的基本功<br>深入了解jvm虚拟机<br>深入了解Android内核<br>深层次对比关系数据库和图形数据库.<br>爱好<br>2014年继续关注<code>逻辑思维</code>自媒体，听罗胖子讲他的互联网思维。<br>持续关注的有价值的自媒体还有:<br><code>人生如戏</code><br><code>鬼脚七</code><br><code>道哥的黑办报</code><br>在2014年，尝试做做手工。到时候，代码写不动了，还可以编草鞋!不至于被饿死.呵呵呵…<br>当然博客也要继续写下去，练练文笔也不错啊!</p>
