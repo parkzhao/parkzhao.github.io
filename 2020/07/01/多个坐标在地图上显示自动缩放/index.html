@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="背景在android上对多个坐标进行显示，由于坐标点位置不确定的原因，需要对地图进行自动缩放，使其能够完整显示相对应的坐标 相关技术我们使用到了百度SDK的zoomBy,而zoomy中的数字就代表着缩放级别。123456789101112131415161718【8，+∞）：大于等于8的缩放级别都是10米【7， 8）：大于等于7小于8的缩放级别都是20米【6， 7）：大于等于6小于7的缩放级别都是">
+<meta name="keywords" content="Android,多坐标,自动缩放,百度地图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多个坐标在地图上显示自动缩放">
+<meta property="og:url" content="http://www.haibin.me/2020/07/01/多个坐标在地图上显示自动缩放/index.html">
+<meta property="og:site_name" content="HaibinTalk">
+<meta property="og:description" content="背景在android上对多个坐标进行显示，由于坐标点位置不确定的原因，需要对地图进行自动缩放，使其能够完整显示相对应的坐标 相关技术我们使用到了百度SDK的zoomBy,而zoomy中的数字就代表着缩放级别。123456789101112131415161718【8，+∞）：大于等于8的缩放级别都是10米【7， 8）：大于等于7小于8的缩放级别都是20米【6， 7）：大于等于6小于7的缩放级别都是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://tp.linqmind.com/2020-07-01-080011.png">
+<meta property="og:updated_time" content="2020-07-01T08:00:38.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多个坐标在地图上显示自动缩放">
+<meta name="twitter:description" content="背景在android上对多个坐标进行显示，由于坐标点位置不确定的原因，需要对地图进行自动缩放，使其能够完整显示相对应的坐标 相关技术我们使用到了百度SDK的zoomBy,而zoomy中的数字就代表着缩放级别。123456789101112131415161718【8，+∞）：大于等于8的缩放级别都是10米【7， 8）：大于等于7小于8的缩放级别都是20米【6， 7）：大于等于6小于7的缩放级别都是">
+<meta name="twitter:image" content="http://tp.linqmind.com/2020-07-01-080011.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="HaibinTalk" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.haibin.me/2020/07/01/多个坐标在地图上显示自动缩放/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>多个坐标在地图上显示自动缩放 | HaibinTalk</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HaibinTalk</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Focusing,Thinking,Doing</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>Commonweal 404</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.haibin.me/2020/07/01/多个坐标在地图上显示自动缩放/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="haibin">
+      <meta itemprop="description" content="Haibin">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HaibinTalk">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多个坐标在地图上显示自动缩放
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-07-01 15:44:03 / Modified: 16:00:38" itemprop="dateCreated datePublished" datetime="2020-07-01T15:44:03+08:00">2020-07-01</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2020/07/01/多个坐标在地图上显示自动缩放/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/07/01/多个坐标在地图上显示自动缩放/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在<code>android</code>上对多个坐标进行显示，由于坐标点位置不确定的原因，需要对地图进行自动缩放，使其能够完整显示相对应的坐标</p>
+<h1 id="相关技术"><a href="#相关技术" class="headerlink" title="相关技术"></a>相关技术</h1><p>我们使用到了百度<code>SDK</code>的<code>zoomBy</code>,而<code>zoomy</code>中的数字就代表着缩放级别。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">【<span class="number">8</span>，+∞）：大于等于<span class="number">8</span>的缩放级别都是<span class="number">10</span>米</span><br><span class="line">【<span class="number">7</span>， <span class="number">8</span>）：大于等于<span class="number">7</span>小于<span class="number">8</span>的缩放级别都是<span class="number">20</span>米</span><br><span class="line">【<span class="number">6</span>， <span class="number">7</span>）：大于等于<span class="number">6</span>小于<span class="number">7</span>的缩放级别都是<span class="number">50</span>米</span><br><span class="line">【<span class="number">5</span>， <span class="number">6</span>）：大于等于<span class="number">5</span>小于<span class="number">6</span>的缩放级别都是<span class="number">100</span>米</span><br><span class="line">【<span class="number">4</span>， <span class="number">5</span>）：大于等于<span class="number">4</span>小于<span class="number">5</span>的缩放级别都是<span class="number">200</span>米</span><br><span class="line">【<span class="number">3</span>， <span class="number">4</span>）：大于等于<span class="number">3</span>小于<span class="number">4</span>的缩放级别都是<span class="number">500</span>米</span><br><span class="line">【<span class="number">2</span>， <span class="number">3</span>）：大于等于<span class="number">2</span>小于<span class="number">3</span>的缩放级别都是<span class="number">1</span>千米</span><br><span class="line">【<span class="number">1</span>， <span class="number">2</span>）：大于等于<span class="number">1</span>小于<span class="number">2</span>的缩放级别都是<span class="number">2</span>千米</span><br><span class="line">【<span class="number">0</span>， <span class="number">1</span>）：大于等于<span class="number">0</span>小于<span class="number">1</span>的缩放级别都是<span class="number">5</span>千米</span><br><span class="line">【<span class="number">-1</span>， <span class="number">0</span>）：大于等于<span class="number">-1</span>小于<span class="number">0</span>的缩放级别都是<span class="number">10</span>千米</span><br><span class="line">【<span class="number">-2</span>， <span class="number">-1</span>）：大于等于<span class="number">-2</span>小于<span class="number">-1</span>的缩放级别都是<span class="number">20</span>千米</span><br><span class="line">【<span class="number">-3</span>， <span class="number">-2</span>）：大于等于<span class="number">-3</span>小于<span class="number">-2</span>的缩放级别都是<span class="number">25</span>千米</span><br><span class="line">【<span class="number">-4</span>， <span class="number">-3</span>）：大于等于<span class="number">-4</span>小于<span class="number">-3</span>的缩放级别都是<span class="number">50</span>千米</span><br><span class="line">【<span class="number">-5</span>， <span class="number">-4</span>）：大于等于<span class="number">-5</span>小于<span class="number">-4</span>的缩放级别都是<span class="number">100</span>千米</span><br><span class="line">【<span class="number">-6</span>， <span class="number">-5</span>）：大于等于<span class="number">-6</span>小于<span class="number">-5</span>的缩放级别都是<span class="number">200</span>千米</span><br><span class="line">【<span class="number">-7</span>， <span class="number">-6</span>）：大于等于<span class="number">-7</span>小于<span class="number">-6</span>的缩放级别都是<span class="number">500</span>千米</span><br><span class="line">【<span class="number">-8</span>， <span class="number">-7</span>）：大于等于<span class="number">-8</span>小于<span class="number">-7</span>的缩放级别都是<span class="number">1000</span>千米</span><br><span class="line">（-∞， <span class="number">-8</span>）：小于<span class="number">-8</span>的缩放级别都是<span class="number">2000</span>千米</span><br></pre></td></tr></table></figure></p>
+<h1 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h1><h2 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h2><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line">val <span class="attr">datas</span> = ArrayList&lt;RealTimeLocationResp&gt;()</span><br><span class="line"> val <span class="attr">timestamp</span> = System.currentTimeMillis()</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = timestamp.<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553305"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点0"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.0716"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">3</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553313"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点1"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071083"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">6</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553608"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点2"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071061"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">9</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553632"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点3"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.070863"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">12</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553997"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点4"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.070737"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">15</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.554355"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点5"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.07063"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">18</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.554409"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点6"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071137"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">21</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.554417"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点7"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071366"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">24</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.554254"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点8"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071636"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">27</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.554118"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点9"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.07164"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">30</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553842"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点10"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071627"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">33</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553612"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点11"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071654"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">36</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553612"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点12"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.07107"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">39</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"30.553297"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点13"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"104.071088"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> //<span class="number">117.184717</span>,<span class="number">39.139782</span></span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">42</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"39.139782"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点14"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"117.184717"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br><span class="line"> //<span class="number">91.175511</span>,<span class="number">29.654024</span></span><br><span class="line"> datas.add(</span><br><span class="line">     RealTimeLocationResp(</span><br><span class="line">         <span class="attr">insertTime</span> = (timestamp + <span class="number">45</span> * <span class="number">60</span> * <span class="number">1000</span>).<span class="built_in">toString</span>(),</span><br><span class="line">         <span class="attr">latitude</span> = <span class="string">"29.654024"</span>,</span><br><span class="line">         <span class="attr">locationName</span> = <span class="string">"测试点15"</span>,</span><br><span class="line">         <span class="attr">longitude</span> = <span class="string">"91.175511"</span>,</span><br><span class="line">         <span class="attr">studentName</span> = <span class="string">"aabbcc"</span></span><br><span class="line">     )</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
+<h2 id="获取最大经纬度，最小经纬度"><a href="#获取最大经纬度，最小经纬度" class="headerlink" title="获取最大经纬度，最小经纬度"></a>获取最大经纬度，最小经纬度</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getMinMaxLatLng</span><span class="params">(latLngList: <span class="type">List</span>&lt;<span class="type">TarilBean</span>&gt;)</span></span>: LatLngResult? &#123;</span><br><span class="line">        <span class="keyword">if</span> (latLngList.isNullOrEmpty()) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">        <span class="keyword">var</span> minLat: <span class="built_in">Double</span> = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">var</span> minLng: <span class="built_in">Double</span> = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">var</span> maxLat: <span class="built_in">Double</span> = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">var</span> maxLng: <span class="built_in">Double</span> = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">if</span> (latLngList.size == <span class="number">1</span>) &#123;</span><br><span class="line">            minLat = latLngList[<span class="number">0</span>].latlng.latitude</span><br><span class="line">            minLng = latLngList[<span class="number">0</span>].latlng.longitude</span><br><span class="line">            maxLat = latLngList[<span class="number">0</span>].latlng.latitude</span><br><span class="line">            maxLng = latLngList[<span class="number">0</span>].latlng.longitude</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            minLat = latLngList[<span class="number">0</span>].latlng.latitude</span><br><span class="line">            minLng = latLngList[<span class="number">0</span>].latlng.longitude</span><br><span class="line">            maxLat = latLngList[<span class="number">0</span>].latlng.latitude</span><br><span class="line">            maxLng = latLngList[<span class="number">0</span>].latlng.longitude</span><br><span class="line">            latLngList.forEachIndexed &#123; index, tarilBean -&gt;</span><br><span class="line">                <span class="keyword">val</span> lat = tarilBean.latlng.latitude</span><br><span class="line">                <span class="keyword">val</span> lng = tarilBean.latlng.longitude</span><br><span class="line">                <span class="keyword">if</span> (lat &gt; maxLat) maxLat = lat</span><br><span class="line">                <span class="keyword">if</span> (lng &gt; maxLng) maxLng = lng</span><br><span class="line">                <span class="keyword">if</span> (lat &lt; minLat) minLat = lat</span><br><span class="line">                <span class="keyword">if</span> (lng &lt; minLng) minLng = lng</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> LatLngResult(</span><br><span class="line">            minLat,</span><br><span class="line">            minLng,</span><br><span class="line">            maxLat,</span><br><span class="line">            maxLng</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="获取缩放系数"><a href="#获取缩放系数" class="headerlink" title="获取缩放系数"></a>获取缩放系数</h2><p>通过最大经纬度，最小经纬度获取缩放系数<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getZoom</span><span class="params">(minLat: <span class="type">Double</span>, minLng: <span class="type">Double</span>, maxLat: <span class="type">Double</span>, maxLng: <span class="type">Double</span>)</span></span>: <span class="built_in">Float</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> zooms = arrayOf(</span><br><span class="line">            <span class="string">"5"</span>,</span><br><span class="line">            <span class="string">"10"</span>,</span><br><span class="line">            <span class="string">"20"</span>,</span><br><span class="line">            <span class="string">"50"</span>,</span><br><span class="line">            <span class="string">"100"</span>,</span><br><span class="line">            <span class="string">"200"</span>,</span><br><span class="line">            <span class="string">"500"</span>,</span><br><span class="line">            <span class="string">"1000"</span>,</span><br><span class="line">            <span class="string">"2000"</span>,</span><br><span class="line">            <span class="string">"5000"</span>,</span><br><span class="line">            <span class="string">"10000"</span>,</span><br><span class="line">            <span class="string">"20000"</span>,</span><br><span class="line">            <span class="string">"25000"</span>,</span><br><span class="line">            <span class="string">"50000"</span>,</span><br><span class="line">            <span class="string">"100000"</span>,</span><br><span class="line">            <span class="string">"200000"</span>,</span><br><span class="line">            <span class="string">"500000"</span>,</span><br><span class="line">            <span class="string">"1000000"</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">val</span> distance = LocationUtils.getDistance(minLat, minLng, maxLat, maxLng)</span><br><span class="line">        <span class="keyword">var</span> zoomIndex: <span class="built_in">Float</span> = <span class="number">0f</span></span><br><span class="line">        <span class="keyword">when</span> &#123;</span><br><span class="line">            distance &lt; zooms[<span class="number">0</span>].toDouble() -&gt; &#123;</span><br><span class="line">                zoomIndex = <span class="number">8f</span></span><br><span class="line">            &#125;</span><br><span class="line">            distance &gt; zooms[zooms.size - <span class="number">1</span>].toDouble() -&gt; &#123;</span><br><span class="line">                zoomIndex = -<span class="number">8f</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> -&gt; &#123;</span><br><span class="line">                run <span class="symbol">outside@</span>&#123;</span><br><span class="line">                    zooms.asSequence().forEachIndexed &#123; index, s -&gt;</span><br><span class="line">                        <span class="keyword">if</span> (s.toDouble() &gt; distance) &#123;</span><br><span class="line">                            zoomIndex = <span class="number">26f</span> - (<span class="number">18f</span> + index) + <span class="number">3f</span></span><br><span class="line">                            <span class="keyword">return</span><span class="symbol">@outside</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> zoomIndex</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="根据缩放系数进行缩放"><a href="#根据缩放系数进行缩放" class="headerlink" title="根据缩放系数进行缩放"></a>根据缩放系数进行缩放</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> latLngBounds = LatLngBounds.Builder()</span><br><span class="line">        <span class="keyword">this</span>.laglngs.forEach &#123; e -&gt;</span><br><span class="line">            latSum += e.latlng.latitude</span><br><span class="line">            lngSum += e.latlng.longitude</span><br><span class="line">            latLngBounds.include(e.latlng)</span><br><span class="line">            <span class="comment">//循环添加坐标点</span></span><br><span class="line">        &#125;</span><br><span class="line">        zoomTargetLatLng = LatLng(latSum / <span class="keyword">this</span>.laglngs.size, lngSum / <span class="keyword">this</span>.laglngs.size)</span><br><span class="line">        baiduMap?.isMyLocationEnabled = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">var</span> mapStatusUpdate = MapStatusUpdateFactory.newLatLngBounds(latLngBounds.build())</span><br><span class="line">        baiduMap?.setMapStatus(mapStatusUpdate)</span><br><span class="line">        <span class="keyword">var</span> zoomBy = <span class="number">8f</span></span><br><span class="line">        <span class="keyword">val</span> minMaxResult = getMinMaxLatLng(latLngList)</span><br><span class="line">        <span class="keyword">if</span> (minMaxResult != <span class="literal">null</span>) &#123;</span><br><span class="line">            zoomBy = getZoom(</span><br><span class="line">                minMaxResult.minLat,</span><br><span class="line">                minMaxResult.minLng,</span><br><span class="line">                minMaxResult.maxLat,</span><br><span class="line">                minMaxResult.maxLng</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">        mapStatusUpdate = MapStatusUpdateFactory.zoomBy(zoomBy)</span><br><span class="line">        baiduMap?.setMapStatus(mapStatusUpdate)</span><br></pre></td></tr></table></figure>
+<h1 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h1><p><img src="http://tp.linqmind.com/2020-07-01-080011.png" alt=""></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235849.png?imageView2/1/w/200/h/200" alt="haibin WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="http://tp.linqmind.com/2019-07-03-235956.jpg?imageView2/1/w/200/h/200" alt="haibin Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>haibin</li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    
+    <a href="http://www.haibin.me/2020/07/01/多个坐标在地图上显示自动缩放/" title="多个坐标在地图上显示自动缩放">http://www.haibin.me/2020/07/01/多个坐标在地图上显示自动缩放/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li>
+</ul>
+
+      </div>
+    
+
+
+
+      <div class="session-wechat" align="center">
+        <img alt="关注微信公众号 haibintalk，最新文章主动推送" style="border-width:0" src="http://tp.linqmind.com/2016-12-07-qrcode_for_gh_ff0c28b2feaf_258.jpg">
+      </div>
+      <div class="session-wechat-tip" align="center">
+          关注微信公众号: haibintalk
+      </div>
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/多坐标/" rel="tag"># 多坐标</a>
+          
+            <a href="/tags/自动缩放/" rel="tag"># 自动缩放</a>
+          
+            <a href="/tags/百度地图/" rel="tag"># 百度地图</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/28/RecyclerView内嵌套RecyclerView导致外层item点击无反应/" rel="next" title="RecyclerView内嵌套RecyclerView导致外层item点击无反应">
+                <i class="fa fa-chevron-left"></i> RecyclerView内嵌套RecyclerView导致外层item点击无反应
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/31/2020个人工作计划/" rel="prev" title="2020计划">
+                2020计划 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">haibin</p>
+              <div class="site-description motion-element" itemprop="description">Haibin</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/haibinpark" title="GitHub &rarr; https://github.com/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="/13688065326@qq.com" title="E-Mail &rarr; 13688065326@qq.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/zhaohaibin007" title="Weibo &rarr; https://weibo.com/zhaohaibin007" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.douban.com/people/35912713" title="Douban &rarr; http://www.douban.com/people/35912713" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Douban</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://www.zhihu.com/people/haibinpark" title="Zhihu &rarr; http://www.zhihu.com/people/haibinpark" rel="noopener" target="_blank"><i class="fa fa-fw fa-globe"></i>Zhihu</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://macshuo.com/" title="http://macshuo.com/" rel="noopener" target="_blank">MacTalk</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关技术"><span class="nav-number">2.</span> <span class="nav-text">相关技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#核心代码"><span class="nav-number">3.</span> <span class="nav-text">核心代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备数据"><span class="nav-number">3.1.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取最大经纬度，最小经纬度"><span class="nav-number">3.2.</span> <span class="nav-text">获取最大经纬度，最小经纬度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取缩放系数"><span class="nav-number">3.3.</span> <span class="nav-text">获取缩放系数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根据缩放系数进行缩放"><span class="nav-number">3.4.</span> <span class="nav-text">根据缩放系数进行缩放</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现效果"><span class="nav-number">4.</span> <span class="nav-text">实现效果</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">haibin</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.haibin.me/2020/07/01/多个坐标在地图上显示自动缩放/";
+    this.page.identifier = "2020/07/01/多个坐标在地图上显示自动缩放/";
+    this.page.title = '多个坐标在地图上显示自动缩放';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://haibinpark.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
