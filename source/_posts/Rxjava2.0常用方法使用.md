@@ -8,7 +8,7 @@ tags: [rxjava2.0,rxjava,java,android]
 ## 概述
 Zip通过一个函数将多个Observable发送的事件结合到一起，然后发送这些组合到一起的事件. 它按照严格的顺序应用这个函数。它只发射与发射数据项最少的那个Observable一样多的数据 
 ## 原理  
-![Rxjava2 ZIP](http://tp.linqmind.com/2018-09-12-071734.jpg)
+![Rxjava2 ZIP](https://tp.linqmind.com/2018-09-12-071734.jpg)
 其中一根水管负责发送圆形事件 , 另外一根水管负责发送三角形事件 , 通过Zip操作符, 使得圆形事件 和三角形事件 合并为了一个矩形事件
 ## 使用场景  
 一个界面需要展示用户的一些信息, 而这些信息分别要从两个服务器接口中获取, 而只有当两个都获取到了之后才能进行展示。
@@ -32,7 +32,7 @@ fun getPledgeDetails(req: MortageDetailReq): Observable<PledgeDetail>? {
 ## 概述
 使用filter对消息进行过滤
 ## 原理  
-![](http://tp.linqmind.com/2018-09-12-075120.jpg)
+![](https://tp.linqmind.com/2018-09-12-075120.jpg)
 该操作符用于过滤掉一些不需要的数据
 ## 使用场景  
 要对一个列表进行过滤操作，并将结果用户接下来的后续操作。
@@ -74,7 +74,7 @@ mNetStatusPublish.filter(new Predicate<Boolean>() {
 - map被订阅时每传递一个事件执行一次onNext方法
 - map只能单一转换，单一只的是只能一对一进行转换，指一个对象可以转化为另一个对象但是不能转换成对象数组（map返回结果集不能直接使用from/just再次进行事件分发，一旦转换成对象数组的话，再处理集合/数组的结果时需要利用for一一遍历取出，而使用RxJava就是为了剔除这样的嵌套结构，使得整体的逻辑性更强。）
 ## 原理  
-![](http://tp.linqmind.com/2018-09-12-083105.jpg)
+![](https://tp.linqmind.com/2018-09-12-083105.jpg)
 Map操作符对原始Observable发射的每一项数据应用一个你选择的函数，然后返回一个发射这些结果的Observable。
 ## 使用场景  
 map适用于一对一转换
@@ -127,7 +127,7 @@ FlatMap将一个发射数据的Observable变换为多个Observables，然后将�
 - flatmap多用于多对多，一对多，再被转化为多个时，一般利用from/just进行一一分发，被订阅时将所有数据传递完毕汇总到一个Observable然后一一执行onNext方法（执行顺序不同）>>>>(如单纯用于一对一转换则和map相同)
 - flatmap既可以单一转换也可以一对多/多对多转换，flatmap要求返回Observable，因此可以再内部进行from/just的再次事件分发，一一取出单一对象（转换对象的能力不同）
 ## 原理  
-![](http://tp.linqmind.com/2018-09-12-084745.jpg)
+![](https://tp.linqmind.com/2018-09-12-084745.jpg)
 FlatMap操作符使用一个指定的函数对原始Observable发射的每一项数据执行变换操作，这个函数返回一个本身也发射数据的Observable，然后FlatMap合并这些Observables发射的数据，最后将合并后的结果当做它自己的数据序列发射。
 ## 使用场景  
 flatmap适用于一对多，多对多的场景
@@ -151,7 +151,7 @@ Observable.from(students)
 ## 概述 
 使用一个函数从头开始创建一个Observable
 ## 原理  
-![](http://tp.linqmind.com/2018-09-12-090209.jpg)
+![](https://tp.linqmind.com/2018-09-12-090209.jpg)
 Create操作符从头开始创建一个Observable，给这个操作符传递一个接受观察者作为参数的函数，编写这个函数让它的行为表现为一个Observable--恰当的调用观察者的onNext，onError和onCompleted方法。
 一个形式正确的有限Observable必须尝试调用观察者的onCompleted正好一次或者它的onError正好一次，而且此后不能再调用观察者的任何其它方法。
 ## 使用场景  
@@ -193,7 +193,7 @@ Observable.create(new Observable.OnSubscribe<Integer>() {
 ## 概述 
 将其它种类的对象和数据类型转换为Observable
 ## 原理  
-![](http://tp.linqmind.com/2018-09-12-090954.jpg)
+![](https://tp.linqmind.com/2018-09-12-090954.jpg)
 
 Iterable可以看成是同步的Observable；Future，可以看成是总是只发射单个数据的Observable。通过显式地将那些数据转换为Observables，你可以像使用Observable一样与它们交互。
 因此，大部分ReactiveX实现都提供了将语言特定的对象和数据结构转换为Observables的方法

@@ -37,10 +37,10 @@ Cocos Creator 原生调试-Android篇[macOS]
 
 `Cocos Creator`配置
 
-![](http://tp.linqmind.com/2018-12-07-095155.png)
+![](https://tp.linqmind.com/2018-12-07-095155.png)
 
 
-![](http://tp.linqmind.com/2018-12-07-095244.png)
+![](https://tp.linqmind.com/2018-12-07-095244.png)
 
 
 # 调试  
@@ -61,5 +61,5 @@ chrome-devtools://devtools/bundled/inspector.html?v8only=true&ws=0.0.0.0:6086/00
 ```
 输入的内容在调试参数里面查看。
 链接成功后，在page页面，可以查看 `src/project.dev.js`里面是你的开发代码。可以在需要的方法上打断点即可。
-![](http://tp.linqmind.com/2018-12-07-094152.png)
+![](https://tp.linqmind.com/2018-12-07-094152.png)
 这样你就可以进行原生环境的代码调试，祝大家玩的愉快。

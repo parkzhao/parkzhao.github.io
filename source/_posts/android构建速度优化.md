@@ -12,9 +12,9 @@ tags: [android,gradle,构建速度,android studio]
 - 同步相关包
 对于上面的情况，首先可以手动下载gralde安装包，然后解压，在`android studio`中设置`gralde`路径 
 ## 设置本地的`gradle`
-![](http://tp.linqmind.com/2019-08-22-092817.jpg)
+![](https://tp.linqmind.com/2019-08-22-092817.jpg)
 ## 启用内部的maven仓库
-![](http://tp.linqmind.com/2019-08-22-092944.jpg)
+![](https://tp.linqmind.com/2019-08-22-092944.jpg)
 ## 设置maven仓库为国内的`aliyun`
 ```
 allprojects {

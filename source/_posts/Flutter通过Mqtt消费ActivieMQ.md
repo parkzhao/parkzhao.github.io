@@ -6,7 +6,7 @@ tags:
 ---
 Flutter通过mqtt消费activemq，在android端主要使用插件的方式进行
 # 处理流程
-![](http://tp.linqmind.com/2019-12-31-042856.jpg)
+![](https://tp.linqmind.com/2019-12-31-042856.jpg)
 
 # Android端连接MQTT
 ## 插件端业务处理

@@ -131,7 +131,7 @@ fun getTarilListByZip(context: Context): List<RealTimeLocationResp> {
     }
 ```
 # 结果展示  
-![](http://tp.linqmind.com/2020-07-02-032632.png)
+![](https://tp.linqmind.com/2020-07-02-032632.png)
 
 # 相关引用
 https://liangchicun.com/977

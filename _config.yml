@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: HaibinTalk
+title: 链智思维
 subtitle: Focusing,Thinking,Doing
 description: Haibin
-author: haibin
+author: haibintalk
 language: zh-Hans
 timezone:
 avatar: https://avatars2.githubusercontent.com/u/2077143?v=3&s=140
@@ -14,7 +14,7 @@ avatar: https://avatars2.githubusercontent.com/u/2077143?v=3&s=140
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.haibin.me
+url: https://www.linqmind.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -81,10 +81,10 @@ theme: next
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repository: github:parkzhao/parkzhao.github.io.git
-  branch: master
+# deploy:
+#   type: git
+#   repository: github:parkzhao/parkzhao.github.io.git
+#   branch: master
 
 feed:
   type: atom

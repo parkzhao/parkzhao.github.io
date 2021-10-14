@@ -13,8 +13,8 @@ Tinker是腾讯开源的热更新方案，通过热更新，可以使android应�
 # 准备   
 ## 准备Android工程  
 准备一个项目`TinkerPractice`  
-![创建项目](http://tp.linqmind.com/2016-11-21-tinker_create_project.png)  
-![](http://tp.linqmind.com/2016-11-21-tinker_create_project2.png)
+![创建项目](https://tp.linqmind.com/2016-11-21-tinker_create_project.png)  
+![](https://tp.linqmind.com/2016-11-21-tinker_create_project2.png)
 # 配置  
 配置包含两个方面  
 - `Tinker` 集成配置
@@ -574,7 +574,7 @@ public class LLMApplicationLike extends DefaultApplicationLike {
 ./gradlew assembleDebug
 ```
 会生成以下目录  
-![生成的apk目录](http://tp.linqmind.com/5d3fdfae7e351c76e70a5acfc4942185.png)
+![生成的apk目录](https://tp.linqmind.com/5d3fdfae7e351c76e70a5acfc4942185.png)
 现在生成的目录在build目录下，清理了后就没有了，如果需要保存构建的版本，则可以把目录移出去
 ，具体设置位置，在`app/build.gralde` 的
 ```
@@ -619,7 +619,7 @@ ext {
 ```
 
 会生成补丁信息  
-![补丁信息](http://tp.linqmind.com/13168fd43b8e63cb49ed52a40349a18d.png)
+![补丁信息](https://tp.linqmind.com/13168fd43b8e63cb49ed52a40349a18d.png)
 上传补丁至设备  
 ```
 #!/bin/bash
